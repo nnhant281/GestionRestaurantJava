@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -37,19 +38,25 @@ import Custom.transparentPanel;
 import DAO.commande_DAO;
 import DTO.articleCommande;
 import DTO.client;
+import DTO.compteModele;
 import DTO.detailCommande;
 import DTO.produitModele;
 import DTO.table;
 
 
+@SuppressWarnings("serial")
 public class commande_GUI extends JPanel{
 	
-	public commande_GUI() {
+	public commande_GUI(compteModele user) {
+		this.user = user;
+		
+		JOptionPane.showMessageDialog(null, "commande"+user.getIdrh());
 		changeLNF("FlatLaf");
 		addControls();
         addEvents();
 	}
 	
+	private compteModele user = new compteModele();
 	private produit_BUS produitBUS = new produit_BUS();
     private categorie_BUS categorieBUS = new categorie_BUS();
 	private table_BUS tableBUS = new table_BUS();
@@ -64,6 +71,8 @@ public class commande_GUI extends JPanel{
     JComboBox<produitModele> choixArticle = new JComboBox<produitModele>();	
 	
 	private void addControls() {
+		
+		
 		
 		modelTabDetail = new DefaultTableModel();
 	    modelTabDetail.addColumn("ID ");

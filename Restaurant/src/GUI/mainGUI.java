@@ -13,35 +13,36 @@ import DTO.compteModele;
 
 
 public class mainGUI {
-	
-	employe_GUI employe = new employe_GUI();
-	compte_GUI compte = new compte_GUI();
-	commande_GUI commande = new commande_GUI();
-	client_GUI client = new client_GUI();
-	moduleCA ca = new moduleCA();
-	facture_GUI facture = new facture_GUI();
-	table_GUI table = new table_GUI();
-	produit_GUI produit = new produit_GUI();
 	JFrame fenetre;
 	JTabbedPane tabs;
 	JPanel tabEmploye, tabMenu, tabCommande, tabClient, tabCompte, tabCA;
 	compteModele user = new compteModele();
 	
-	
 	public mainGUI(compteModele user) {
-		this.user = user;		
+				
+		this.user = user;	
 		addComponents();
 		afficheModuleParHabilitation();	
 	}
 	
 	public void addComponents() {
+		
+		
+		employe_GUI employe = new employe_GUI();
+		compte_GUI compte = new compte_GUI();
+		client_GUI client = new client_GUI();
+		moduleCA ca = new moduleCA();
+		facture_GUI facture = new facture_GUI();
+		table_GUI table = new table_GUI();
+		produit_GUI produit = new produit_GUI();
+		commande_GUI commande = new commande_GUI(user);	
+		
 	
 		fenetre = new JFrame("Mon application");
 		Container cprincipal = fenetre.getContentPane();
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		tabs = new JTabbedPane(JTabbedPane.LEFT);
 		tabs.setBackground(Color.DARK_GRAY);
-		
 		
 		
 		tabs.addTab("Commande",commande);
