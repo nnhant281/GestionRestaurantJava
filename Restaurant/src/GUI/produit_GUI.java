@@ -409,6 +409,9 @@ public class produit_GUI extends JPanel{
 	        choixCategorie.addItem("Autres...");
 	    }
 
+	    /*
+	     * cliquer sur la ligne "Autres.." pour ajouter des catégories 
+	     */
 	    private void traiteAjouteCategorie() {
 	        int x = choixCategorie.getSelectedIndex();
 	        if (x == choixCategorie.getItemCount() - 1) {

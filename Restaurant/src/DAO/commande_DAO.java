@@ -37,7 +37,6 @@ public class commande_DAO {
                 cmd.setTypeCommande(rs.getInt(7));
                 cmd.setTotal(rs.getFloat(8));
                 listeCommande.add(cmd);
-                System.out.print(listeCommande);
             }
         } catch (SQLException ex) {
         	ex.printStackTrace();
@@ -73,6 +72,39 @@ public class commande_DAO {
         	ConnexionBDD.getClose();
         }
         return -1;
+    }
+	
+	/*
+     * récupérer la commande 
+     */
+	public commande getCommandeParIDCommande(int idCmd) {
+        try {
+        	conn = ConnexionBDD.getConnect() ;	
+            String sql = "SELECT * FROM commande WHERE ID_Commande = " + idCmd;
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+            	 commande cmd = new commande();
+                 cmd.setIdCommande(rs.getInt(1));
+                 cmd.setIDRH(rs.getInt(2));
+                 cmd.setIdClient(rs.getInt(3));
+                 cmd.setIdTable(rs.getInt(4));
+                 cmd.setDate(rs.getDate(5));
+                 cmd.setStatut(rs.getInt(6));
+                 cmd.setTypeCommande(rs.getInt(7));
+                 cmd.setTotal(rs.getFloat(8));
+                 return cmd;
+            }
+        } catch (SQLException ex) {
+        	ex.printStackTrace();
+        	System.out.println("getCommandeEnCourParTable-SQLException: " + ex.getMessage());
+        } catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getCommandeEnCourParTable-Exception: " + e.getMessage());
+		}finally {
+        	ConnexionBDD.getClose();
+        }
+        return null;
     }
 	
 	/*
@@ -243,5 +275,44 @@ public class commande_DAO {
         return null;
     }
     
+    public boolean commandePayee(int idCmd) {
+        boolean result = false;
+        try {
+        	conn = ConnexionBDD.getConnect() ;	
+            String sql = "UPDATE commande SET statut = 1 WHERE ID_Commande=? ";
+            PreparedStatement prep = conn.prepareStatement(sql);
+            prep.setInt(1, idCmd);
+            result = prep.executeUpdate() > 0;
+        } catch(SQLException ex) {
+        	ex.printStackTrace();
+        	System.out.println("commandePayee-SQLException: " + ex.getMessage());
+        } catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("commandePayee-Exception: " + e.getMessage());
+		}finally {
+        	ConnexionBDD.getClose();
+        }
+        return result;
+    }
     
+    public boolean saisieIdClientALaCommande(int idCmd, int idClient) {
+        boolean result = false;
+        try {
+        	conn = ConnexionBDD.getConnect() ;	
+            String sql = "UPDATE commande SET id_client = ? WHERE ID_Commande=? ";
+            PreparedStatement prep = conn.prepareStatement(sql);
+            prep.setInt(1, idClient);
+            prep.setInt(2, idCmd);
+            result = prep.executeUpdate() > 0;
+        } catch(SQLException ex) {
+        	ex.printStackTrace();
+        	System.out.println("saisieIDClientALaCommande-SQLException: " + ex.getMessage());
+        } catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("saisieIDClientALaCommande-Exception: " + e.getMessage());
+		}finally {
+        	ConnexionBDD.getClose();
+        }
+        return result;
+    }
 }

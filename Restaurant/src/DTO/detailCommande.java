@@ -16,6 +16,12 @@ public class detailCommande {
 		this.prixUnitaire = prixUnitaire;
 	}
 	
+	public detailCommande(int idCommande, int id_produit, int quantite) {
+		this.idCommande = idCommande;
+		this.idProduit = id_produit;
+		this.quantite = quantite;
+	}
+	
 	public detailCommande(int idCommande, int id_produit) {
 		this.idCommande = idCommande;
 		this.idProduit = id_produit;

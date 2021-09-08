@@ -23,41 +23,6 @@ public class facture_BUS {
     }
 
     
-    public void enregistrerFacture(int idCommande, int IDRH, int idClient, int idTable, Date date, int statut, int typeCommande, float total) {
-        commande cmd = new commande();
-        cmd.setIdCommande(idCommande);
-        cmd.setIDRH(IDRH);
-        cmd.setIdClient(idClient);
-        cmd.setIdTable(idTable);
-        cmd.setDate(date);
-        cmd.setStatut(statut);
-        cmd.setTypeCommande(typeCommande);
-        cmd.setTotal(total);
-
-        commandeDAO.addCommande(cmd);
-    }
-
-
-    /*public ArrayList<commande> getListeFactureSelonDate(String min, String max) {
-        try {
-        	if (!min.trim().matches("[0-9]/")&& !max.trim().matches("[0-9]/")) {
-        		new monDialogue("La date est en format DD/MM/YYYY . Veuillez ressaisir !", monDialogue.ERROR_DIALOG);
-        	}
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            Date minDate = sdf.parse(min);
-            Date maxDate = sdf.parse(max);
-
-            java.sql.Date dateMin = new java.sql.Date(minDate.getTime());
-            java.sql.Date dateMax = new java.sql.Date(maxDate.getTime());
-
-            ArrayList<commande> listeFacture = commandeDAO.getListFacture(dateMin, dateMax);
-            return listeFacture;
-        } catch (Exception e) {
-            new monDialogue("Veuillez ressaisir la date!", monDialogue.ERROR_DIALOG);
-        }
-        return null;
-    }*/
-    
     /*
      * recherche des factures par id, idClient, IDRH, date 
      */

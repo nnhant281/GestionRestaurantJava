@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,7 +20,7 @@ public class categorie_DAO {
         try {
         	conn = ConnexionBDD.getConnect() ;	
         	Statement s = conn.createStatement();
-            ResultSet rs = s.executeQuery("SELECT * FROM Categorie");
+            ResultSet rs = s.executeQuery("SELECT * FROM Categorie WHERE statut = 1");
             ArrayList<String> listeCategogie = new ArrayList<>();
             while (rs.next()) {
                 String cate = rs.getString(1);
@@ -43,12 +44,13 @@ public class categorie_DAO {
 	 */
 	public boolean ajouteCategorie(categorie cate) {
         try {
-        	conn = ConnexionBDD.getConnect() ;	
-            String sql = "insert into categorie(Libelle_Categorie) "
-                    + "values ('"+ cate.getLibelleCategorie() + "')";
-            Statement st = conn.createStatement();
-            int x = st.executeUpdate(sql);
-            return x > 0 ? true : false;
+        	conn = ConnexionBDD.getConnect() ;
+
+	        String sql = "INSERT INTO categorie(Libelle_Categorie,statut) VALUES (?,?) ";
+	 		PreparedStatement prep = conn.prepareStatement(sql);
+	    	prep.setString(1, cate.getLibelleCategorie());
+	    	prep.setInt(2, cate.getStatut());
+	    	return prep.executeUpdate() > 0;
         } catch (SQLException e) {
         	e.printStackTrace();
         	System.out.println("ajouteCategorie-SQLException: " + e.getMessage());
@@ -67,7 +69,7 @@ public class categorie_DAO {
         try {
         	conn = ConnexionBDD.getConnect() ;	
         	Statement s = conn.createStatement();
-            s.execute("DELETE FROM categorie WHERE Libelle_Categorie= '"+libelleCategorie+"'");
+            s.execute("UPDATE categorie SET statut = 0 WHERE Libelle_Categorie= '"+libelleCategorie+"'");
             return true;
         } catch (SQLException e) {
         	e.printStackTrace();

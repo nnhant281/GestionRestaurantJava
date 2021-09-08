@@ -7,7 +7,7 @@ import java.util.Calendar;
 public class commande {
 	private int idCommande;
     private int IDRH;
-    private int idClient;
+    private int idClient = 1;
     private int idTable;
     private Date date = new Date(Calendar.getInstance().getTime().getTime());
     private int statut = 0 ;

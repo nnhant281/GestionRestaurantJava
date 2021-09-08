@@ -33,6 +33,7 @@ import BUS.commande_BUS;
 import BUS.detailCommande_BUS;
 import BUS.produit_BUS;
 import Custom.monButton;
+import Custom.monDialogue;
 import Custom.monTableau;
 import Custom.transparentPanel;
 import DAO.commande_DAO;
@@ -49,8 +50,6 @@ public class commande_GUI extends JPanel{
 	
 	public commande_GUI(compteModele user) {
 		this.user = user;
-		
-		JOptionPane.showMessageDialog(null, "commande"+user.getIdrh());
 		changeLNF("FlatLaf");
 		addControls();
         addEvents();
@@ -237,6 +236,19 @@ public class commande_GUI extends JPanel{
             	traiteAjouteArticle();
             }
         });
+		
+		btnPaie.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	cliqueBtnPaie(Ecouteur.getIdTableClique());
+            	showCommande(Ecouteur.getIdTableClique());
+            }
+        });
+	
+		EcouteurSupprimer es = new EcouteurSupprimer(tabDetail);
+		btnSupp.addActionListener(es);
+		
+		
 	}
 	private articleCommande_BUS articleCommandeBUS = new articleCommande_BUS();
 	
@@ -310,28 +322,45 @@ public class commande_GUI extends JPanel{
 	 
 	 private void traiteAjouteArticle() {
 		  if (choixArticle.getSelectedIndex()>0) {
-				 int IDRH = 1;
+				 int IDRH = user.getIdrh();
 				 int idTable = Ecouteur.getIdTableClique();
 				 float prix = ((produitModele)choixArticle.getSelectedItem()).getPrixUnitaire();
 				 int idProduit = ((produitModele)choixArticle.getSelectedItem()).getIdProduit();
-				 int idCommande = commandeBUS.getUncheckBillIDByTableID(idTable);
-				 if(idCommande == -1) {
-					 commandeBUS.creationCommande(IDRH, idTable, prix );
-					 detailCommandeBUS.addDetailCommande(commandeBUS.getIdDerniereCommande(),idProduit,prix);
-					 tableBUS.tableOccupee(idTable);
-				 }
-				 else {
-					 if(detailCommandeBUS.siCommandeContientProduit(idCommande,idProduit)) {
-						 detailCommandeBUS.plusUnAProduitExistantACommande(idCommande,idProduit);
-					 }else {
-						 detailCommandeBUS.addDetailCommande(idCommande,idProduit,prix);
+				 if(idTable <0) {
+					 monDialogue dlg = new monDialogue("Veuillez choisir la table !", monDialogue.ERROR_DIALOG);
+				 }else {
+					 int idCommande = commandeBUS.getUncheckBillIDByTableID(idTable);
+					 if(idCommande == -1) {
+						 commandeBUS.creationCommande(IDRH, idTable, prix );
+						 detailCommandeBUS.addDetailCommande(commandeBUS.getIdDerniereCommande(),idProduit,prix);
+						 tableBUS.tableOccupee(idTable);
 					 }
-					 commandeBUS.majMontantCommande(idCommande, prix);
+					 else {
+						 if(detailCommandeBUS.siCommandeContientProduit(idCommande,idProduit)>0) {
+							 detailCommandeBUS.plusUnAProduitExistantACommande(idCommande,idProduit);
+						 }else {
+							 detailCommandeBUS.addDetailCommande(idCommande,idProduit,prix);
+						 }
+						 commandeBUS.majMontantCommande(idCommande, prix);
+					 }
+					 showCommande(idTable);
 				 }
-				 showCommande(idTable);
+				 
 		  }
 		  
 	 } 
+	 
+	 private void cliqueBtnPaie(int idTable)
+     {
+		 int idCommande = commandeBUS.getUncheckBillIDByTableID(idTable);
+
+         if (idCommande != -1)
+         {
+        	 DlgSaisiePaiement_GUI categorieGUI = new DlgSaisiePaiement_GUI(idCommande,user);
+        	 categorieGUI.setVisible(true);
+             
+         }
+     }
 	 
 	 public void resetPage() {
 		 
@@ -349,7 +378,6 @@ class Ecouteur implements ActionListener{
 		this.idTable = idTable;
 		this.btn = btn;
 		this.model = model;
-		this.idTableClique = idTable;
 	}
 	
 	public Ecouteur() {
@@ -369,6 +397,7 @@ class Ecouteur implements ActionListener{
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		setIdTableClique(idTable) ;
 		btnAncien.setBorder(btn.getBorder());
 		btn.setBorder(BorderFactory.createLoweredBevelBorder());
 		btnAncien = btn;
@@ -386,3 +415,46 @@ class Ecouteur implements ActionListener{
     }     
 }
 
+class EcouteurSupprimer implements ActionListener{
+
+	private monTableau tabDetail;
+	
+	public EcouteurSupprimer(monTableau tabDetail) {
+		this.tabDetail = tabDetail;
+
+	}
+
+	private detailCommande_BUS detailCommandeBUS = new detailCommande_BUS();
+	private commande_BUS cmdBUS = new commande_BUS();
+	private articleCommande_BUS articleCommandeBUS = new articleCommande_BUS();
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		int row = tabDetail.getSelectedRow();
+        System.out.print(row);
+        if (row > -1) {
+        	int idProduit = Integer.parseInt(tabDetail.getValueAt(row, 0) + "");
+        	int quantite = Integer.parseInt(tabDetail.getValueAt(row, 2) + "");
+        	float prixUnit = Float.parseFloat(tabDetail.getValueAt(row, 3) + "");
+
+            int idTable = Ecouteur.getIdTableClique();
+            int idCommande = cmdBUS.getUncheckBillIDByTableID(idTable);
+            detailCommandeBUS.enleverProduitDeCommande(idCommande,idProduit);
+            float montant = (prixUnit * quantite)* -1 ;
+            cmdBUS.majMontantCommande(idCommande, montant);
+            DefaultTableModel tableModel = (DefaultTableModel) tabDetail.getModel();
+            tableModel.setRowCount(0);
+            ArrayList<articleCommande> liste = new ArrayList<articleCommande> ();
+            liste = articleCommandeBUS.getListeArticleParTable(idTable);
+            for (articleCommande c : liste) {
+                Vector vec = new Vector();
+                vec.add(c.getIdArticle());
+                vec.add(c.getLibelle());
+                vec.add(c.getQuantite());
+                vec.add(c.getPrixUnit());
+                tableModel.addRow(vec);
+            } 
+        }
+    }     
+}
