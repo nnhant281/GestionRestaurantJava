@@ -6,17 +6,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/nnhan281/Downloads/mysql-connector-java-8.0.26/mysql-connector-java-8.0.26.jar">
+	<classpathentry kind="lib" path="C:/Users/Bao binh/git/Java/Restaurant/src/libs/jcalendar-1.4.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/nnhan281/Desktop/jcalendar-1.4 2/lib/jcalendar-1.4.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/nnhan281/Desktop/joda-time-2.10.10.jar">
+	<classpathentry kind="lib" path="C:/Users/Bao binh/Downloads/mysql-connector-java-8.0.25.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

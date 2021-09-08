@@ -190,7 +190,7 @@ public class commande_GUI extends JPanel{
         pnText.setLayout(new BoxLayout(pnText, BoxLayout.Y_AXIS));
         
         JPanel pnLabel = new transparentPanel();
-        label = new JLabel("<html><h3>Montant : </h3></html>");
+        label = new JLabel("<html><h3>Montant </h3></html>");
         pnLabel.add(label);
         pnText.add(pnLabel);
         
