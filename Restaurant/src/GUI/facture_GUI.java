@@ -14,8 +14,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -95,6 +95,7 @@ public class facture_GUI extends JPanel{
         txtIdCmd = new JTextField(20);
         txtIDRH = new JTextField(20);
         txtDate = new JTextField("01/01/2020",20);
+        txtDate.setForeground(Color.GRAY);
         
         txtIdCmd.setFont(font);
         txtIDRH.setFont(font);
@@ -224,6 +225,26 @@ public class facture_GUI extends JPanel{
             }
         });
         
+        txtDate.addFocusListener((FocusListener) new FocusListener() {
+			
+			@Override
+			public void focusGained(FocusEvent e) {		
+					txtDate.setText("");
+					txtDate.setForeground(Color.BLACK);		
+				}
+				
+				/*
+				 * En sortant la zone de recherche :
+				 * Remettre le placeholder si l'utilisateur ne remplit pas
+				 */
+				
+			public void focusLost(FocusEvent e) {	
+					if (txtDate.getText().toString().length() == 0) {			
+						txtDate.setText("01/01/2020");
+						txtDate.setForeground(Color.GRAY);		
+					}	
+				}
+		});
 
     }
 
@@ -232,7 +253,6 @@ public class facture_GUI extends JPanel{
      */
     private void loadTabFacture() {
         ArrayList<commande> liste = factureBUS.getListeFacture();
-        System.out.print(liste);
         addTabFacture(liste);
     }
 
@@ -274,6 +294,6 @@ public class facture_GUI extends JPanel{
     	loadTabFacture();
         txtIdCmd.setText("");
         txtIDRH.setText("");
-        txtDate.setText("");
+        txtDate.setText("01/01/2020");
     }
 }

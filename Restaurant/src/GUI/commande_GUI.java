@@ -27,12 +27,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -47,11 +46,8 @@ import Custom.monDialogue;
 import Custom.monTableau;
 import Custom.wrapLayout;
 import Custom.transparentPanel;
-import DAO.commande_DAO;
 import DTO.articleCommande;
-import DTO.client;
 import DTO.compteModele;
-import DTO.detailCommande;
 import DTO.produitModele;
 import DTO.table;
 
@@ -87,7 +83,8 @@ public class commande_GUI extends JPanel{
      * créer l'interface
      */
 	private void addControls() {
-		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+	    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 		// ============ MODEL DE TABLE =========//
 		modelTabDetail = new DefaultTableModel();
 	    modelTabDetail.addColumn("ID ");
@@ -96,12 +93,15 @@ public class commande_GUI extends JPanel{
 	    modelTabDetail.addColumn("Prix");
 	    tabDetail = new monTableau();
 	    tabDetail.setModel(modelTabDetail);
+	    
+	    tabDetail.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+	    tabDetail.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
 
         TableColumnModel columnModel = tabDetail.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(30);
-        columnModel.getColumn(1).setPreferredWidth(50);
-        columnModel.getColumn(2).setPreferredWidth(80);
-        columnModel.getColumn(3).setPreferredWidth(80);
+        columnModel.getColumn(1).setPreferredWidth(100);
+        columnModel.getColumn(2).setPreferredWidth(40);
+        columnModel.getColumn(3).setPreferredWidth(40);
         
 		Font font = new Font("Tahoma", Font.PLAIN, 18);
 
@@ -122,7 +122,6 @@ public class commande_GUI extends JPanel{
         panelRemplir.setLayout(new GridLayout(1,2, 5, 5));
         
         //================PANEL TABLE=========
-        JPanel panelConteneur =  new transparentPanel();
         panelTable = new transparentPanel();
         loadTable(panelTable);
         panelTable.setLayout(new wrapLayout());
@@ -494,6 +493,8 @@ class Ecouteur implements ActionListener{
 
 /*
  * événement quand on clique sur button "supprimer"
+ * le montant de la commande sera diminué
+ * si après la suppresion il reste aucun article dans la commande , la commande sera supprimée et la table sera libérée
  */
 class EcouteurSupprimer implements ActionListener{
 
@@ -508,7 +509,7 @@ class EcouteurSupprimer implements ActionListener{
 	private detailCommande_BUS detailCommandeBUS = new detailCommande_BUS();
 	private commande_BUS cmdBUS = new commande_BUS();
 	private articleCommande_BUS articleCommandeBUS = new articleCommande_BUS();
-	
+	private table_BUS tableBUS = new table_BUS();
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -520,7 +521,11 @@ class EcouteurSupprimer implements ActionListener{
 
             int idTable = Ecouteur.getIdTableClique();
             int idCommande = cmdBUS.getUncheckBillIDByTableID(idTable);
-            detailCommandeBUS.enleverProduitDeCommande(idCommande,idProduit);
+            int quantiteReste = detailCommandeBUS.enleverProduitDeCommande(idCommande,idProduit);
+            if(quantiteReste <= 0 ) {
+            	tableBUS.tableDispo(idTable);
+            	mainGUI.loadPage();
+            }
             float montant = (prixUnit * quantite)* -1 ;
             cmdBUS.majMontantCommande(idCommande, montant);
             DefaultTableModel tableModel = (DefaultTableModel) tabDetail.getModel();
@@ -539,6 +544,7 @@ class EcouteurSupprimer implements ActionListener{
             } 
             String m = Float.toString(somme);
             txtMontant.setText(m);
+            
         }
     }     
 }

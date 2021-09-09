@@ -62,7 +62,6 @@ public class chiffreAffaire_GUI extends JPanel{
 	ChartPanel chart;
 	
 	public chiffreAffaire_GUI() {
-		
 		addComponents();
 		addEvents();
 		
@@ -109,11 +108,6 @@ public class chiffreAffaire_GUI extends JPanel{
 		panelCategorie.add(categorie);	
 		panelCategorie.add(choixCategorie);
 		
-		
-		
-		
-	
-		
 		panelAnnee = new JPanel();
 		panelAnnee.setLayout(new FlowLayout());
 		
@@ -127,20 +121,6 @@ public class chiffreAffaire_GUI extends JPanel{
 		panelAnnee.add(annee);
 		panelAnnee.add(choixAnnee);
 				
-	
-		
-		
-		
-		
-		
-		
-		
-	
-		
-		
-		
-		
-		
 		
 		/*
 		============================================================
@@ -159,11 +139,6 @@ public class chiffreAffaire_GUI extends JPanel{
 		pane.setBackground(Color.WHITE);
 		pane.setBounds(10,10,10,10);
 	
-	
-		
-		
-		
-	
 
 		/*
 		============================================================
@@ -181,10 +156,7 @@ public class chiffreAffaire_GUI extends JPanel{
 		panelBottom.add(panelTable);
 		panelBottom.add(panelGraphe);
 	
-	
-		
-		
-		
+
 		this.setLayout(new BorderLayout());
 		this.add(panelTitre, BorderLayout.NORTH);
 		this.add(panelBottom, BorderLayout.SOUTH);
@@ -204,18 +176,13 @@ public class chiffreAffaire_GUI extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 			
 					loadTabClassement(choixCategorie.getSelectedItem().toString());
-
-			
 	        }	
 		});
 		
 		choixAnnee.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dessinerChart();
-				
-			
-							
+				dessinerChart();		
 	        }	
 		});
 		

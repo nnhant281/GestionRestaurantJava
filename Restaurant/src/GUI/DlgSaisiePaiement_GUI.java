@@ -33,7 +33,6 @@ import javax.swing.table.DefaultTableModel;
 
 import BUS.client_BUS;
 import BUS.commande_BUS;
-import BUS.facture_BUS;
 import BUS.table_BUS;
 import Custom.monButton;
 import Custom.monDialogue;

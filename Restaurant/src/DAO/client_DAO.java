@@ -146,7 +146,7 @@ public class client_DAO {
         boolean result = false;
         try {
         	conn = ConnexionBDD.getConnect() ;
-            String sql = "UPDATE client SET point=" + point + " WHERE ID_client =" + id;
+            String sql = "UPDATE client SET point= point+" + point + " WHERE ID_client =" + id;
             Statement stmt = conn.createStatement();
             result = stmt.executeUpdate(sql) > 0;
         } catch (SQLException ex) {

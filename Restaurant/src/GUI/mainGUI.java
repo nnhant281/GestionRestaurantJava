@@ -8,13 +8,13 @@ import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import DTO.compteModele;
 
 
+@SuppressWarnings("serial")
 public class mainGUI extends javax.swing.JFrame{
 	static JTabbedPane tabs;
 	JPanel tabEmploye, tabMenu, tabCommande, tabClient, tabCompte, tabCA;
@@ -30,7 +30,6 @@ public class mainGUI extends javax.swing.JFrame{
 
 	
 	public mainGUI(compteModele user) {
-				
 		this.user = user;	
 		addComponents();
 		afficheModuleParHabilitation();	

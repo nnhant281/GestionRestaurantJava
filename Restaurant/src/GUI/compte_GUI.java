@@ -1,5 +1,7 @@
 package GUI;
 
+import static Main.main.changeLNF;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -69,7 +71,7 @@ public class compte_GUI extends JPanel {
 	
 	
 	public compte_GUI() {
-		
+		changeLNF("Nimbus");
 		addComponents();
 		addEvents();
 

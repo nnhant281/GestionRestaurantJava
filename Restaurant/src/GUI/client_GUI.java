@@ -32,6 +32,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -199,6 +201,7 @@ public class client_GUI extends JPanel{
         lblRecherche.setFont(font);
         new JTextField("Recherche par libellÃ©...",20);
         txtCleRecherche = new JTextField("par nom, prÃ©nom, tel ou email",20);
+        txtCleRecherche.setForeground(Color.GRAY);
         txtCleRecherche.setFont(font);
         panelRecherche.add(lblRecherche);
         panelRecherche.add(txtCleRecherche);
@@ -280,7 +283,26 @@ public class client_GUI extends JPanel{
         });
 
        
-       
+        txtCleRecherche.addFocusListener((FocusListener) new FocusListener() {
+			
+			@Override
+			public void focusGained(FocusEvent e) {		
+					txtCleRecherche.setText("");
+					txtCleRecherche.setForeground(Color.BLACK);		
+				}
+				
+				/*
+				 * En sortant la zone de recherche :
+				 * Remettre le placeholder si l'utilisateur ne remplit pas
+				 */
+				
+			public void focusLost(FocusEvent e) {	
+					if (txtCleRecherche.getText().toString().length() == 0) {			
+						txtCleRecherche.setText("par nom,prénom,tel ou email");
+						txtCleRecherche.setForeground(Color.GRAY);		
+					}	
+				}
+		});
 
         btnAjoute.addActionListener(new ActionListener() {
             @Override
@@ -366,6 +388,6 @@ public class client_GUI extends JPanel{
         txtNumTel.setText("");
         txtEmail.setText("");
         txtPoint.setText("");
-        txtCleRecherche.setText("");
+        txtCleRecherche.setText("par nom,prénom,tel ou email");
     }
 }

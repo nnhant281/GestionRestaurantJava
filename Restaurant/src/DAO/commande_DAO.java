@@ -20,7 +20,6 @@ public class commande_DAO {
 	public ArrayList<commande> getListeCommandeEnCour() {
 		
         ArrayList<commande> listeCommande = new ArrayList<>(0);
-        System.out.print(listeCommande);
         try {
         	conn = ConnexionBDD.getConnect() ;	
             String sql = "SELECT * FROM commande WHERE statut=0";
@@ -246,6 +245,29 @@ public class commande_DAO {
         try {
         	conn = ConnexionBDD.getConnect() ;	
             String sql = "UPDATE commande SET statut = 1 WHERE ID_Commande=? ";
+            PreparedStatement prep = conn.prepareStatement(sql);
+            prep.setInt(1, idCmd);
+            result = prep.executeUpdate() > 0;
+        } catch(SQLException ex) {
+        	ex.printStackTrace();
+        	System.out.println("commandePayee-SQLException: " + ex.getMessage());
+        } catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("commandePayee-Exception: " + e.getMessage());
+		}finally {
+        	ConnexionBDD.getClose();
+        }
+        return result;
+    }
+    
+    /*
+     * supprimer la commande 
+     */
+    public boolean supprimerCommande(int idCmd) {
+        boolean result = false;
+        try {
+        	conn = ConnexionBDD.getConnect() ;	
+            String sql = "DELETE commande WHERE Total_TTC = 0.0 AND ID_Commande=? ";
             PreparedStatement prep = conn.prepareStatement(sql);
             prep.setInt(1, idCmd);
             result = prep.executeUpdate() > 0;

@@ -1,5 +1,7 @@
 package GUI;
 
+import static Main.main.changeLNF;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -52,6 +54,7 @@ public class employe_GUI extends JPanel {
 	
 	
 	public employe_GUI () {	
+		changeLNF("Nimbus");
 		addComponents();
 		addEvents();	
 	}
@@ -329,7 +332,7 @@ public class employe_GUI extends JPanel {
 		panelRecherche.setBackground(new Color(250, 240, 230));
 		
 		btnRecherche = new JButton(iconRechercher);
-		btnRecherche.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
+		//btnRecherche.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
 		recherche = new JTextField("Recherche par nom...", 20);
 		recherche.setForeground(Color.GRAY);
 		panelRecherche.add(recherche);

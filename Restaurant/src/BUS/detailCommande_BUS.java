@@ -37,7 +37,12 @@ public class detailCommande_BUS {
         detailCmdDAO.plusUnAProduitExistantACommande(produit);
     }
     
-    public boolean enleverProduitDeCommande(int idCmd, int idProduit) {
-    	return detailCmdDAO.enleverProduitDeCommande(idCmd,idProduit) ;
+    public int enleverProduitDeCommande(int idCmd, int idProduit) {
+    	detailCmdDAO.enleverProduitDeCommande(idCmd,idProduit) ;
+    	int reste = detailCmdDAO.siCommandeContientProduit(idCmd,idProduit);
+    	if (reste <=0 ) {
+    		commandeDAO.supprimerCommande(idCmd);
+    	}
+    	return reste;
     }
 }
