@@ -13,8 +13,7 @@ import javax.swing.JTabbedPane;
 import DTO.compteModele;
 
 
-public class mainGUI {
-	JFrame fenetre;
+public class mainGUI extends javax.swing.JFrame{
 	JTabbedPane tabs;
 	JPanel tabEmploye, tabMenu, tabCommande, tabClient, tabCompte, tabCA;
 	compteModele user = new compteModele();
@@ -36,9 +35,9 @@ public class mainGUI {
 		produit_GUI produit = new produit_GUI();
 		commande_GUI commande = new commande_GUI(user);	
 	
-		fenetre = new JFrame("Mon application");
-		Container cprincipal = fenetre.getContentPane();
-		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("APPLICATION GESTION DE RESTAURANT");
+		Container cprincipal = this.getContentPane();
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		tabs = new JTabbedPane(JTabbedPane.LEFT);
 		tabs.setBackground(Color.DARK_GRAY);
 		Font font = new Font("Tahoma", Font.PLAIN, 18);
@@ -57,8 +56,8 @@ public class mainGUI {
 			
 		cprincipal.add(tabs);
 
-		fenetre.pack(); // calcul de la taille adéquate		
-		fenetre.setVisible(true); // permet de faire apparaître l'interface graphique à l'écran	
+		this.pack(); // calcul de la taille adéquate		
+		this.setVisible(true); // permet de faire apparaître l'interface graphique à l'écran	
 		
 	}
 	

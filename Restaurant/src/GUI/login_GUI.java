@@ -17,7 +17,7 @@ import BUS.login_BUS;
 import Custom.ConvertCharToString;
 import DTO.compteModele;
 
-public class login_GUI {
+public class login_GUI  extends javax.swing.JFrame {
 	
 	
 	JFrame frame;	
@@ -145,6 +145,8 @@ public class login_GUI {
 		
 		if (compte.getHabilitation() != 0) {
 			mainGUI = new mainGUI(compte);	
+			mainGUI.setVisible(true);
+            this.setVisible(false);
 		}		
 	}
 }

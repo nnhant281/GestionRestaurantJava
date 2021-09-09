@@ -27,5 +27,6 @@ public class main {
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
         }
+      
     }
 }

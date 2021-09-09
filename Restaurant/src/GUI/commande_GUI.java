@@ -60,6 +60,8 @@ public class commande_GUI extends JPanel{
 		changeLNF("FlatLaf");
 		addControls();
         addEvents();
+        resetPage();
+        loadTable(panelTable);
 	}
 	
 	private compteModele user = new compteModele();
