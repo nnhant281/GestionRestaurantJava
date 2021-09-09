@@ -79,6 +79,9 @@ public class commande_GUI extends JPanel{
     JComboBox<produitModele> choixArticle = new JComboBox<produitModele>();	
     JPanel panelTable ;
 	
+    /*
+     * créer l'interface
+     */
 	private void addControls() {
 		
 		// ============ MODEL DE TABLE =========//

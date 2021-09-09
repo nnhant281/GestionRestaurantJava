@@ -1,3 +1,7 @@
+/*
+ * gestion les clients 
+ * chercher, ajouter, modifier, consulter les client 
+ */
 package GUI;
 
 import javax.swing.BoxLayout;
@@ -52,6 +56,9 @@ public class client_GUI extends JPanel{
     monTableau tabClient;
     DefaultTableModel modelTabClient;
 
+    /*
+     * l'interface 
+     */
     private void addControls() {
         Font font = new Font("Tahoma", Font.PLAIN, 18);
 
@@ -221,6 +228,9 @@ public class client_GUI extends JPanel{
         loadTabClient();
     }
 
+    /*
+     * lier des événement avec des fonctions 
+     */
     private void addEvents() {
         btnReset.addActionListener(new ActionListener() {
             @Override
@@ -288,11 +298,17 @@ public class client_GUI extends JPanel{
 
     }
 
+    /*
+     * récupérer la liste de clients  
+     */
     private void loadTabClient() {
         ArrayList<client> liste = clientBUS.getlisteClient();
         loadTabClient(liste);
     }
 
+    /*
+     * recharger la table client
+     */
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	private void loadTabClient(ArrayList<client> liste) {
         modelTabClient.setRowCount(0);
@@ -309,6 +325,9 @@ public class client_GUI extends JPanel{
         }
     }
 
+    /*
+     * afficher les informations de client 
+     */
     private void CliqueTabClient() {
         int row = tabClient.getSelectedRow();
         if (row > -1) {

@@ -103,7 +103,7 @@ public class employe_DAO {
 	        try {
 	        	conn = ConnexionBDD.getConnect() ;
 	        	
-	        	sql = "DELETE FROM employe WHERE IDRH="+idrh;
+	        	sql = "UPDATE employe SET statut = 0 WHERE IDRH="+idrh;
 				delete = conn.prepareStatement(sql);
 				delete.execute();	          
 	            return true;

@@ -1,3 +1,6 @@
+/*
+ * gérer les produits 
+ */
 package GUI;
 
 import java.awt.BorderLayout;
@@ -80,6 +83,9 @@ public class produit_GUI extends JPanel{
 	JScrollPane pane;
 
 
+	/*
+	 * créer l'interface
+	 */
 	private void addControlsProduit() {
         Font font = new Font("Tahoma", Font.PLAIN, 18);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -270,6 +276,10 @@ public class produit_GUI extends JPanel{
         loadTabProduit();
     }
 	
+	/*
+	 * lier les évémements avec les objets de l'interface 
+	 * 
+	 */
 	private void evenementProduit() {
         btnReset.addActionListener(new ActionListener() {
             @Override
@@ -355,10 +365,16 @@ public class produit_GUI extends JPanel{
         
     }
 
+	/*
+	 * afficher l'image 
+	 */
 	 private void loadImage(String img) {
 	        photo.setIcon(getImage(img));
 	    }
 
+	 /*
+	  * afficher les infos de produit de la ligne cliqué sur la table 
+	  */
 	    private void CliqueTabProduit() {
 	        int row = tabProduit.getSelectedRow();
 	        if (row > -1) {
@@ -384,6 +400,9 @@ public class produit_GUI extends JPanel{
 	        }
 	    }
 
+	    /*
+	     * recharger la table 
+	     */
 	    @SuppressWarnings({ "rawtypes", "unchecked" })
 		private void loadTabProduit() {
 	        produitBUS.lireListeProduit();
@@ -402,6 +421,9 @@ public class produit_GUI extends JPanel{
 	        }
 	    }
 
+	    /*
+	     * recharger la liste de catégorie 
+	     */
 	    private void loadCategorie() {
 	        choixCategorie.removeAllItems();
 
@@ -413,7 +435,7 @@ public class produit_GUI extends JPanel{
 	    }
 
 	    /*
-	     * cliquer sur la ligne "Autres.." pour ajouter des catégories 
+	     *  ajouter des catégories 
 	     */
 	    private void traiteAjouteCategorie() {
         	DlgCategorie_GUI categorieGUI = new DlgCategorie_GUI();
@@ -421,6 +443,9 @@ public class produit_GUI extends JPanel{
             loadCategorie();
 	    }
 
+	    /*
+	     * ajouter un produit 
+	     */
 	    private void traiteAjouteProduit() {
 	    	String img = fichierImg.getName();
 	        produitBUS.ajouteProduit(txtLibelleProduit.getText(),
@@ -435,6 +460,9 @@ public class produit_GUI extends JPanel{
 
 	File fichierImg;
 	
+	/*
+	 * modifier des information d'un produit
+	 */
 	private void traiteModifProduit() {
         String img = fichierImg.getName();
         produitBUS.majProduit(txtIdProduit.getText(),
@@ -447,10 +475,14 @@ public class produit_GUI extends JPanel{
         enregistreImage();
     }
 
+	/*
+	 * supprimer un produit
+	 */
     private void traiteSuppressionProduit() {
     	produitBUS.suppressionProduit(txtIdProduit.getText());
     	resetPage();
     }
+    
 	/*
 	 * enregister le fichier d'image 
 	 */
@@ -467,6 +499,10 @@ public class produit_GUI extends JPanel{
 	        }
 	    }
 
+	 /*
+	  * charger un photo 
+	  * vérifier l'extension de la fichier 
+	  */
 	    private void traiteChoisirImage() {
 	        JFileChooser fileChooser = new ChoisirFichier("images/Produit/");
 	        FileNameExtensionFilter filter = new FileNameExtensionFilter("jpg", "png", "jpeg");
@@ -506,6 +542,9 @@ public class produit_GUI extends JPanel{
         return null;
     }
 	
+	/*
+	 * recherche un produit par la libellé 
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void traiteRecherche() {
         String libelle = txtRecherche.getText().toLowerCase();
@@ -527,6 +566,9 @@ public class produit_GUI extends JPanel{
         
     }
 	
+	/*
+	 * rechager la page 
+	 */
 	private void resetPage() {
 		loadImage("");
         loadTabProduit();
