@@ -43,14 +43,14 @@ public class facture_GUI extends JPanel{
 	
 	private facture_BUS factureBUS = new facture_BUS();
 	
-	final Color colorPanel = new Color(247, 247, 247);
+	final Color colorPanel = new Color(250, 240, 230);
     JTextField txtIdCmd, txtIDRH, txtDate;
     JButton  btnReset;
     monTableau tabFacture;
     DefaultTableModel modelTabFacture;
 
     private void addControls() {
-        Font font = new Font("Tahoma", Font.PLAIN, 20);
+        Font font = new Font("Tahoma", Font.PLAIN, 18);
 
         this.setLayout(new BorderLayout());
         this.setBackground(colorPanel);
@@ -107,7 +107,7 @@ public class facture_GUI extends JPanel{
         panelDate.add(txtDate);
         pnTextField.add(panelDate);
 
-        Dimension lblSize = lblIDRH.getPreferredSize();
+        Dimension lblSize = new Dimension(120,30);
         lblIdCmd.setPreferredSize(lblSize);
         lblIDRH.setPreferredSize(lblSize);
         lblDate.setPreferredSize(lblSize);
@@ -128,7 +128,8 @@ public class facture_GUI extends JPanel{
 
         pnButton.add(btnReset);
 
-        btnReset.setPreferredSize(new Dimension(160,40));
+        Dimension btnSize = new Dimension(160,35);
+        btnReset.setPreferredSize(btnSize);
 
         
         //=========================TABLEAU=====================
@@ -145,7 +146,8 @@ public class facture_GUI extends JPanel{
         tabFacture.setModel(modelTabFacture);
         
         JScrollPane scrtabFacture = new JScrollPane(tabFacture);
-
+        scrtabFacture.setBounds(10,10,10,10);
+        scrtabFacture.getViewport().setBackground(new Color(250, 240, 230));
         this.add(panelFacture, BorderLayout.NORTH);
         this.add(scrtabFacture, BorderLayout.CENTER);
         loadTabFacture();
@@ -159,30 +161,6 @@ public class facture_GUI extends JPanel{
             }
         });
 
-        tabFacture.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                CliqueTabFacture();
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
-        
-    
         
         txtIdCmd.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -265,15 +243,7 @@ public class facture_GUI extends JPanel{
         
     }
 
-    private void CliqueTabFacture() {
-        int row = tabFacture.getSelectedRow();
-        if (row > -1) {
-            txtIdCmd.setText(tabFacture.getValueAt(row, 0) + "");
-            txtIDRH.setText(tabFacture.getValueAt(row, 1) + "");
-            txtDate.setText(tabFacture.getValueAt(row, 2) + "");
-        }
-    }
-
+   
     private void traiteRechercheFacture() {
         ArrayList<commande> liste = factureBUS.rechercheFacture(txtIdCmd.getText(),txtIDRH.getText(),txtDate.getText());
         addTabFacture(liste);
@@ -283,6 +253,7 @@ public class facture_GUI extends JPanel{
     private void loadPage() {
     	loadTabFacture();
         txtIdCmd.setText("");
+        txtIDRH.setText("");
         txtDate.setText("");
     }
 }

@@ -1,3 +1,6 @@
+/*
+ * Interface pour gérer la prise de commande et les commandes en cours 
+ */
 package GUI;
 
 import static Main.main.changeLNF;
@@ -38,6 +41,7 @@ import BUS.produit_BUS;
 import Custom.monButton;
 import Custom.monDialogue;
 import Custom.monTableau;
+import Custom.wrapLayout;
 import Custom.transparentPanel;
 import DAO.commande_DAO;
 import DTO.articleCommande;
@@ -56,6 +60,7 @@ public class commande_GUI extends JPanel{
 		changeLNF("FlatLaf");
 		addControls();
         addEvents();
+        resetPage();
 	}
 	
 	private compteModele user = new compteModele();
@@ -72,6 +77,7 @@ public class commande_GUI extends JPanel{
     DefaultTableModel modelTabDetail;
     JComboBox<String> choixCategorie = new JComboBox<String>();	
     JComboBox<produitModele> choixArticle = new JComboBox<produitModele>();	
+    JPanel panelTable ;
 	
 	private void addControls() {
 		
@@ -109,13 +115,14 @@ public class commande_GUI extends JPanel{
         panelRemplir.setLayout(new GridLayout(1,2, 5, 5));
         
         //================PANEL TABLE=========
-        ArrayList<table> tableList = tableBUS.getlisteTable();
-        JPanel panelTable = new transparentPanel();
-        panelTable.setLayout(new FlowLayout(FlowLayout.LEADING));
-        
+        JPanel panelConteneur =  new transparentPanel();
+        panelTable = new transparentPanel();
         loadTable(panelTable);
-     
-        JScrollPane scrtabTable = new JScrollPane(panelTable);
+        panelTable.setLayout(new wrapLayout());
+        panelTable.setSize(new Dimension(300,300));
+        
+        
+        JScrollPane scrtabTable = new JScrollPane(panelTable,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         panelRemplir.add(scrtabTable);
         
         /*
@@ -188,6 +195,8 @@ public class commande_GUI extends JPanel{
 
         
         JScrollPane scrtabDetail = new JScrollPane(tabDetail);
+        scrtabDetail.setBounds(10,10,10,10);
+        scrtabDetail.getViewport().setBackground(new Color(250, 240, 230));
         panelDetail.add(scrtabDetail,BorderLayout.CENTER);
 
       //========= PANEL BAS  ==========//
@@ -235,6 +244,9 @@ public class commande_GUI extends JPanel{
         loadCategorie();
 	}
 	
+	/*
+	 * les événements 
+	 */
 	private void addEvents() {
 		choixCategorie.addActionListener(new ActionListener() {
             @Override
@@ -246,7 +258,7 @@ public class commande_GUI extends JPanel{
 		btnAjoute.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	traiteAjouteArticle();
+            	traiteAjouteArticle(panelTable);
             }
         });
 		
@@ -263,8 +275,11 @@ public class commande_GUI extends JPanel{
 		
 		
 	}
-	private articleCommande_BUS articleCommandeBUS = new articleCommande_BUS();
 	
+	private articleCommande_BUS articleCommandeBUS = new articleCommande_BUS();
+	/*
+	 * afficher la tableau détailée de la commande 
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void showCommande(int idTable) {
 		modelTabDetail.setRowCount(0);
@@ -284,12 +299,16 @@ public class commande_GUI extends JPanel{
         txtMontant.setText(m);
 	}
 	
+	/*
+	 * afficher les buttons signifiés les tables du restaurant
+	 */
 	private void loadTable(JPanel panelTable) {
 		panelTable.removeAll();
 		ArrayList<table> tableList = tableBUS.getlisteTable();
 		JButton[] button = new JButton[tableList.size()];
         for(int i=0;i<tableList.size();i++)
         {
+        	
         	String status = null ;
             Color c;
             button[i] = new JButton() ;
@@ -303,6 +322,7 @@ public class commande_GUI extends JPanel{
                 default:
                 	c = new Color(255,102,102); // LIGHT_PINK
                 	status = "occupï¿½e";
+                	
                     break;
             }
             button[i].setText("<html>"+(String)tableList.get(i).getLibelle()+"<br>"+status+ "</html>");
@@ -315,6 +335,9 @@ public class commande_GUI extends JPanel{
         }
 	}
 	
+	/*
+	 * charger la liste de catégorie
+	 */
 	 private void loadCategorie() {
         choixCategorie.removeAllItems();
         ArrayList<String> listeCategorie = categorieBUS.getListeCategorie();
@@ -324,7 +347,9 @@ public class commande_GUI extends JPanel{
         }
 	 }
 
-	 
+	 /*
+	  * Charger la liste d'article selon le catégorie
+	  */
 	 private void loadProduitParCategorie(String cate) {
         choixArticle.removeAllItems();
         ArrayList<produitModele> listeProduit = produitBUS.getProduitSelonCategorie(cate);
@@ -337,7 +362,10 @@ public class commande_GUI extends JPanel{
         
 	 }
 	 
-	 private void traiteAjouteArticle() {
+	 /*
+	  * Ajouter un article dans une commande 
+	  */
+	 private void traiteAjouteArticle(JPanel panelTable) {
 		  if (choixArticle.getSelectedIndex()>0) {
 				 int IDRH = user.getIdrh();
 				 int idTable = Ecouteur.getIdTableClique();
@@ -351,6 +379,7 @@ public class commande_GUI extends JPanel{
 						 commandeBUS.creationCommande(IDRH, idTable, prix );
 						 detailCommandeBUS.addDetailCommande(commandeBUS.getIdDerniereCommande(),idProduit,prix);
 						 tableBUS.tableOccupee(idTable);
+						 loadTable(panelTable);
 					 }
 					 else {
 						 if(detailCommandeBUS.siCommandeContientProduit(idCommande,idProduit)>0) {
@@ -359,31 +388,45 @@ public class commande_GUI extends JPanel{
 							 detailCommandeBUS.addDetailCommande(idCommande,idProduit,prix);
 						 }
 						 commandeBUS.majMontantCommande(idCommande, prix);
+						 loadTable(panelTable);
 					 }
 					 showCommande(idTable);
+					 
 				 }
 				 
 		  }
 		  
 	 } 
 	 
+	 /*
+	  * déclencher la procédure de paiement 
+	  */
 	 private void cliqueBtnPaie(int idTable)
      {
 		 int idCommande = commandeBUS.getUncheckBillIDByTableID(idTable);
 
          if (idCommande != -1)
          {
-        	 DlgSaisiePaiement_GUI categorieGUI = new DlgSaisiePaiement_GUI(idCommande,user);
+        	 DlgSaisiePaiement_GUI categorieGUI = new DlgSaisiePaiement_GUI(idCommande,user,this);
         	 categorieGUI.setVisible(true);
              
          }
      }
 	 
+	 /*
+	  * réinitialiser la page 
+	  */
 	 public void resetPage() {
-		 
+		 Ecouteur.setIdTableClique(-1);
+		 loadTable(panelTable);
+		 choixCategorie.setSelectedIndex(0);
+		 showCommande(-1);
 	 }
 }
 
+/*
+ * événement quand on clique sur un bouton d'une table 
+ */
 class Ecouteur implements ActionListener{
 	private int idTable;
 	private JButton btn;
@@ -431,16 +474,16 @@ class Ecouteur implements ActionListener{
             vec.add(c.getQuantite());
             vec.add(c.getPrixUnit());
             model.addRow(vec);
-            System.out.print(c.getPrixUnit());
-            System.out.print(somme);
             somme +=  c.getQuantite() * c.getPrixUnit();
-            System.out.print(somme);
         } 
         String m = Float.toString(somme);
         txtMontant.setText(m);
     }     
 }
 
+/*
+ * événement quand on clique sur button "supprimer"
+ */
 class EcouteurSupprimer implements ActionListener{
 
 	private monTableau tabDetail;
@@ -459,7 +502,6 @@ class EcouteurSupprimer implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int row = tabDetail.getSelectedRow();
-        System.out.print(row);
         if (row > -1) {
         	int idProduit = Integer.parseInt(tabDetail.getValueAt(row, 0) + "");
         	int quantite = Integer.parseInt(tabDetail.getValueAt(row, 2) + "");

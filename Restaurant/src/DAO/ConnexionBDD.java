@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class ConnexionBDD {
 	
 	private final static String classname = "com.mysql.cj.jdbc.Driver";
-    private final static String url = "jdbc:mysql://localhost:8889/gestion_restaurant";
+    private final static String url = "jdbc:mysql://localhost:3306/gestion_restaurant";
     private final static String user = "root";
-    private final static String mdp = "root";
+    private final static String mdp = "";
     
     private static Connection connexion;
     
@@ -19,10 +19,10 @@ public class ConnexionBDD {
             connexion = (Connection) DriverManager.getConnection(url, user, mdp);
         } catch (SQLException ex) {
         	ex.printStackTrace();
-			System.out.println("connexion �chec !");
+			System.out.println("connexion �chue !");
         } catch (ClassNotFoundException ex) {
         	ex.printStackTrace();
-			System.out.println("connexion �chec !");
+			System.out.println("connexion �chue !");
         }
         return connexion;
     }

@@ -3,6 +3,7 @@ package GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ import DTO.compteModele;
 @SuppressWarnings("serial")
 public class chiffreAffaire_GUI extends JPanel{
 	
+	Font font = new Font("Tahoma", Font.PLAIN, 18);
+	Font fontButton = new Font("Tahoma", Font.PLAIN, 16);
 	
 	JPanel panelTitre, panelTable, panelGraphe, panelCategorie;
 	JTable table;
@@ -57,12 +60,14 @@ public class chiffreAffaire_GUI extends JPanel{
 		panelGraphe = new JPanel();
 		
 		panelTitre = new JPanel();
-		titre = new JLabel("Dashboard");
-		
+		titre = new JLabel("<HTML><H1>Dashboard<H1><HTML>");
+		titre.setFont(font);
 		panelCategorie = new JPanel();
 		panelCategorie.setLayout(new FlowLayout());
 		categorie = new JLabel("Categorie");		
+		categorie.setFont(font);
 		choixCategorie = new JComboBox<String>();
+		choixCategorie.setFont(font);
 		loadCategorie();
 		
 		/*

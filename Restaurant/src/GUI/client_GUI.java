@@ -37,7 +37,7 @@ import java.util.Vector;
 public class client_GUI extends JPanel{
 	
 	public client_GUI() {
-		changeLNF("FlatLaf");
+		changeLNF("Nimbus");
 		addControls();
         addEvents();
 	}
@@ -45,15 +45,15 @@ public class client_GUI extends JPanel{
 	
 	private client_BUS clientBUS = new client_BUS();
 
-    final Color colorPanel = new Color(247, 247, 247);
+    final Color colorPanel = new Color(250, 240, 230);
     JTextField txtIdClient, txtNom, txtPrenom, txtNumTel, txtEmail, txtPoint, txtCleRecherche;
 	JTextArea txtAdresse;
-    JButton btnAjoute, btnModif, btnRecherche, btnReset;
+    JButton btnAjoute, btnModif, btnReset;
     monTableau tabClient;
     DefaultTableModel modelTabClient;
 
     private void addControls() {
-        Font font = new Font("Tahoma", Font.PLAIN, 20);
+        Font font = new Font("Tahoma", Font.PLAIN, 18);
 
         this.setLayout(new BorderLayout());
         this.setBackground(colorPanel);
@@ -149,7 +149,7 @@ public class client_GUI extends JPanel{
         panelPoint.add(txtPoint);
         pnTextField.add(panelPoint);
 
-        Dimension lblSize = lblAdresse.getPreferredSize();
+        Dimension lblSize = new Dimension(120,35);
         lblIdClient.setPreferredSize(lblSize);
         lblNom.setPreferredSize(lblSize);
         lblPrenom.setPreferredSize(lblSize);
@@ -169,7 +169,7 @@ public class client_GUI extends JPanel{
 		
 		btnAjoute = new monButton("Ajouter", iconAjoute);		
 		btnModif = new monButton("Modifier", iconModifier);		
-		btnReset = new monButton("RÃ©initialiser", iconReset);
+		btnReset = new monButton("R�initialiser", iconReset);
         Font fontButton = new Font("Tahoma", Font.PLAIN, 16);
 
         btnAjoute.setFont(fontButton);
@@ -181,17 +181,17 @@ public class client_GUI extends JPanel{
         pnButton.add(btnModif);
         pnButton.add(btnReset);
 
-        
-        btnAjoute.setPreferredSize(new Dimension(160,40));
-        btnModif.setPreferredSize(new Dimension(160,40));
-        btnReset.setPreferredSize(new Dimension(160,40));
+        Dimension btnSize = new Dimension(160,35);
+        btnAjoute.setPreferredSize(btnSize);
+        btnModif.setPreferredSize(btnSize);
+        btnReset.setPreferredSize(btnSize);
 
         //====PANEL RECHERCHE=====
         JPanel panelRecherche = new transparentPanel();
         JLabel lblRecherche = new JLabel("Recherche");
         lblRecherche.setFont(font);
         new JTextField("Recherche par libellé...",20);
-        txtCleRecherche = new JTextField("Recherche par nom, prénom, tel ou email",20);
+        txtCleRecherche = new JTextField("par nom, prénom, tel ou email",12);
         txtCleRecherche.setFont(font);
         panelRecherche.add(lblRecherche);
         panelRecherche.add(txtCleRecherche);
@@ -212,6 +212,8 @@ public class client_GUI extends JPanel{
         tabClient.setModel(modelTabClient);
         
         JScrollPane scrtabClient = new JScrollPane(tabClient);
+		scrtabClient.setBounds(10,10,10,10);
+		scrtabClient.getViewport().setBackground(new Color(250, 240, 230));
 
         this.add(panelClient, BorderLayout.NORTH);
         this.add(scrtabClient, BorderLayout.CENTER);

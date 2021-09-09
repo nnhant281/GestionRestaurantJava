@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -44,18 +45,16 @@ public class table_GUI extends JPanel{
 	
 	private table_BUS tableBUS = new table_BUS();
 
-    final Color colorPanel = new Color(247, 247, 247);
+    final Color colorPanel = new Color(250, 240, 230);
     JTextField  txtId,txtNom, txtStatut;
     JButton btnAjoute, btnModif, btnRecherche, btnReset,btnSupp;
     monTableau tabTable;
     DefaultTableModel modelTabTable;
 
     private void addControls() {
-        Font font = new Font("Tahoma", Font.PLAIN, 20);
-
-        
-
-
+        Font font = new Font("Tahoma", Font.PLAIN, 18);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setBackground(colorPanel);
         /*
         =========================================================================
                                     PANEL TABLE
@@ -63,7 +62,7 @@ public class table_GUI extends JPanel{
          */
         JPanel panelTable = new transparentPanel();
         panelTable.setLayout(new BoxLayout(panelTable, BoxLayout.Y_AXIS));
-
+        
         JPanel panelTop = new transparentPanel();
         panelTop.setLayout(new BoxLayout(panelTop, BoxLayout.Y_AXIS));
 
@@ -110,7 +109,7 @@ public class table_GUI extends JPanel{
         pnTextField.add(panelStatut);
         
 
-        Dimension lblSize = lblId.getPreferredSize();
+        Dimension lblSize = new Dimension(80,30);
         lblId.setPreferredSize(lblSize);
         lblNom.setPreferredSize(lblSize);
         lblStatut.setPreferredSize(lblSize);
@@ -158,9 +157,10 @@ public class table_GUI extends JPanel{
         tabTable.setModel(modelTabTable);
         
         JScrollPane scrtabTable = new JScrollPane(tabTable);
-
-        this.add(panelTable, BorderLayout.NORTH);
-        this.add(scrtabTable, BorderLayout.SOUTH);
+        scrtabTable.setBounds(10,10,10,10);
+        scrtabTable.getViewport().setBackground(new Color(250, 240, 230));
+        this.add(panelTable);
+        this.add(scrtabTable);
 
         loadTabTable();
     }
@@ -177,6 +177,7 @@ public class table_GUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 loadPage();
+                mainGUI.loadPage() ;
             }
         });
 
@@ -207,6 +208,7 @@ public class table_GUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 traiteAjouteTable();
+                mainGUI.loadPage() ;
             }
         });
 
@@ -214,6 +216,7 @@ public class table_GUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 traiteModifTable();
+                mainGUI.loadPage() ;
             }
         });
         
@@ -221,6 +224,7 @@ public class table_GUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 traiteSuppTable();
+                mainGUI.loadPage() ;
             }
         });
 

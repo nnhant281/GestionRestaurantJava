@@ -1,5 +1,7 @@
 package GUI;
 
+import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -123,9 +125,11 @@ public class DlgCategorie_GUI extends javax.swing.JDialog {
 
 	        jPanel3.add(pnLibelle);
 
-	        btnAjouter.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+	        Font fontButton = new Font("Tahoma", Font.PLAIN, 16);
+	        
+	        btnAjouter.setFont(fontButton);
 	        btnAjouter.setText("Ajouter");
-	        btnAjouter.setPreferredSize(new java.awt.Dimension(80, 35));
+	        btnAjouter.setPreferredSize(new Dimension(140, 35));
 	        btnAjouter.addActionListener(new java.awt.event.ActionListener() {
 	            public void actionPerformed(java.awt.event.ActionEvent evt) {
 	                btnAjouterActionPerformed(evt);
@@ -133,9 +137,10 @@ public class DlgCategorie_GUI extends javax.swing.JDialog {
 	        });
 	        pnButton.add(btnAjouter);
 
-	        btnSupprimer.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+	        
+	        btnSupprimer.setFont(fontButton); 
 	        btnSupprimer.setText("Supprimer");
-	        btnSupprimer.setPreferredSize(new java.awt.Dimension(80, 35));
+	        btnSupprimer.setPreferredSize(new Dimension(140,35));
 	        btnSupprimer.addActionListener(new java.awt.event.ActionListener() {
 	            public void actionPerformed(java.awt.event.ActionEvent evt) {
 	                btnSupprimerActionPerformed(evt);

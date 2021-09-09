@@ -171,48 +171,4 @@ public class detailCommande_DAO {
         return result;
     }
 
-    /*
-     * supprimer des détails d'une commande 
-     */
-    /*public boolean deleteDetailCommande(int idCmd) {
-        boolean result = false;
-        try {
-        	conn = ConnexionBDD.getConnect() ;	
-            String sql = "DELETE FROM produit_commande WHERE ID_Commande="+idCmd;
-            Statement stmt = conn.createStatement();
-            result = stmt.executeUpdate(sql) > 0;
-        } catch(SQLException ex) {
-        	ex.printStackTrace();
-        	System.out.println("deleteDetailCommande-SQLException: " + ex.getMessage());
-        } catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("deleteDetailCommande-Exception: " + e.getMessage());
-		}finally {
-        	ConnexionBDD.getClose();
-        }
-        return result;
-    }*/
-
-    /*
-     * modifier les détails de la commande 
-     */
-    /*public boolean updatedetailCommande(int idCmd, int idProduit, detailCommande detailCmd) {
-        boolean result = false;
-        try {
-        	conn = ConnexionBDD.getConnect() ;	
-            String sql = "UPDATE cthoadon SET MaHD=?, MaSP=?, SoLuong=?, DonGia=? ThanhTien=? WHERE MaHD=? AND MaSP=?";
-            PreparedStatement prep = conn.prepareStatement(sql);
-            prep.setInt(1, detailCmd.getIdCommande());
-            prep.setInt(2, detailCmd.getIdProduit());
-            prep.setInt(3, detailCmd.getQuantite());
-            prep.setFloat(4, detailCmd.getPrixUnitaire());
-
-            prep.setInt(6, maHD);
-            prep.setInt(7, maSP);
-            result = prep.executeUpdate() > 0;
-        } catch(SQLException ex) {
-            return false;
-        }
-        return result;
-    }*/
 }

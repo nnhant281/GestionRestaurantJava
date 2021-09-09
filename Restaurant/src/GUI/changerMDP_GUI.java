@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -37,9 +38,12 @@ public class changerMDP_GUI{
 		login_GUI.frame.setEnabled(false);
 	}
 	
+	Font font = new Font("Tahoma", Font.PLAIN, 18);
+	Font fontButton = new Font("Tahoma", Font.PLAIN, 16);
+	
 	public void addComponents() {
 		
-		frame = new JFrame("CHANGER MOT DE PASSE");		
+		frame = new JFrame("<HTML><H2>CHANGER MOT DE PASSE<H2><HTML>");		
 		cprincipal = frame.getContentPane();	
 		panel = new JPanel();
 		cprincipal.add(panel);
@@ -50,13 +54,26 @@ public class changerMDP_GUI{
 		nouveauMDP = new JLabel("Nouveau MDP");
 		confirmeMDP = new JLabel("Confirme MDP");
 		
+		identifiant.setFont(font);
+		ancienMDP.setFont(font);
+		nouveauMDP.setFont(font);
+		confirmeMDP.setFont(font);
+		
 		txtIdentifiant = new JTextField("", 13);
 		txtAncienMDP = new JPasswordField("", 13);
 		txtNouveauMDP = new JPasswordField("", 13);
 		txtConfirmeMDP = new JPasswordField("", 13);
 		
+		txtIdentifiant.setFont(font);
+		txtAncienMDP.setFont(font);
+		txtNouveauMDP.setFont(font);
+		txtConfirmeMDP.setFont(font);
+		
 		btnChangerMDP = new JButton("S'actualiser");
 		btnQuitter = new JButton("Quitter");
+		
+		btnChangerMDP.setFont(fontButton);
+		btnQuitter.setFont(fontButton);
 		
 		panel.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();

@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -80,8 +81,8 @@ public class employe_GUI extends JPanel {
 	monButton btnAjoute, btnMod, btnSupp, btnReset;
 	ArrayList<JButton> listButtons = new ArrayList<JButton>();
 
-	Font f1 = new Font("TimesRoman", Font.BOLD, 18);
-	Font f2 = new Font("TimesRoman", Font.BOLD, 14);
+	Font font = new Font("Tahoma", Font.PLAIN, 18);
+	Font fontButton = new Font("Tahoma", Font.PLAIN, 16);
 	
 
 	public void addComponents() {
@@ -124,7 +125,19 @@ public class employe_GUI extends JPanel {
 		emploiE = new JLabel("Emploi");
 		adresseE = new JLabel("Adresse");
 		telE = new JLabel("Telephone");
-		titre = new JLabel("Gestion de la liste des employés");
+		titre = new JLabel("<HTML><H1>Gestion de la liste des employés<h1><HTML>");
+		
+		nomE.setFont(font);
+		preNomE.setFont(font);
+		dateNaissanceE.setFont(font);
+		dateDebutE.setFont(font);
+		dateFinE.setFont(font);
+		typeContratE.setFont(font);
+		dureeHebdoE.setFont(font);
+		emploiE.setFont(font);
+		adresseE.setFont(font);
+		telE.setFont(font);
+		titre.setFont(font);
 		
 		txtNomE = new JTextField(15);
 		txtPreNomE = new JTextField(15);
@@ -141,6 +154,18 @@ public class employe_GUI extends JPanel {
 		txtAdresseE = new JTextField(15);
 		txtTelE = new JTextField(15);
 		
+		txtNomE = new JTextField(15);
+		txtPreNomE = new JTextField(15);
+		
+		txtDateNaissanceE.setFont(font);
+		txtDateDebutE.setFont(font);
+		txtDateFinE.setFont(font);
+		txtDureeHebdoE.setFont(font);
+		txtAdresseE.setFont(font);
+		txtTelE.setFont(font);
+		txtNomE.setFont(font);
+		txtPreNomE.setFont(font);
+		
 		choixTypeContrat = new JComboBox<String>();
 		loadListeTypeContrat();
 		
@@ -150,6 +175,16 @@ public class employe_GUI extends JPanel {
 		choixEmploi.addItem("Caissier(e)");
 		choixEmploi.addItem("Plongeur(se)");
 		choixEmploi.addItem("Cuisinier(e)");
+		
+		choixTypeContrat.setFont(font);
+		choixEmploi.setFont(font);
+		
+		txtTelE.setPreferredSize(txtNomE.getPreferredSize());
+		txtDateNaissanceE.setPreferredSize(txtNomE.getPreferredSize());
+		txtDateDebutE.setPreferredSize(txtNomE.getPreferredSize());
+		txtDateFinE.setPreferredSize(txtNomE.getPreferredSize());
+		choixTypeContrat.setPreferredSize(txtNomE.getPreferredSize());
+		choixEmploi.setPreferredSize(txtNomE.getPreferredSize());
 		/*
 		 		ARRANGEMENT DES COMPONENTS DANS LE PANEL CHAMPS A REMPLIR
 		
@@ -163,7 +198,6 @@ public class employe_GUI extends JPanel {
 		gc1.gridx = 1;
 		gc1.gridy = 0;
 		panelRemplirE.add(titre, gc1);
-		titre.setFont(f1);
 		
 		gc1.gridx = 0;
 		gc1.gridy = 1;
@@ -275,6 +309,17 @@ public class employe_GUI extends JPanel {
 		listButtons.add(btnMod);
 		listButtons.add(btnSupp);
 		listButtons.add(btnReset);		
+		
+		btnAjoute.setFont(fontButton);
+		btnMod.setFont(fontButton);	
+		btnSupp.setFont(fontButton);
+		btnReset.setFont(fontButton);
+		
+		Dimension btnSize = new Dimension(160,35);
+        btnAjoute.setPreferredSize(btnSize);
+        btnMod.setPreferredSize(btnSize);
+        btnSupp.setPreferredSize(btnSize);
+        btnReset.setPreferredSize(btnSize);
 		/*
 							CREATION BARRE DE RECHERCHE
 

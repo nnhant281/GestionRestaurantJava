@@ -56,16 +56,17 @@ public class produit_GUI extends JPanel{
 	
 	produit_BUS produitBUS = new produit_BUS();
     static categorie_BUS categorieBUS = new categorie_BUS();
-    final Color colorPanel = new Color(247, 247, 247);
+    final Color colorPanel = new Color(250, 240, 230);
     monTableau tabProduit;
     DefaultTableModel model;
     JTextField txtIdProduit, txtLibelleProduit, txtPrixUnitaire,txtPhoto;
 	static JComboBox<String> choixCategorie = new JComboBox<String>();	
 	monButton btnAjoute, btnMod, btnSupp, btnReset;	
-	JButton btnRecherche, btnImg ;
+	JButton btnRecherche, btnImg ,btnGesCategorie;
 	JTextField txtRecherche;
 	
 	Font f = new Font("TimesRoman", Font.BOLD, 16);
+	Font fontButton = new Font("Tahoma", Font.PLAIN, 14);
 	
 	ArrayList<JButton> listButtons = new ArrayList<JButton>();
 	
@@ -75,12 +76,12 @@ public class produit_GUI extends JPanel{
 	
 	JLabel idProduit,libelleProduit,categorie, prixUnitaire, titre, photo, recherche;
 	
-	ImageIcon iconAjoute, iconModifier, iconSupprimer, iconRechercher, iconReset;
+	ImageIcon iconAjoute, iconModifier, iconSupprimer, iconRechercher, iconReset,iconGestion;
 	JScrollPane pane;
 
 
 	private void addControlsProduit() {
-        Font font = new Font("Tahoma", Font.PLAIN, 20);
+        Font font = new Font("Tahoma", Font.PLAIN, 18);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
@@ -111,34 +112,38 @@ public class produit_GUI extends JPanel{
         txtPrixUnitaire = new JTextField(15);
 
 
-        JPanel pnMa = new transparentPanel();
+        JPanel pnIdProduit = new transparentPanel();
         idProduit.setFont(font);
         txtIdProduit.setFont(font);
-        pnMa.add(idProduit);
-        pnMa.add(txtIdProduit);
-        pnTextField.add(pnMa);
+        pnIdProduit.add(idProduit);
+        pnIdProduit.add(txtIdProduit);
+        pnTextField.add(pnIdProduit);
 
-        JPanel pnTen = new transparentPanel();
+        JPanel pnLibelle = new transparentPanel();
         libelleProduit.setFont(font);
         txtLibelleProduit.setFont(font);
-        pnTen.add(libelleProduit);
-        pnTen.add(txtLibelleProduit);
-        pnTextField.add(pnTen);
+        pnLibelle.add(libelleProduit);
+        pnLibelle.add(txtLibelleProduit);
+        pnTextField.add(pnLibelle);
 
-        JPanel pnLoai = new transparentPanel();
+        JPanel pnCategorie = new transparentPanel();
         categorie.setFont(font);
         choixCategorie.setFont(font);
-        choixCategorie.setPreferredSize(txtIdProduit.getPreferredSize());
-        pnLoai.add(categorie);
-        pnLoai.add(choixCategorie);
-        pnTextField.add(pnLoai);
+        choixCategorie.setPreferredSize(new Dimension(185,32));
+        iconGestion = new ImageIcon(new ImageIcon("images/Buttons/maj.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+		btnGesCategorie = new JButton(iconGestion);		
+        btnGesCategorie.setFont(fontButton);
+        pnCategorie.add(categorie);
+        pnCategorie.add(choixCategorie);
+        pnCategorie.add(btnGesCategorie);
+        pnTextField.add(pnCategorie);
 
-        JPanel pnSoLuong = new transparentPanel();
+        JPanel pnQuantite = new transparentPanel();
         prixUnitaire.setFont(font);
         txtPrixUnitaire.setFont(font);
-        pnSoLuong.add(prixUnitaire);
-        pnSoLuong.add(txtPrixUnitaire);
-        pnTextField.add(pnSoLuong);
+        pnQuantite.add(prixUnitaire);
+        pnQuantite.add(txtPrixUnitaire);
+        pnTextField.add(pnQuantite);
 
         Dimension lblSize = prixUnitaire.getPreferredSize();
         idProduit.setPreferredSize(lblSize);
@@ -194,7 +199,6 @@ public class produit_GUI extends JPanel{
 		btnRecherche = new monButton("Rechercher", iconRechercher);
 		btnReset = new monButton("RÃ©initialiser", iconReset);
 		
-		Font fontButton = new Font("Tahoma", Font.PLAIN, 14);
 		btnAjoute.setFont(fontButton);
 		btnMod.setFont(fontButton);
 		btnSupp.setFont(fontButton);
@@ -205,16 +209,15 @@ public class produit_GUI extends JPanel{
 		panelButtons.add(btnAjoute);
 		panelButtons.add(btnMod);
 		panelButtons.add(btnSupp);
-		panelButtons.add(btnRecherche);
 		panelButtons.add(btnReset);
 		
 		listButtons.add(btnAjoute);
 		listButtons.add(btnMod);
 		listButtons.add(btnSupp);
-		listButtons.add(btnRecherche);
 		listButtons.add(btnReset);
 		
 		panelRecherche = new transparentPanel();
+		
         recherche = new JLabel("Recherche");
         recherche.setFont(font);
         txtRecherche = new JTextField("Recherche par libellé...",20);
@@ -222,9 +225,10 @@ public class produit_GUI extends JPanel{
         txtRecherche.setForeground(Color.GRAY);
         panelRecherche.add(recherche);
         panelRecherche.add(txtRecherche);
+        panelRecherche.add(btnRecherche);
         this.add(panelRecherche);
         
-        Dimension btnSize = btnReset.getPreferredSize();
+        Dimension btnSize = new Dimension(140,35);
         btnAjoute.setPreferredSize(btnSize);
         btnMod.setPreferredSize(btnSize);
         btnSupp.setPreferredSize(btnSize);
@@ -257,9 +261,8 @@ public class produit_GUI extends JPanel{
         columnModel.getColumn(4).setPreferredWidth(0);
 
         pane  = new JScrollPane(tabProduit);
-        pane.setForeground(Color.RED);
-		pane.setBackground(Color.WHITE);
 		pane.setBounds(10,10,10,10);
+		pane.getViewport().setBackground(new Color(250, 240, 230));
         panelTab.add(pane, BorderLayout.CENTER);
         this.add(pane);
 
@@ -298,13 +301,14 @@ public class produit_GUI extends JPanel{
             }
         });
 
-        choixCategorie.addActionListener(new ActionListener() {
+
+        btnGesCategorie.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 traiteAjouteCategorie();
             }
         });
-
+        
         btnAjoute.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -406,24 +410,19 @@ public class produit_GUI extends JPanel{
 	        for (String cate : listeCategorie) {
 	            choixCategorie.addItem(cate);
 	        }
-	        choixCategorie.addItem("Autres...");
 	    }
 
 	    /*
 	     * cliquer sur la ligne "Autres.." pour ajouter des catégories 
 	     */
 	    private void traiteAjouteCategorie() {
-	        int x = choixCategorie.getSelectedIndex();
-	        if (x == choixCategorie.getItemCount() - 1) {
-	        	DlgCategorie_GUI categorieGUI = new DlgCategorie_GUI();
-	        	categorieGUI.setVisible(true);
-	            loadCategorie();
-	        }
+        	DlgCategorie_GUI categorieGUI = new DlgCategorie_GUI();
+        	categorieGUI.setVisible(true);
+            loadCategorie();
 	    }
 
 	    private void traiteAjouteProduit() {
 	    	String img = fichierImg.getName();
-	        System.out.println(fichierImg.getName());
 	        produitBUS.ajouteProduit(txtLibelleProduit.getText(),
 	        		(String)choixCategorie.getSelectedItem(),
 	                txtPrixUnitaire.getText(),
@@ -496,7 +495,7 @@ public class produit_GUI extends JPanel{
             img = ImageIO.read(fileImg);
             fichierImg = new File(src);
         } catch (IOException e) {
-        	fichierImg = new File("imgs/anhthe/avatar.jpg");
+        	
         }
 
         if (img != null) {
