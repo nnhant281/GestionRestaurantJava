@@ -1,11 +1,11 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,12 +13,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.BoxLayout;
@@ -26,7 +21,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -38,7 +32,6 @@ import Custom.ConvertStringToInt;
 import Custom.monButton;
 import Custom.monDialogue;
 import Custom.monTableau;
-import DAO.ConnexionBDD;
 import DTO.compteModele;
 import DTO.employeModele;
 
@@ -46,7 +39,9 @@ import DTO.employeModele;
 @SuppressWarnings("serial")
 public class compte_GUI extends JPanel {
 	
-	Font f = new Font("TimesRoman", Font.BOLD, 18);
+	Font font = new Font("Tahoma", Font.PLAIN, 18);
+	Font fontButton = new Font("Tahoma", Font.PLAIN, 16);
+	final Color colorPanel = new Color(250, 240, 230);
 	
 	ArrayList<JButton> listButtons = new ArrayList<JButton>();
 	
@@ -107,8 +102,7 @@ public class compte_GUI extends JPanel {
 		============================================================
 		 */
 		
-		titre = new JLabel("Gestion de compte");
-		titre.setFont(f);
+		titre = new JLabel("<HTML><H1>Gestion de compte<H1><HTML>");
 		idrh = new JLabel("IDRH");
 		identifiant = new JLabel("Identifiant");
 		habilitation = new JLabel("Habilitation");
@@ -116,11 +110,18 @@ public class compte_GUI extends JPanel {
 		prenom = new JLabel("Prenom");
 		emploi = new JLabel("Emploi");
 		
+		titre.setFont(font);
+		idrh.setFont(font);
+		identifiant.setFont(font);
+		habilitation.setFont(font);
+		nom.setFont(font);
+		prenom.setFont(font);
+		emploi.setFont(font);
+		
 		txtIdentifiant = new JTextField("", 15);
 		txtIdentifiant.setEditable(false);
 		txtIdentifiant.setBackground(Color.gray);
-		
-		
+
 		txtNom = new JTextField("", 15);
 		txtNom.setEditable(false);
 		txtNom.setBackground(Color.gray);
@@ -132,6 +133,18 @@ public class compte_GUI extends JPanel {
 		txtEmploi = new JTextField("", 15);
 		txtEmploi.setEditable(false);
 		txtEmploi.setBackground(Color.gray);
+		
+		txtIdentifiant.setFont(font);
+		txtNom.setFont(font);
+		txtPrenom.setFont(font);
+		txtEmploi.setFont(font);
+		choixHabilitation.setFont(font);
+		choixIDRH.setFont(font);
+		
+		choixIDRH.setPreferredSize(txtNom.getPreferredSize());
+		txtEmploi.setPreferredSize(txtNom.getPreferredSize());
+		choixHabilitation.setPreferredSize(txtNom.getPreferredSize());
+
 		
 		gc.gridx = 2;
 		gc.gridy = 0;
@@ -212,12 +225,26 @@ public class compte_GUI extends JPanel {
 		listButtons.add(btnSupp);
 		listButtons.add(btnReset);
 		
+		
 		btnRecherche = new JButton(iconRechercher);
 		recherche = new JTextField("Recherche par identifiant...", 20);
 		recherche.setForeground(Color.GRAY);
 		panelRecherche.add(recherche);
 		panelRecherche.add(btnRecherche);
 		
+		btnAjoute.setFont(fontButton);	
+		btnMod.setFont(fontButton);
+		btnSupp.setFont(fontButton);
+		btnReset.setFont(fontButton);
+		btnRecherche.setFont(fontButton);
+		
+		Dimension btnSize = new Dimension(140,35);
+        btnAjoute.setPreferredSize(btnSize);
+        btnMod.setPreferredSize(btnSize);
+        btnSupp.setPreferredSize(btnSize);
+        btnRecherche.setPreferredSize(btnSize);
+        btnReset.setPreferredSize(btnSize);
+	        
 		/*
 		============================================================
            					CREATION DE TABLE

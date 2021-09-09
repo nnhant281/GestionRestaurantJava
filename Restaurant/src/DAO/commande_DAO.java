@@ -129,8 +129,8 @@ public class commande_DAO {
                 cmd.setTypeCommande(rs.getInt(7));
                 cmd.setTotal(rs.getFloat(8));
                 listeFacture.add(cmd);
-                return listeFacture;
             }
+            return listeFacture;
         } catch (SQLException ex) {
         	ex.printStackTrace();
         	System.out.println("GetListeCommande-SQLException: " + ex.getMessage());

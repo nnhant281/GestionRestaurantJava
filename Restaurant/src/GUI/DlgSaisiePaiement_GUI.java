@@ -42,8 +42,10 @@ public class DlgSaisiePaiement_GUI extends javax.swing.JDialog {
 	
 	private compteModele user;
 	private int idCommande;
+	private commande_GUI cmdGUI;
 	
-	public DlgSaisiePaiement_GUI (int idCommande, compteModele user){
+	public DlgSaisiePaiement_GUI (int idCommande, compteModele user, commande_GUI cmdGUI){
+		this.cmdGUI = cmdGUI;
 		this.user = user;
 		this.idCommande = idCommande;
 		changeLNF("Nimbus");
@@ -55,8 +57,9 @@ public class DlgSaisiePaiement_GUI extends javax.swing.JDialog {
 	private commande_BUS commandeBUS = new commande_BUS();
 	private client_BUS clientBUS = new client_BUS();
 	private table_BUS tableBUS = new table_BUS();
+	private facture_GUI factureGUI = new facture_GUI();
 	
-	final Color colorPanel = new Color(247, 247, 247);
+	final Color colorPanel = new Color(250, 240, 230);
     JTextField txtIdCmd, txtIdTable, txtDate, txtMontant, txtIDRH,txtIdClient, txtChercheNom, txtCherchePrenom, txtChercheNumTel;
     JButton  btnPaiement, btnReset;
     monTableau tabClient;
@@ -410,7 +413,6 @@ public class DlgSaisiePaiement_GUI extends javax.swing.JDialog {
 
     private void CliqueTabClient() {
         int row = tabClient.getSelectedRow();
-        System.out.print(row);
         if (row > -1) {
             txtIdClient.setText(Integer.toString((int)tabClient.getValueAt(row, 0)));
             txtChercheNom.setText((String)tabClient.getValueAt(row, 1));
@@ -436,8 +438,7 @@ public class DlgSaisiePaiement_GUI extends javax.swing.JDialog {
         	monDialogue dlg = new monDialogue("La commande est factuée !", monDialogue.SUCCESS_DIALOG);
         	 if(dlg.getAction() == monDialogue.OK_OPTION) {
         		 this. setVisible(false);
-        		 
-        		 mainGUI main = new mainGUI(user);
+        		 cmdGUI.resetPage();
         	 }
         } else {
         	monDialogue dlg = new monDialogue("Il y a un erreur. La facturation est échue !", monDialogue.ERROR_DIALOG);

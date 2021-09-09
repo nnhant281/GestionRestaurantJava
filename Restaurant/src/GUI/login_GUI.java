@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -24,9 +25,11 @@ public class login_GUI {
 	JPanel panelCenter;
 	
 	JLabel id, mdp;	
-
-	JTextField txtID = new JTextField("", 15);	
-	JPasswordField txtMDP = new JPasswordField("", 15);	
+	Font font = new Font("Tahoma", Font.PLAIN, 18);
+	Font fontButton = new Font("Tahoma", Font.PLAIN, 16);
+	
+	JTextField txtID = new JTextField("");	
+	JPasswordField txtMDP = new JPasswordField("");	
 	JButton btnConnect, btnChangerMDP;
 
 	login_BUS loginBUS = new login_BUS();
@@ -55,11 +58,20 @@ public class login_GUI {
 		
 		id = new JLabel("Identifiant");		
 		mdp = new JLabel("Mot de passe");		
-		txtID = new JTextField("", 18);	
-		txtMDP = new JPasswordField("", 18);	
+		txtID = new JTextField(20);	
+		txtMDP = new JPasswordField(20);	
+		
+		id.setFont(font);
+		mdp.setFont(font);
+		txtID.setFont(font);
+		txtMDP.setFont(font);
+		
+		
 		btnConnect = new JButton("Se connecter");
 		btnChangerMDP = new JButton("Changer MDP");
 		
+		btnConnect.setFont(fontButton);
+		btnChangerMDP.setFont(fontButton);
 		/*
 		============================================================
 						ARRANGEMENT DES COMPOSANTS

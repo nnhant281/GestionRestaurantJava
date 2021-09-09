@@ -3,6 +3,7 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -26,8 +27,6 @@ public class mainGUI {
 	}
 	
 	public void addComponents() {
-		
-		
 		employe_GUI employe = new employe_GUI();
 		compte_GUI compte = new compte_GUI();
 		client_GUI client = new client_GUI();
@@ -36,14 +35,14 @@ public class mainGUI {
 		table_GUI table = new table_GUI();
 		produit_GUI produit = new produit_GUI();
 		commande_GUI commande = new commande_GUI(user);	
-		
 	
 		fenetre = new JFrame("Mon application");
 		Container cprincipal = fenetre.getContentPane();
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		tabs = new JTabbedPane(JTabbedPane.LEFT);
 		tabs.setBackground(Color.DARK_GRAY);
-		
+		Font font = new Font("Tahoma", Font.PLAIN, 18);
+		tabs.setFont(font);
 		
 		tabs.addTab("Commande",commande);
 		tabs.addTab("Table", table);
@@ -53,11 +52,7 @@ public class mainGUI {
 		tabs.addTab("Produit",produit);
 		tabs.addTab("Chiffre d'affaire",ca);
 		tabs.addTab("Compte",compte);
-		
-		
-		
-		
-		
+
 		tabs.setSelectedIndex(0);
 			
 		cprincipal.add(tabs);
