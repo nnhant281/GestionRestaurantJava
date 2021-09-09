@@ -1,3 +1,8 @@
+/*
+ * gestion le procédure de paiement 
+ * possible de chercher et attacher un client à la commande 
+ * quand la paiement est traité , le point de client sera ajouté 
+ */
 package GUI;
 
 import static Main.main.changeLNF;
@@ -65,6 +70,9 @@ public class DlgSaisiePaiement_GUI extends javax.swing.JDialog {
     monTableau tabClient;
     DefaultTableModel modelTabClient;
 	
+    /*
+     * création l'interface 
+     */
 	public void addControls() {
 		Font font = new Font("Tahoma", Font.PLAIN, 18);
 
@@ -288,6 +296,9 @@ public class DlgSaisiePaiement_GUI extends javax.swing.JDialog {
         loadTabClient();
 	}
 	
+	/*
+	 * lier des événements avec des procédures 
+	 */
 	public void addEvents() {
 		 btnReset.addActionListener(new ActionListener() {
 	            @Override
@@ -379,6 +390,9 @@ public class DlgSaisiePaiement_GUI extends javax.swing.JDialog {
         
 	}
 	
+	/*
+	 * afficher des informations de la commandes 
+	 */
 	public void loadCommande() {
 		commande c = commandeBUS.getCommandeParIDCommande(idCommande);
 		txtIdCmd.setText(Integer.toString(c.getIdCommande()));
@@ -390,11 +404,17 @@ public class DlgSaisiePaiement_GUI extends javax.swing.JDialog {
         txtMontant.setText(Float.toString(c.getTotal()));
 	}
 	
+	/*
+	 * charger la liste de clients 
+	 */
 	 private void loadTabClient() {
         ArrayList<client> liste = clientBUS.getlisteClient();
         loadTabClient(liste);
     }
 
+	 /*
+	  * afficher le tableau de clients 
+	  */
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	private void loadTabClient(ArrayList<client> liste) {
         modelTabClient.setRowCount(0);
@@ -411,6 +431,10 @@ public class DlgSaisiePaiement_GUI extends javax.swing.JDialog {
         }
     }
 
+    /*
+     * après cliquer sur un ligne du tableau , le ID et le nom de client sera affichés
+     * le client sera accroché au commande 
+     */
     private void CliqueTabClient() {
         int row = tabClient.getSelectedRow();
         if (row > -1) {
@@ -420,11 +444,18 @@ public class DlgSaisiePaiement_GUI extends javax.swing.JDialog {
         }
     }
     
+    /*
+     * recherche de client par nom, prénom et numéro de téléphone 
+     */
     private void traiteRechercheClient() {
         ArrayList<client> liste = clientBUS.rechercheClientParMultiInfo(txtChercheNom.getText(),txtCherchePrenom.getText(),txtChercheNumTel.getText());
         loadTabClient(liste);
     }
     
+    /*
+     * quand le commande est payé, une facture sera créé
+     * la table prise sera libérée.
+     */
     private void traitePaiement() {
     	boolean flag = false ; 
         if(!txtIdClient.getText().trim().equals("")) {

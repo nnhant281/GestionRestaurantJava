@@ -1,5 +1,9 @@
 /*
  * Interface pour gérer la prise de commande et les commandes en cours 
+ * afficher les tables avec leur statut "disponible" ou "occupée" 
+ * choisir la table disponible pour ajouter une commande 
+ * ou consulter un table occupée pour ajouter, supprimer les articles 
+ * passer la paiement 
  */
 package GUI;
 
@@ -367,6 +371,10 @@ public class commande_GUI extends JPanel{
 	 
 	 /*
 	  * Ajouter un article dans une commande 
+	  * il y a trois cas 
+	  * 1. la commande n'est pas encore existant , il faut créer une nouvelle commande 
+	  * 2. La commande existe déjà, mais l'article est commandée pour la première fois => ajouter une nouvelle ligne à la commande 
+	  * 3. La commande existe déjà et l'article est déjà eu sur la commande => augmenter la quantité de l'article 
 	  */
 	 private void traiteAjouteArticle(JPanel panelTable) {
 		  if (choixArticle.getSelectedIndex()>0) {

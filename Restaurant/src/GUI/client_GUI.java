@@ -326,7 +326,7 @@ public class client_GUI extends JPanel{
     }
 
     /*
-     * afficher les informations de client 
+     * afficher les informations de client cliqué sur le tableau
      */
     private void CliqueTabClient() {
         int row = tabClient.getSelectedRow();
@@ -341,6 +341,7 @@ public class client_GUI extends JPanel{
         }
     }
 
+    
     private void traiteRechercheClient() {
         ArrayList<client> dskh = clientBUS.rechercheClient(txtCleRecherche.getText());
         loadTabClient(dskh);

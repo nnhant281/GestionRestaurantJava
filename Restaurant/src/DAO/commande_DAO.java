@@ -174,6 +174,10 @@ public class commande_DAO {
         return result;
     }
 
+    /*
+     * recherche le ID de la dernière commande 
+     * on en a besoins dans le cas une nouvelle commande est créée et le ID est inconnu
+     */
     public int getIdDerniereCommande() {
         try {
         	conn = ConnexionBDD.getConnect() ;	
@@ -188,6 +192,10 @@ public class commande_DAO {
         return -1;
     }
     
+    /*
+     * chercher le ID de la commande en cours qui est attachée d'une table 
+     * une table est liée à plusieurs commandes mais il y a une maximum une seule commande en cours
+     */
     public int getUncheckBillIDByTableID(int id){
     	conn = ConnexionBDD.getConnect() ;	
         String sql = "SELECT * FROM commande WHERE statut = 0 AND id_table = "+id;
@@ -204,7 +212,11 @@ public class commande_DAO {
         return -1;
     }
 
-    
+    /*
+     * mise à jour le montant de la commande
+     * soit ajouter quand les clients commandent les articles 
+     * soit diminuer lorsque les articles sont annulés
+     */
     public boolean majMontantCommande(int idCmd, float prix) {
         boolean result = false;
         try {
@@ -226,42 +238,9 @@ public class commande_DAO {
         return result;
     }
     
-    public ArrayList<commande> getListFacture(Date dateMin, Date dateMax) {
-        try {
-        	conn = ConnexionBDD.getConnect() ;	
-            String sql = "SELECT * FROM commande WHERE Date BETWEEN CAST(? AS DATE) AND CAST(? AS DATE)";
-            PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setDate(1, dateMin);
-            pre.setDate(2, dateMax);
-            ResultSet rs = pre.executeQuery();
-
-            ArrayList<commande> listeCommande = new ArrayList<>();
-
-            while (rs.next()) {
-                commande cmd = new commande();
-                cmd.setIdCommande(rs.getInt(1));
-                cmd.setIDRH(rs.getInt(2));
-                cmd.setIdClient(rs.getInt(3));
-                cmd.setIdTable(rs.getInt(4));
-                cmd.setDate(rs.getDate(5));
-                cmd.setStatut(rs.getInt(6));
-                cmd.setTypeCommande(rs.getInt(7));
-                cmd.setTotal(rs.getFloat(8));
-                listeCommande.add(cmd);
-            }
-            return listeCommande;
-        } catch (SQLException ex) {
-        	ex.printStackTrace();
-        	System.out.println("addCommande-SQLException: " + ex.getMessage());
-        } catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("addCommande-Exception: " + e.getMessage());
-		}finally {
-        	ConnexionBDD.getClose();
-        }
-        return null;
-    }
-    
+    /*
+     * les commandes payées sont aussi les factures 
+     */
     public boolean commandePayee(int idCmd) {
         boolean result = false;
         try {
@@ -282,6 +261,10 @@ public class commande_DAO {
         return result;
     }
     
+    /*
+     * attacher un client à la commande 
+     * ça aide à ajouter les points au client
+     */
     public boolean saisieIdClientALaCommande(int idCmd, int idClient) {
         boolean result = false;
         try {

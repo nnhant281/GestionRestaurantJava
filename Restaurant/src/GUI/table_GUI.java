@@ -1,3 +1,8 @@
+/*
+ * gestion de tables chez clients 
+ * des clients peuvent ajouter , supprimer ou modifier "les tables" qui signifient les tables en vrai chez eux
+ * ça facilite la gestion de la prise de commande
+ */
 package GUI;
 
 import static Main.main.changeLNF;
@@ -51,6 +56,9 @@ public class table_GUI extends JPanel{
     monTableau tabTable;
     DefaultTableModel modelTabTable;
 
+    /*
+     * création l'interface
+     */
     private void addControls() {
         Font font = new Font("Tahoma", Font.PLAIN, 18);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -165,13 +173,9 @@ public class table_GUI extends JPanel{
         loadTabTable();
     }
 
-   
-
-	private void setLayout(BorderLayout borderLayout) {
-		// TODO Auto-generated method stub
-		
-	}
-
+    /*
+     * lier les événements avec les procédures 
+     */
 	private void addEvents() {
         btnReset.addActionListener(new ActionListener() {
             @Override
@@ -230,11 +234,17 @@ public class table_GUI extends JPanel{
 
     }
 
+	/*
+	 * récupérer la liste de tables
+	 */
     private void loadTabTable() {
         ArrayList<table> liste = tableBUS.getlisteTable();
         loadTabTable(liste);
     }
 
+    /*
+     * afficher la liste de tables
+     */
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	private void loadTabTable(ArrayList<table> liste) {
         modelTabTable.setRowCount(0);
@@ -247,6 +257,10 @@ public class table_GUI extends JPanel{
         }
     }
 
+    /*
+     * après cliquer sur une ligne de la table 
+     * les informations de la table cliqué seront affichées 
+     */
     private void CliqueTabTable() {
         int row = tabTable.getSelectedRow();
         if (row > -1) {

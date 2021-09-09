@@ -1,3 +1,8 @@
+/*consultation des factures 
+ * chercher les factures selon le ID , le IDRH, ou les facture d'un jour précis
+ * les factures sont immodifiables 
+ * on ne peut donc pas les supprimer ou créer sans passer la commande 
+ */
 package GUI;
 
 import static Main.main.changeLNF;
@@ -49,6 +54,9 @@ public class facture_GUI extends JPanel{
     monTableau tabFacture;
     DefaultTableModel modelTabFacture;
 
+    /*
+     * création l'interface
+     */
     private void addControls() {
         Font font = new Font("Tahoma", Font.PLAIN, 18);
 
@@ -152,7 +160,9 @@ public class facture_GUI extends JPanel{
         this.add(scrtabFacture, BorderLayout.CENTER);
         loadTabFacture();
  }
-    
+    /*
+     * lier des événements aves des procédures
+     */
     private void addEvents() {
         btnReset.addActionListener(new ActionListener() {
             @Override
@@ -217,12 +227,18 @@ public class facture_GUI extends JPanel{
 
     }
 
+    /*
+     * charger la liste de factures 
+     */
     private void loadTabFacture() {
         ArrayList<commande> liste = factureBUS.getListeFacture();
         System.out.print(liste);
         addTabFacture(liste);
     }
 
+    /*
+     * afficher le tableau de factures
+     */
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	private void addTabFacture(ArrayList<commande> list) {
     	
@@ -243,13 +259,17 @@ public class facture_GUI extends JPanel{
         
     }
 
-   
+   /*
+    * filtrer le tableau de factures selon le ID facture , le numéro IDRH et la date 
+    */
     private void traiteRechercheFacture() {
         ArrayList<commande> liste = factureBUS.rechercheFacture(txtIdCmd.getText(),txtIDRH.getText(),txtDate.getText());
         addTabFacture(liste);
     }
 
-
+    /*
+     * recharger la page
+     */
     private void loadPage() {
     	loadTabFacture();
         txtIdCmd.setText("");

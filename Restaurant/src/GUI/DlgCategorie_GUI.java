@@ -1,3 +1,7 @@
+/*
+ * Gestion des catégories 
+ * Consulter , ajouter ou supprimer les catégories 
+ */
 package GUI;
 
 import java.awt.Dimension;
@@ -10,8 +14,8 @@ import javax.swing.table.DefaultTableModel;
 import BUS.categorie_BUS;
 import Custom.monDialogue;
 import Custom.monTableau;
-import DTO.categorie;
 
+@SuppressWarnings("serial")
 public class DlgCategorie_GUI extends javax.swing.JDialog {
 	 	private DefaultTableModel tabModelCategorie;
 	 	

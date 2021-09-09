@@ -168,7 +168,7 @@ public class employe_DAO {
 				/*
 				 * Requete select where et exécution
 				 */	
-				sql = "SELECT * FROM employe WHERE Nom like '%"+nomRecherche+"%'";
+				sql = "SELECT * FROM employe WHERE Statut = 1 AND Nom like '%"+nomRecherche+"%'";
 				recherche = cnx.prepareStatement(sql);
 				
 				ResultSet rs = recherche.executeQuery();
