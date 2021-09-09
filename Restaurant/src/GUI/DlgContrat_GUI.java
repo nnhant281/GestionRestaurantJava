@@ -8,6 +8,8 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -26,18 +28,20 @@ import javax.swing.table.DefaultTableModel;
 
 import BUS.categorie_BUS;
 import BUS.typeContrat_BUS;
+import Custom.ConvertStringToInt;
 import Custom.monButton;
 import Custom.monDialogue;
 import Custom.monTableau;
+import DAO.typeContrat_DAO;
 import DTO.contratModele;
+import DTO.employeModele;
 
-public class DlgContrat_GUI {
+@SuppressWarnings("serial")
+public class DlgContrat_GUI extends JDialog {
 	
 	private DefaultTableModel model;
 	private JTable table;
 	private JLabel titre;
-	private JFrame frame;
-	private Container cprincipal;
 	private JPanel panelCenter, panelButtons, panelRemplir, panelTitre;
 	private JLabel typeContrat;
 	private JTextField txtTypeContrat;
@@ -48,6 +52,7 @@ public class DlgContrat_GUI {
 	
 	
 	typeContrat_BUS typeContratBUS = new typeContrat_BUS();
+	typeContrat_DAO typeContratDAO = new typeContrat_DAO();
 	Font f = new Font("TimesRoman", Font.BOLD, 18);
 	
 	
@@ -58,17 +63,36 @@ public class DlgContrat_GUI {
 	
 	private void addComponents() {
 		
+		/*
 		frame = new JFrame("Mon application");		
 		cprincipal = frame.getContentPane();	
-		panelCenter = new JPanel();
+	
 		cprincipal.add(panelCenter);
 		frame.setBackground(Color.ORANGE);
+		frame.setLocationRelativeTo(null);
+		frame.setLocation(new Point(0, 0));
+		frame.setVisible(true);	
+		frame.pack();
 		
+		*/
 		
+		/*
+        ============================================================
+                         		TITRE
+        ============================================================
+         */
+		panelCenter = new JPanel();
+		this.add(panelCenter);
 		panelTitre = new JPanel();
 		titre  = new JLabel("Gestion des types de contrat");
 		titre.setFont(f);
 		panelTitre.add(titre);
+			
+		/*
+        ============================================================
+                         CREATION DE LA TABLE
+        ============================================================
+         */
 		
 		table = new monTableau();
 		model = new DefaultTableModel();
@@ -82,20 +106,13 @@ public class DlgContrat_GUI {
 		pane.getViewport().setBackground(new Color(250, 240, 230));
 		loadTabTypeContrat();
 		
-		
-		
-		panelCenter.setLayout(new BoxLayout(panelCenter, BoxLayout.Y_AXIS));
-		panelCenter.add(panelTitre);
-		panelCenter.add(pane);
-		frame.setLocationRelativeTo(null);
-		frame.setLocation(new Point(0, 0));
-		
-
-		frame.setVisible(true);	
-		frame.pack();
-		
+		/*
+        ============================================================
+                        CREATION DES BUTTONS
+        ============================================================
+         */
 		panelButtons = new JPanel();
-	
+
 		iconAjoute = new ImageIcon(new ImageIcon("images/Buttons/ajoute.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
 		iconSupprimer = new ImageIcon(new ImageIcon("images/Buttons/supprime.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
 		btnAjouter = new monButton("Ajouter", iconAjoute);
@@ -104,20 +121,39 @@ public class DlgContrat_GUI {
 		panelButtons.setLayout(new FlowLayout());
 		panelButtons.add(btnAjouter);
 		panelButtons.add(btnSupprimer);
+				
+		/*
+        ============================================================
+                       CREATION PANEL 0 REMPLIR
+        ============================================================
+         */
 		
+		panelRemplir = new JPanel();		
+		panelRemplir.setLayout(new FlowLayout());
 		
 		typeContrat = new JLabel("Libellé du type contrat");
 		txtTypeContrat = new JTextField("", 15);
 		
-		panelRemplir = new JPanel();
-		panelRemplir.setLayout(new FlowLayout());
+	
 		panelRemplir.add(typeContrat);
 		panelRemplir.add(txtTypeContrat);
 		
+		/*
+        ============================================================
+                     COMPOSANTS DU PANEL CENTER
+        ============================================================
+         */
 		
+		panelCenter.setLayout(new BoxLayout(panelCenter, BoxLayout.Y_AXIS));
+		panelCenter.add(panelTitre);
+		panelCenter.add(table);
 		panelCenter.add(panelRemplir);
-		panelCenter.add(panelButtons);
+		panelCenter.add(panelButtons);	
 		
+		
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
+		this.pack();
 	}
 	
 	public void addEvents() {
@@ -126,6 +162,37 @@ public class DlgContrat_GUI {
 			@Override
 	    	public void actionPerformed(ActionEvent e) {
 				traiteAjouteTypeContrat();
+	        }
+		});
+		
+		btnSupprimer.addActionListener(new ActionListener() {
+			@Override
+	    	public void actionPerformed(ActionEvent e) {
+				traiteSupprimerTypeContrat();
+	        }
+		});
+		
+		table.addMouseListener(new MouseListener() {
+			
+			 @Override
+	            public void mouseClicked(MouseEvent e) {
+				 	tabTypeContratClique();
+	            }
+
+	            @Override
+	            public void mousePressed(MouseEvent e) {
+	            }
+
+	            @Override
+	            public void mouseReleased(MouseEvent e) {
+	            }
+
+	            @Override
+	            public void mouseEntered(MouseEvent e) {
+	            }
+
+	            @Override
+	            public void mouseExited(MouseEvent e) {	            
 	        }
 		});
 		
@@ -156,13 +223,44 @@ public class DlgContrat_GUI {
 	    if (monDialogue.OK_OPTION == dlg.getAction()) {
 			if(typeContratBUS.ajouterTypeContrat(typeContrat)){
 				loadTabTypeContrat();
-				resetPage();
 				new monDialogue(typeContrat+" a été ajouté!!!", monDialogue.INFO_DIALOG);
-			}				    	
+			}
+			resetPage();
 	    }			   	
     }
+    
+    private void traiteSupprimerTypeContrat() {
+		
+		int indice = table.getSelectedRow();	
+		
+		String typeContratASupprimer=model.getValueAt(indice, 0).toString();
+	
+		monDialogue dlg1 = new monDialogue("Voulez-vous supprimer cet employé ?", monDialogue.WARNING_DIALOG);
+		    if (monDialogue.OK_OPTION == dlg1.getAction()) {		
+				if (typeContratBUS.supprimerTypeContrat(typeContratASupprimer)) {
+					loadTabTypeContrat();
+					resetPage();		
+				}	    	
+		    }		
+		}	
     
     public void resetPage() {
     	txtTypeContrat.setText("");  	
     }
+    
+    private void tabTypeContratClique() {
+    	
+		ArrayList<contratModele> listeTypeContrat = typeContratBUS.getNouveauListeTypeContrat();
+		int indice = table.getSelectedRow();	
+		String typeContrat = model.getValueAt(indice, 0).toString().toUpperCase();
+		
+		if (typeContrat.length() >0) {
+			for (contratModele contrat : listeTypeContrat) {
+				if (contrat.getTypeContrat().equals(typeContrat)) {
+					txtTypeContrat.setText(typeContrat);	
+					break;		
+				}
+			}				
+		}	
+	}
 }

@@ -10,7 +10,7 @@ import DTO.contratModele;
 public class typeContrat_DAO {
 	
 	 private static Connection conn = null;
-	 PreparedStatement insert, delete, select;
+	 PreparedStatement insert, delete, select, recherche;
 	 private String sql;
 	   
 	   //INITIER LA LISTE DES CONTRATS
@@ -67,11 +67,11 @@ public class typeContrat_DAO {
 	    
 	    //SUPPRIMER D'UN EMPLOYE
 	    
-	    public boolean supprimerTypeContrat(contratModele contrat) {	
+	    public boolean supprimerTypeContrat(String typeContrat) {	
 	        try {
 	        	conn = ConnexionBDD.getConnect() ;
 	        	
-	        	sql = "DELETE FROM type_contrat WHERE IDRH='"+contrat.getTypeContrat().toUpperCase()+"'";
+	        	sql = "DELETE FROM type_contrat WHERE Type_contrat='"+typeContrat.toUpperCase()+"'";
 				delete = conn.prepareStatement(sql);
 				delete.execute();	          
 	            return true;
@@ -85,5 +85,39 @@ public class typeContrat_DAO {
 	        	ConnexionBDD.getClose();
 	        }
 	        	return false;
-	    }	    
+	    }
+	    
+	    public boolean typeContratExiste(String typeContratRecherche) {
+	    	
+	    	boolean trouve = false;
+	    	try {
+	    		Connection cnx = ConnexionBDD.getConnect() ;	
+				/*
+				 * Requete select where et exécution
+				 */	
+				sql = "SELECT * FROM employe";
+				recherche = cnx.prepareStatement(sql);
+				
+				ResultSet rs = recherche.executeQuery();
+				
+				while (rs.next() && !trouve) {									
+					String typeContrat = rs.getString("Type_contrat");					
+					if (typeContrat.equals(typeContratRecherche)) {
+						trouve = true;										
+					}	
+				}
+				return trouve;	
+		    } catch (SQLException e) {
+	        	e.printStackTrace();
+	        	System.out.println("typeContratExiste-SQLException: " + e.getMessage());
+	        } catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("typeContratExiste-Exception: " + e.getMessage());
+			}finally {
+	        	ConnexionBDD.getClose();
+	        }
+	        	return false;    	
+	    }
+	    
+	    
 }

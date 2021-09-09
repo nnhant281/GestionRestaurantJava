@@ -31,7 +31,7 @@ public class mainGUI {
 		employe_GUI employe = new employe_GUI();
 		compte_GUI compte = new compte_GUI();
 		client_GUI client = new client_GUI();
-		moduleCA ca = new moduleCA();
+		chiffreAffaire_GUI ca = new chiffreAffaire_GUI();
 		facture_GUI facture = new facture_GUI();
 		table_GUI table = new table_GUI();
 		produit_GUI produit = new produit_GUI();

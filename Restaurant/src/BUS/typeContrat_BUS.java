@@ -60,15 +60,34 @@ public class typeContrat_BUS {
    	
    	//SUPPRIMER UN TYPE CONTRAT
 	
-  	public boolean supprimerEmploye (String typeContrat) {
+  	public boolean supprimerTypeContrat (String typeContrat) {
+  		
+  		boolean trouve = false;
+  		
   		
   		if (typeContrat.length() ==0) {
   			new monDialogue("Merci de choisir un type contrat  à supprimer!!!", monDialogue.ERROR_DIALOG); 
-  			return false;
+  			return trouve;
   		}
   		else {
-  			contratModele contrat = new contratModele(typeContrat);
-  			return (typeContratDAO.supprimerTypeContrat(contrat));
+  			if (typeContratExiste(typeContrat)) {
+  	  			return false;
+  	  		}
+  	  		else {
+  	  			return (typeContratDAO.supprimerTypeContrat(typeContrat));
+  	  		}			
   		}
-  	} 		
+  		
+  	}
+  	
+  	public boolean typeContratExiste(String typeContrat) {
+		
+  		boolean trouve = false;
+  						
+		if (typeContratDAO.typeContratExiste(typeContrat)) {
+			new monDialogue("Impossible de supprimer car ce type de contrat est associé à certains employés!!!", monDialogue.ERROR_DIALOG);
+			trouve = true;
+		}
+		return trouve;
+	}  	
 }

@@ -49,8 +49,6 @@ public class commande_GUI extends JPanel{
 	
 	public commande_GUI(compteModele user) {
 		this.user = user;
-		
-		JOptionPane.showMessageDialog(null, "commande"+user.getIdrh());
 		changeLNF("FlatLaf");
 		addControls();
         addEvents();
