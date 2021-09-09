@@ -26,7 +26,7 @@ public class chiffreAffaire_BUS {
     	
     }
     
-    public void lireListeClassement(String categorie ) {
+    public void lireListeClassement(String categorie) {
     	listeClassement = chiffreAffaireDAO.InitierListeClassement(categorie);
     }
     

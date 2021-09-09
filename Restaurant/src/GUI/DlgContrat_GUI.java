@@ -63,18 +63,6 @@ public class DlgContrat_GUI extends JDialog {
 	
 	private void addComponents() {
 		
-		/*
-		frame = new JFrame("Mon application");		
-		cprincipal = frame.getContentPane();	
-	
-		cprincipal.add(panelCenter);
-		frame.setBackground(Color.ORANGE);
-		frame.setLocationRelativeTo(null);
-		frame.setLocation(new Point(0, 0));
-		frame.setVisible(true);	
-		frame.pack();
-		
-		*/
 		
 		/*
         ============================================================
