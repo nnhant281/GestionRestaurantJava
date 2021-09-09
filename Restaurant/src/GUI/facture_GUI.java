@@ -161,30 +161,6 @@ public class facture_GUI extends JPanel{
             }
         });
 
-        tabFacture.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                CliqueTabFacture();
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
-        
-    
         
         txtIdCmd.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -267,15 +243,7 @@ public class facture_GUI extends JPanel{
         
     }
 
-    private void CliqueTabFacture() {
-        int row = tabFacture.getSelectedRow();
-        if (row > -1) {
-            txtIdCmd.setText(tabFacture.getValueAt(row, 0) + "");
-            txtIDRH.setText(tabFacture.getValueAt(row, 1) + "");
-            txtDate.setText(tabFacture.getValueAt(row, 2) + "");
-        }
-    }
-
+   
     private void traiteRechercheFacture() {
         ArrayList<commande> liste = factureBUS.rechercheFacture(txtIdCmd.getText(),txtIDRH.getText(),txtDate.getText());
         addTabFacture(liste);
