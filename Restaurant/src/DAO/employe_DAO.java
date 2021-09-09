@@ -26,7 +26,7 @@ public class employe_DAO {
 	    	ArrayList<employeModele> listeEmploye = new ArrayList<employeModele>();
 	    	
 	        try {
-	            String sql = "SELECT * FROM employe";
+	            String sql = "SELECT * FROM employe WHERE statut = 1 ";
 	            conn = ConnexionBDD.getConnect() ;	
 	            select = conn.prepareStatement(sql);
 	            ResultSet rs = select.executeQuery();
@@ -44,7 +44,7 @@ public class employe_DAO {
 	            	employe.setDateFin(rs.getDate(9));	            	
 	            	employe.setDureeHebdo(rs.getString(10));	            	
 	            	employe.setEmploi(rs.getString(11));
-	            	
+	            	employe.setStatut(rs.getInt(12));
 	            	listeEmploye.add(employe);
 	            }
 	            return listeEmploye;
@@ -83,6 +83,7 @@ public class employe_DAO {
 	 			insert.setDate(8, dateFin);		
 	 			insert.setString(9, employe.getDureeHebdo());
 	 			insert.setString(10, employe.getEmploi());		
+	 			insert.setInt(11,employe.getStatut());
 	 			
 	 			insert.executeUpdate();			
 	 			return true;

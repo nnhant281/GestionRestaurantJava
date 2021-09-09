@@ -15,6 +15,7 @@ public class employeModele {
 	private String dureeHebdo;
 	private String emploi;
 	private int iDRH;
+	private int statut = 1;
 
 	
 	public employeModele() {
@@ -137,4 +138,14 @@ public class employeModele {
 	public void setIDRH(int iDRH) {
 		this.iDRH = iDRH;
 	}
+
+	public int getStatut() {
+		return statut;
+	}
+
+	public void setStatut(int statut) {
+		this.statut = statut;
+	}
+	
+	
 }

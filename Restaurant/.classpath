@@ -16,12 +16,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/nnhan281/Desktop/jcommon-1.0.23.jar">
+	<classpathentry kind="lib" path="C:/Users/Bao binh/Downloads/jcommon-1.0.23.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/nnhan281/Desktop/jfreechart.jar">
+	<classpathentry kind="lib" path="C:/Users/Bao binh/Downloads/jfreechart.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

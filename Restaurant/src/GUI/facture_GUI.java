@@ -86,7 +86,7 @@ public class facture_GUI extends JPanel{
 
         txtIdCmd = new JTextField(20);
         txtIDRH = new JTextField(20);
-        txtDate = new JTextField(20);
+        txtDate = new JTextField("01/01/2020",20);
         
         txtIdCmd.setFont(font);
         txtIDRH.setFont(font);

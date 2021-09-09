@@ -191,7 +191,7 @@ public class client_GUI extends JPanel{
         JLabel lblRecherche = new JLabel("Recherche");
         lblRecherche.setFont(font);
         new JTextField("Recherche par libellé...",20);
-        txtCleRecherche = new JTextField("par nom, prénom, tel ou email",12);
+        txtCleRecherche = new JTextField("par nom, prénom, tel ou email",20);
         txtCleRecherche.setFont(font);
         panelRecherche.add(lblRecherche);
         panelRecherche.add(txtCleRecherche);

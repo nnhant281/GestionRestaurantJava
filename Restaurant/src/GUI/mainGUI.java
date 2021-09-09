@@ -50,7 +50,7 @@ public class mainGUI extends javax.swing.JFrame{
 		tabs.addTab("Table", table);
 		tabs.addTab("Facture", facture);
 		tabs.addTab("Client", client);
-		tabs.addTab("Employe",employe);
+		tabs.addTab("Employé",employe);
 		tabs.addTab("Produit",produit);
 		tabs.addTab("Chiffre d'affaire",ca);
 		tabs.addTab("Compte",compte);
@@ -76,6 +76,9 @@ public class mainGUI extends javax.swing.JFrame{
 		}
 	}
 	
+	/*
+	 * recharger la frame qui contient tous les paneaux 
+	 */
 	public static void loadPage() {
 		employe = new employe_GUI();
 		compte = new compte_GUI();
@@ -91,7 +94,7 @@ public class mainGUI extends javax.swing.JFrame{
 		title.add("Table");
 		title.add("Facture");
 		title.add("Client");
-		title.add("Emploiée");
+		title.add("Employé");
 		title.add("Produit");
 		title.add("Chiffre d'affaire");
 		title.add("Compte");
