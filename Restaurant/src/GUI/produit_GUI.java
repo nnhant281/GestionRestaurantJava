@@ -495,7 +495,7 @@ public class produit_GUI extends JPanel{
             img = ImageIO.read(fileImg);
             fichierImg = new File(src);
         } catch (IOException e) {
-        	fichierImg = new File("imgs/anhthe/avatar.jpg");
+        	
         }
 
         if (img != null) {

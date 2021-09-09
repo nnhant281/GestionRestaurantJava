@@ -77,6 +77,15 @@ public class produitModele {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
+	
+
+	public int getValable() {
+		return valable;
+	}
+
+	public void setValable(int valable) {
+		this.valable = valable;
+	}
 
 	@Override
 	public String toString() {

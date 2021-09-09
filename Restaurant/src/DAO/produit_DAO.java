@@ -32,6 +32,7 @@ public class produit_DAO {
             	produit.setCategorie(rs.getString(3));
             	produit.setPrixUnitaire(rs.getFloat(4));
             	produit.setPhoto(rs.getString(5));
+            	produit.setValable(rs.getInt(6));
             	//ajouter le produit dans la liste de produits
             	listeProduit.add(produit);
             }
@@ -66,6 +67,7 @@ public class produit_DAO {
             	produit.setCategorie(rs.getString(3));
             	produit.setPrixUnitaire(rs.getFloat(4));
             	produit.setPhoto(rs.getString(5));
+            	produit.setValable(rs.getInt(6));
                 return produit;
             }
         } catch (SQLException e) {
@@ -98,6 +100,7 @@ public class produit_DAO {
             	produit.setCategorie(rs.getString(3));
             	produit.setPrixUnitaire(rs.getFloat(4));
             	produit.setPhoto(rs.getString(5));
+            	produit.setValable(rs.getInt(6));
             	//ajouter le produit dans la liste de produits
             	listeProduit.add(produit);
             }
@@ -144,13 +147,13 @@ public class produit_DAO {
     public boolean ajouteProduit(produitModele produitAjoute) {
         try {
         	conn = ConnexionBDD.getConnect() ;	
-            String sql = "INSERT INTO produit(Libelle, Libelle_categorie, Prix_unitaire,Photo) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO produit(Libelle, Libelle_categorie, Prix_unitaire,Photo,valable) VALUES (?, ?, ?, ?,?)";
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, produitAjoute.getLibelleProduit());
             pre.setString(2, produitAjoute.getCategorie());
             pre.setFloat(3, produitAjoute.getPrixUnitaire());
             pre.setString(4, produitAjoute.getPhoto());
-
+            pre.setInt(5, produitAjoute.getValable());
             pre.execute();
             return true;
         } catch (SQLException e) {
