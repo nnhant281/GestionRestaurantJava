@@ -424,7 +424,7 @@ public class produit_GUI extends JPanel{
 	    private void traiteAjouteProduit() {
 	    	String img = fichierImg.getName();
 	        System.out.println(fichierImg.getName());
-	        boolean flag = produitBUS.ajouteProduit(txtLibelleProduit.getText(),
+	        produitBUS.ajouteProduit(txtLibelleProduit.getText(),
 	        		(String)choixCategorie.getSelectedItem(),
 	                txtPrixUnitaire.getText(),
 	        		img);
@@ -438,7 +438,7 @@ public class produit_GUI extends JPanel{
 	
 	private void traiteModifProduit() {
         String img = fichierImg.getName();
-        boolean flag = produitBUS.majProduit(txtIdProduit.getText(),
+        produitBUS.majProduit(txtIdProduit.getText(),
                 txtLibelleProduit.getText(),
                 (String)choixCategorie.getSelectedItem(),
                 txtPrixUnitaire.getText(),
@@ -449,7 +449,8 @@ public class produit_GUI extends JPanel{
     }
 
     private void traiteSuppressionProduit() {
-        
+    	produitBUS.suppressionProduit(txtIdProduit.getText());
+    	resetPage();
     }
 	/*
 	 * enregister le fichier d'image 
