@@ -438,7 +438,7 @@ public class DlgSaisiePaiement_GUI extends javax.swing.JDialog {
         	monDialogue dlg = new monDialogue("La commande est factuée !", monDialogue.SUCCESS_DIALOG);
         	 if(dlg.getAction() == monDialogue.OK_OPTION) {
         		 this. setVisible(false);
-        		 cmdGUI.resetPage();
+        		 mainGUI.loadPage() ;
         	 }
         } else {
         	monDialogue dlg = new monDialogue("Il y a un erreur. La facturation est échue !", monDialogue.ERROR_DIALOG);

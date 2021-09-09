@@ -61,7 +61,6 @@ public class commande_GUI extends JPanel{
 		addControls();
         addEvents();
         resetPage();
-        loadTable(panelTable);
 	}
 	
 	private compteModele user = new compteModele();
@@ -259,7 +258,7 @@ public class commande_GUI extends JPanel{
 		btnAjoute.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	traiteAjouteArticle();
+            	traiteAjouteArticle(panelTable);
             }
         });
 		
@@ -309,6 +308,7 @@ public class commande_GUI extends JPanel{
 		JButton[] button = new JButton[tableList.size()];
         for(int i=0;i<tableList.size();i++)
         {
+        	
         	String status = null ;
             Color c;
             button[i] = new JButton() ;
@@ -322,6 +322,7 @@ public class commande_GUI extends JPanel{
                 default:
                 	c = new Color(255,102,102); // LIGHT_PINK
                 	status = "occup�e";
+                	
                     break;
             }
             button[i].setText("<html>"+(String)tableList.get(i).getLibelle()+"<br>"+status+ "</html>");
@@ -364,7 +365,7 @@ public class commande_GUI extends JPanel{
 	 /*
 	  * Ajouter un article dans une commande 
 	  */
-	 private void traiteAjouteArticle() {
+	 private void traiteAjouteArticle(JPanel panelTable) {
 		  if (choixArticle.getSelectedIndex()>0) {
 				 int IDRH = user.getIdrh();
 				 int idTable = Ecouteur.getIdTableClique();
@@ -378,6 +379,7 @@ public class commande_GUI extends JPanel{
 						 commandeBUS.creationCommande(IDRH, idTable, prix );
 						 detailCommandeBUS.addDetailCommande(commandeBUS.getIdDerniereCommande(),idProduit,prix);
 						 tableBUS.tableOccupee(idTable);
+						 loadTable(panelTable);
 					 }
 					 else {
 						 if(detailCommandeBUS.siCommandeContientProduit(idCommande,idProduit)>0) {
@@ -386,8 +388,10 @@ public class commande_GUI extends JPanel{
 							 detailCommandeBUS.addDetailCommande(idCommande,idProduit,prix);
 						 }
 						 commandeBUS.majMontantCommande(idCommande, prix);
+						 loadTable(panelTable);
 					 }
 					 showCommande(idTable);
+					 
 				 }
 				 
 		  }

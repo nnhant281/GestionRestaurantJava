@@ -152,7 +152,6 @@ public class commande_DAO {
         boolean result = false;
         try {
         	conn = ConnexionBDD.getConnect() ;	
-        	Statement st = conn.createStatement();
         	String sql = "INSERT INTO commande(IDRH,id_client, id_table, Date, Statut,Type_Commande, Total_TTC) VALUES(?, ?, ?, ?, ?, ?,?)";
             PreparedStatement prep = conn.prepareStatement(sql);
             prep.setInt(1, cmd.getIDRH());
@@ -162,18 +161,6 @@ public class commande_DAO {
             prep.setInt(5, cmd.getStatut());
             prep.setInt(6, cmd.getTypeCommande());
             prep.setFloat(7, cmd.getTotal());
-            /*String sql1 = "UPDATE client SET point+=" + (int)cmd.getTotal() + " WHERE ID_client=" + cmd.getIdClient();
-            Statement st = conn.createStatement();
-            st.executeUpdate(sql1);
-            String sql = "INSERT INTO commande(IDRH, id_client,id_table, Date, Statut,Type_Commande, Total_TTC) VALUES(?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement prep = conn.prepareStatement(sql);
-            prep.setInt(1, cmd.getIDRH());
-            prep.setInt(2, cmd.getIdClient());
-            prep.setInt(3, cmd.getIdTable());
-            prep.setTimestamp(4, new java.sql.Timestamp(new java.util.Date().getTime()));
-            prep.setInt(5, cmd.getStatut());
-            prep.setInt(6, cmd.getTypeCommande());
-            prep.setFloat(6, cmd.getTotal());*/
             result = prep.executeUpdate() > 0;
         } catch (SQLException ex) {
         	ex.printStackTrace();

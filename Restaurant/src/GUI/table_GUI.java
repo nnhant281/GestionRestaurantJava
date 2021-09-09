@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -176,6 +177,7 @@ public class table_GUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 loadPage();
+                mainGUI.loadPage() ;
             }
         });
 
@@ -206,6 +208,7 @@ public class table_GUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 traiteAjouteTable();
+                mainGUI.loadPage() ;
             }
         });
 
@@ -213,6 +216,7 @@ public class table_GUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 traiteModifTable();
+                mainGUI.loadPage() ;
             }
         });
         
@@ -220,6 +224,7 @@ public class table_GUI extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 traiteSuppTable();
+                mainGUI.loadPage() ;
             }
         });
 
