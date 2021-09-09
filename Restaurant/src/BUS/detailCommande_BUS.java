@@ -22,7 +22,7 @@ public class detailCommande_BUS {
         return listeDetailCommande;
     }
     
-    public boolean siCommandeContientProduit(int idCmd,int idProduit) {
+    public int siCommandeContientProduit(int idCmd,int idProduit) {
     	return detailCmdDAO.siCommandeContientProduit(idCmd,idProduit);
     }
 
@@ -44,7 +44,12 @@ public class detailCommande_BUS {
     }
     
     public void plusUnAProduitExistantACommande(int idCommande,int idProduit) {
-        detailCommande produit = new detailCommande(idCommande, idProduit);
+    	int quantite = siCommandeContientProduit(idCommande,idProduit);
+        detailCommande produit = new detailCommande(idCommande, idProduit, quantite);
         detailCmdDAO.plusUnAProduitExistantACommande(produit);
+    }
+    
+    public boolean enleverProduitDeCommande(int idCmd, int idProduit) {
+    	return detailCmdDAO.enleverProduitDeCommande(idCmd,idProduit) ;
     }
 }

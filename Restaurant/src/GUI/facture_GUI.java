@@ -43,246 +43,246 @@ public class facture_GUI extends JPanel{
 	
 	private facture_BUS factureBUS = new facture_BUS();
 	
-	 final Color colorPanel = new Color(247, 247, 247);
-	    JTextField txtIdCmd, txtIDRH, txtDate;
-	    JButton  btnReset;
-	    monTableau tabFacture;
-	    DefaultTableModel modelTabFacture;
+	final Color colorPanel = new Color(247, 247, 247);
+    JTextField txtIdCmd, txtIDRH, txtDate;
+    JButton  btnReset;
+    monTableau tabFacture;
+    DefaultTableModel modelTabFacture;
 
-	    private void addControls() {
-	        Font font = new Font("Tahoma", Font.PLAIN, 20);
+    private void addControls() {
+        Font font = new Font("Tahoma", Font.PLAIN, 20);
 
-	        this.setLayout(new BorderLayout());
-	        this.setBackground(colorPanel);
-	        
-	        /*
-	        =========================================================================
-	                                    PANEL FACTURE
-	        =========================================================================
-	         */
-	        JPanel panelFacture = new transparentPanel();
-	        panelFacture.setLayout(new BoxLayout(panelFacture, BoxLayout.Y_AXIS));
+        this.setLayout(new BorderLayout());
+        this.setBackground(colorPanel);
+        
+        /*
+        =========================================================================
+                                    PANEL FACTURE
+        =========================================================================
+         */
+        JPanel panelFacture = new transparentPanel();
+        panelFacture.setLayout(new BoxLayout(panelFacture, BoxLayout.Y_AXIS));
 
-	        JPanel panelTop = new transparentPanel();
-	        panelTop.setLayout(new BoxLayout(panelTop, BoxLayout.Y_AXIS));
+        JPanel panelTop = new transparentPanel();
+        panelTop.setLayout(new BoxLayout(panelTop, BoxLayout.Y_AXIS));
 
-	        JPanel pnTitle = new transparentPanel();
-	        JLabel lblTitle = new JLabel("<html><h1>Gestion de factures</h1></html>");
-	        pnTitle.add(lblTitle);
-	        panelTop.add(pnTitle);
+        JPanel pnTitle = new transparentPanel();
+        JLabel lblTitle = new JLabel("<html><h1>Gestion de factures</h1></html>");
+        pnTitle.add(lblTitle);
+        panelTop.add(pnTitle);
 
-	        //======PANEL TEXT FIELD=======
-	        JPanel pnTextField = new transparentPanel();
-	        pnTextField.setLayout(new BoxLayout(pnTextField, BoxLayout.Y_AXIS));
+        //======PANEL TEXT FIELD=======
+        JPanel pnTextField = new transparentPanel();
+        pnTextField.setLayout(new BoxLayout(pnTextField, BoxLayout.Y_AXIS));
 
-	        JLabel lblIdCmd, lblIDRH, lblDate;
-	        lblIdCmd = new JLabel("ID Commande");
-	        lblIDRH = new JLabel("IDRH caissier");
-	        lblDate = new JLabel("Date ");
+        JLabel lblIdCmd, lblIDRH, lblDate;
+        lblIdCmd = new JLabel("ID Commande");
+        lblIDRH = new JLabel("IDRH caissier");
+        lblDate = new JLabel("Date ");
 
-	        lblIdCmd.setFont(font);
-	        lblIDRH.setFont(font);
-	        lblDate.setFont(font);
+        lblIdCmd.setFont(font);
+        lblIDRH.setFont(font);
+        lblDate.setFont(font);
 
-	        txtIdCmd = new JTextField(20);
-	        txtIDRH = new JTextField(20);
-	        txtDate = new JTextField(20);
-	        
-	        txtIdCmd.setFont(font);
-	        txtIDRH.setFont(font);
-	        txtDate.setFont(font);
+        txtIdCmd = new JTextField(20);
+        txtIDRH = new JTextField(20);
+        txtDate = new JTextField(20);
+        
+        txtIdCmd.setFont(font);
+        txtIDRH.setFont(font);
+        txtDate.setFont(font);
 
-	        JPanel panelCmd = new transparentPanel();
-	        panelCmd.add(lblIdCmd);
-	        panelCmd.add(txtIdCmd);
-	        pnTextField.add(panelCmd);
+        JPanel panelCmd = new transparentPanel();
+        panelCmd.add(lblIdCmd);
+        panelCmd.add(txtIdCmd);
+        pnTextField.add(panelCmd);
 
-	        JPanel panelIDRH = new transparentPanel();
-	        panelIDRH.add(lblIDRH);
-	        panelIDRH.add(txtIDRH);
-	        pnTextField.add(panelIDRH);
+        JPanel panelIDRH = new transparentPanel();
+        panelIDRH.add(lblIDRH);
+        panelIDRH.add(txtIDRH);
+        pnTextField.add(panelIDRH);
 
-	        JPanel panelDate = new transparentPanel();
-	        panelDate.add(lblDate);
-	        panelDate.add(txtDate);
-	        pnTextField.add(panelDate);
+        JPanel panelDate = new transparentPanel();
+        panelDate.add(lblDate);
+        panelDate.add(txtDate);
+        pnTextField.add(panelDate);
 
-	        Dimension lblSize = lblIDRH.getPreferredSize();
-	        lblIdCmd.setPreferredSize(lblSize);
-	        lblIDRH.setPreferredSize(lblSize);
-	        lblDate.setPreferredSize(lblSize);
+        Dimension lblSize = lblIDRH.getPreferredSize();
+        lblIdCmd.setPreferredSize(lblSize);
+        lblIDRH.setPreferredSize(lblSize);
+        lblDate.setPreferredSize(lblSize);
 
 
-	        panelTop.add(pnTextField);
-	        panelFacture.add(panelTop);
-	        
-	        //===============PANEL BUTTON=============
-	        JPanel pnButton = new transparentPanel();
-	        ImageIcon iconReset = new ImageIcon(new ImageIcon("images/Buttons/reset.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        panelTop.add(pnTextField);
+        panelFacture.add(panelTop);
+        
+        //===============PANEL BUTTON=============
+        JPanel pnButton = new transparentPanel();
+        ImageIcon iconReset = new ImageIcon(new ImageIcon("images/Buttons/reset.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
 
-			btnReset = new monButton("RÃ©initialiser", iconReset);
-	        Font fontButton = new Font("Tahoma", Font.PLAIN, 16);
+		btnReset = new monButton("RÃ©initialiser", iconReset);
+        Font fontButton = new Font("Tahoma", Font.PLAIN, 16);
 
-	        btnReset.setFont(fontButton);
-	        panelFacture.add(pnButton);
+        btnReset.setFont(fontButton);
+        panelFacture.add(pnButton);
 
-	        pnButton.add(btnReset);
+        pnButton.add(btnReset);
 
-	        btnReset.setPreferredSize(new Dimension(160,40));
+        btnReset.setPreferredSize(new Dimension(160,40));
 
-	        
-	        //=========================TABLEAU=====================
-	        modelTabFacture = new DefaultTableModel();
-	        modelTabFacture.addColumn("ID commande");
-	        modelTabFacture.addColumn("ID employée");
-	        modelTabFacture.addColumn("ID client");
-	        modelTabFacture.addColumn("ID table");
-	        modelTabFacture.addColumn("Date");
-	        modelTabFacture.addColumn("Type commande");
-	        modelTabFacture.addColumn("Montant");
+        
+        //=========================TABLEAU=====================
+        modelTabFacture = new DefaultTableModel();
+        modelTabFacture.addColumn("ID commande");
+        modelTabFacture.addColumn("ID employée");
+        modelTabFacture.addColumn("ID client");
+        modelTabFacture.addColumn("ID table");
+        modelTabFacture.addColumn("Date");
+        modelTabFacture.addColumn("Type commande");
+        modelTabFacture.addColumn("Montant");
 
-	        tabFacture = new monTableau();
-	        tabFacture.setModel(modelTabFacture);
-	        
-	        JScrollPane scrtabFacture = new JScrollPane(tabFacture);
+        tabFacture = new monTableau();
+        tabFacture.setModel(modelTabFacture);
+        
+        JScrollPane scrtabFacture = new JScrollPane(tabFacture);
 
-	        this.add(panelFacture, BorderLayout.NORTH);
-	        this.add(scrtabFacture, BorderLayout.CENTER);
-	        loadTabFacture();
-	 }
-	    
-	    private void addEvents() {
-	        btnReset.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent e) {
-	                loadPage();
-	            }
-	        });
+        this.add(panelFacture, BorderLayout.NORTH);
+        this.add(scrtabFacture, BorderLayout.CENTER);
+        loadTabFacture();
+ }
+    
+    private void addEvents() {
+        btnReset.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadPage();
+            }
+        });
 
-	        tabFacture.addMouseListener(new MouseListener() {
-	            @Override
-	            public void mouseClicked(MouseEvent e) {
-	                CliqueTabFacture();
-	            }
+        tabFacture.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                CliqueTabFacture();
+            }
 
-	            @Override
-	            public void mousePressed(MouseEvent e) {
-	            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
 
-	            @Override
-	            public void mouseReleased(MouseEvent e) {
-	            }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
 
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
 
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	            }
-	        });
-	        
-	    
-	        
-	        txtIdCmd.getDocument().addDocumentListener(new DocumentListener() {
-	            @Override
-	            public void insertUpdate(DocumentEvent e) {
-	            	traiteRechercheFacture();
-	            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
+        
+    
+        
+        txtIdCmd.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+            	traiteRechercheFacture();
+            }
 
-	            @Override
-	            public void removeUpdate(DocumentEvent e) {
-	            	traiteRechercheFacture();
-	            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+            	traiteRechercheFacture();
+            }
 
-	            @Override
-	            public void changedUpdate(DocumentEvent e) {
-	            	traiteRechercheFacture();
-	            }
-	        });
-	        
-	        txtIDRH.getDocument().addDocumentListener(new DocumentListener() {
-	            @Override
-	            public void insertUpdate(DocumentEvent e) {
-	            	traiteRechercheFacture();
-	            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            	traiteRechercheFacture();
+            }
+        });
+        
+        txtIDRH.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+            	traiteRechercheFacture();
+            }
 
-	            @Override
-	            public void removeUpdate(DocumentEvent e) {
-	            	traiteRechercheFacture();
-	            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+            	traiteRechercheFacture();
+            }
 
-	            @Override
-	            public void changedUpdate(DocumentEvent e) {
-	            	traiteRechercheFacture();
-	            }
-	        });
-	        
-	        
-	        txtDate.getDocument().addDocumentListener(new DocumentListener() {
-	            @Override
-	            public void insertUpdate(DocumentEvent e) {
-	            	traiteRechercheFacture();
-	            }
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            	traiteRechercheFacture();
+            }
+        });
+        
+        
+        txtDate.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+            	traiteRechercheFacture();
+            }
 
-	            @Override
-	            public void removeUpdate(DocumentEvent e) {
-	            	traiteRechercheFacture();
-	            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+            	traiteRechercheFacture();
+            }
 
-	            @Override
-	            public void changedUpdate(DocumentEvent e) {
-	            	traiteRechercheFacture();
-	            }
-	        });
-	        
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            	traiteRechercheFacture();
+            }
+        });
+        
 
-	    }
+    }
 
-	    private void loadTabFacture() {
-	        ArrayList<commande> liste = factureBUS.getListeFacture();
-	        System.out.print(liste);
-	        addTabFacture(liste);
-	    }
+    private void loadTabFacture() {
+        ArrayList<commande> liste = factureBUS.getListeFacture();
+        System.out.print(liste);
+        addTabFacture(liste);
+    }
 
-	    @SuppressWarnings({ "unchecked", "rawtypes" })
-		private void addTabFacture(ArrayList<commande> list) {
-	    	
-	        modelTabFacture.setRowCount(0);
-	        if (list != null) {
-	        	for (commande c : list) {
-		            Vector vec = new Vector();
-		            vec.add(c.getIdCommande());
-		            vec.add(c.getIDRH());
-		            vec.add(c.getIdClient());
-		            vec.add(c.getIdTable());
-		            vec.add(c.getDate());
-		            vec.add(c.getTypeCommande());
-		            vec.add(c.getTotal());
-		            modelTabFacture.addRow(vec);
-		        }
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	private void addTabFacture(ArrayList<commande> list) {
+    	
+        modelTabFacture.setRowCount(0);
+        if (list != null) {
+        	for (commande c : list) {
+	            Vector vec = new Vector();
+	            vec.add(c.getIdCommande());
+	            vec.add(c.getIDRH());
+	            vec.add(c.getIdClient());
+	            vec.add(c.getIdTable());
+	            vec.add(c.getDate());
+	            vec.add(c.getTypeCommande());
+	            vec.add(c.getTotal());
+	            modelTabFacture.addRow(vec);
 	        }
-	        
-	    }
+        }
+        
+    }
 
-	    private void CliqueTabFacture() {
-	        int row = tabFacture.getSelectedRow();
-	        if (row > -1) {
-	            txtIdCmd.setText(tabFacture.getValueAt(row, 0) + "");
-	            txtIDRH.setText(tabFacture.getValueAt(row, 1) + "");
-	            txtDate.setText(tabFacture.getValueAt(row, 2) + "");
-	        }
-	    }
+    private void CliqueTabFacture() {
+        int row = tabFacture.getSelectedRow();
+        if (row > -1) {
+            txtIdCmd.setText(tabFacture.getValueAt(row, 0) + "");
+            txtIDRH.setText(tabFacture.getValueAt(row, 1) + "");
+            txtDate.setText(tabFacture.getValueAt(row, 2) + "");
+        }
+    }
 
-	    private void traiteRechercheFacture() {
-	        ArrayList<commande> liste = factureBUS.rechercheFacture(txtIdCmd.getText(),txtIDRH.getText(),txtDate.getText());
-	        addTabFacture(liste);
-	    }
+    private void traiteRechercheFacture() {
+        ArrayList<commande> liste = factureBUS.rechercheFacture(txtIdCmd.getText(),txtIDRH.getText(),txtDate.getText());
+        addTabFacture(liste);
+    }
 
 
-	    private void loadPage() {
-	    	loadTabFacture();
-	        txtIdCmd.setText("");
-	        txtDate.setText("");
-	    }
+    private void loadPage() {
+    	loadTabFacture();
+        txtIdCmd.setText("");
+        txtDate.setText("");
+    }
 }

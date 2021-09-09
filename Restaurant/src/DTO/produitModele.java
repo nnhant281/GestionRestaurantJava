@@ -6,6 +6,7 @@ public class produitModele {
 	private String categorie;
 	private float prixUnitaire;
 	private String photo;
+	private int valable = 1;
 	
 	public produitModele() {
 		

@@ -142,7 +142,7 @@ public class client_DAO {
     /*
      * misa à jour le point de client 
      */
-    public boolean majPoint(int id, int point ) {
+    public boolean majPoint(int id, float point ) {
         boolean result = false;
         try {
         	conn = ConnexionBDD.getConnect() ;

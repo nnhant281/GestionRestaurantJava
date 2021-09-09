@@ -38,6 +38,17 @@ public class commande_BUS {
     	return cmdDAO.majMontantCommande(idCmd, prix) ;
     }
     
+    public commande getCommandeParIDCommande(int idCmd) {
+    	return cmdDAO.getCommandeParIDCommande(idCmd);
+    }
+    
+    public boolean saisieIdClientALaCommande(int idCmd, int idClient) {
+    	return cmdDAO.saisieIdClientALaCommande(idCmd,idClient);
+    }
+    
+    public boolean commandePayee(int idCmd) {
+    	return cmdDAO.commandePayee(idCmd) ;
+    }
     
     public ArrayList<detailCommande> showCommandeDeTable(String idTable) {
         int id = Integer.parseInt(idTable);

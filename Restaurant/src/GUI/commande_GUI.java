@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,7 +25,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import BUS.table_BUS;
 import BUS.articleCommande_BUS;
@@ -33,6 +36,7 @@ import BUS.commande_BUS;
 import BUS.detailCommande_BUS;
 import BUS.produit_BUS;
 import Custom.monButton;
+import Custom.monDialogue;
 import Custom.monTableau;
 import Custom.transparentPanel;
 import DAO.commande_DAO;
@@ -62,6 +66,7 @@ public class commande_GUI extends JPanel{
 	private detailCommande_BUS detailCommandeBUS = new detailCommande_BUS();
 	final Color colorPanel = new Color(247, 247, 247);
 	JLabel titre,label;
+	JTextField txtMontant = new JTextField(10);;
 	JButton btnAjoute, btnSupp, btnPaie;
     monTableau tabDetail;
     DefaultTableModel modelTabDetail;
@@ -70,8 +75,7 @@ public class commande_GUI extends JPanel{
 	
 	private void addControls() {
 		
-		
-		
+		// ============ MODEL DE TABLE =========//
 		modelTabDetail = new DefaultTableModel();
 	    modelTabDetail.addColumn("ID ");
 	    modelTabDetail.addColumn("Libell�");
@@ -79,12 +83,17 @@ public class commande_GUI extends JPanel{
 	    modelTabDetail.addColumn("Prix");
 	    tabDetail = new monTableau();
 	    tabDetail.setModel(modelTabDetail);
+
+        TableColumnModel columnModel = tabDetail.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(30);
+        columnModel.getColumn(1).setPreferredWidth(50);
+        columnModel.getColumn(2).setPreferredWidth(80);
+        columnModel.getColumn(3).setPreferredWidth(80);
         
-		Font font = new Font("Tahoma", Font.PLAIN, 20);
+		Font font = new Font("Tahoma", Font.PLAIN, 18);
 
         this.setLayout(new BorderLayout());
         this.setBackground(colorPanel);
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		JPanel panelTop = new transparentPanel();
         panelTop.setLayout(new BoxLayout(panelTop, BoxLayout.Y_AXIS));
@@ -94,10 +103,10 @@ public class commande_GUI extends JPanel{
         pnTitle.add(titre);
         panelTop.add(pnTitle);
         
-        this.add(panelTop);
+        this.add(panelTop,BorderLayout.NORTH);
         
         JPanel panelRemplir= new transparentPanel();
-        panelRemplir.setLayout(new BoxLayout(panelRemplir, BoxLayout.X_AXIS));
+        panelRemplir.setLayout(new GridLayout(1,2, 5, 5));
         
         //================PANEL TABLE=========
         ArrayList<table> tableList = tableBUS.getlisteTable();
@@ -116,7 +125,7 @@ public class commande_GUI extends JPanel{
 		 */
         
         JPanel panelDetail= new transparentPanel();
-        panelDetail.setLayout(new BoxLayout(panelDetail, BoxLayout.Y_AXIS));
+        panelDetail.setLayout(new BorderLayout());
         
       //================PANEL AJOUTER =========
         JPanel pnAjoute = new transparentPanel();
@@ -136,13 +145,12 @@ public class commande_GUI extends JPanel{
         
         choixCategorie.setFont(font);
         choixArticle.setFont(font);
+
+        lblCategorie.setPreferredSize(new Dimension (80,30));
+        lblArticle.setPreferredSize(new Dimension (80,30));
         
-        Dimension lblSize = lblCategorie.getPreferredSize();
-        lblCategorie.setPreferredSize(lblSize);
-        lblArticle.setPreferredSize(lblSize);
-        
-        choixCategorie.setPreferredSize( new Dimension( 400, 30 ) );
-        choixArticle.setPreferredSize( new Dimension( 400, 30 ) );
+        choixCategorie.setPreferredSize( new Dimension( 250, 30 ) );
+        choixArticle.setPreferredSize( new Dimension( 250, 30 ) );
         
         JPanel pnCategorie = new transparentPanel();
         pnCategorie.add(lblCategorie);
@@ -171,7 +179,7 @@ public class commande_GUI extends JPanel{
 		pnBtnAjoute.add(btnAjoute);
 		pnAjoute.add(pnBtnAjoute);
 		
-		panelDetail.add(pnAjoute);
+		panelDetail.add(pnAjoute,BorderLayout.NORTH);
         
         
       //================PANEL TABLE=========
@@ -180,19 +188,25 @@ public class commande_GUI extends JPanel{
 
         
         JScrollPane scrtabDetail = new JScrollPane(tabDetail);
-        panelDetail.add(scrtabDetail);
+        panelDetail.add(scrtabDetail,BorderLayout.CENTER);
 
+      //========= PANEL BAS  ==========//
+        JPanel pnBas = new transparentPanel();
+        pnBas.setLayout(new BoxLayout(pnBas, BoxLayout.Y_AXIS));
         
         //========= TEXTE MONTANT ==========//
         JPanel pnText = new transparentPanel();
-        pnText.setLayout(new BoxLayout(pnText, BoxLayout.Y_AXIS));
         
-        JPanel pnLabel = new transparentPanel();
-        label = new JLabel("<html><h3>Montant </h3></html>");
-        pnLabel.add(label);
-        pnText.add(pnLabel);
+        label = new JLabel("<html><h3>Montant :</h3></html>");
         
-        panelDetail.add(pnText);
+        
+        txtMontant.setFont(font);
+        txtMontant.setHorizontalAlignment(SwingConstants.RIGHT);
+        pnText.add(label);
+        pnText.add(txtMontant);
+
+        
+        pnBas.add(pnText);
         
       //================PANEL BUTTON=========
         JPanel pnBtn = new transparentPanel();
@@ -213,10 +227,10 @@ public class commande_GUI extends JPanel{
         btnSupp.setSize(200,30);
         btnPaie.setSize(100,30);
         
-        
-        panelDetail.add(pnBtn);
+        pnBas.add(pnBtn);
+        panelDetail.add(pnBas,BorderLayout.SOUTH);
         panelRemplir.add(panelDetail);
-        this.add(panelRemplir);
+        this.add(panelRemplir,BorderLayout.CENTER);
         
         loadCategorie();
 	}
@@ -235,6 +249,19 @@ public class commande_GUI extends JPanel{
             	traiteAjouteArticle();
             }
         });
+		
+		btnPaie.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	cliqueBtnPaie(Ecouteur.getIdTableClique());
+            	showCommande(Ecouteur.getIdTableClique());
+            }
+        });
+	
+		EcouteurSupprimer es = new EcouteurSupprimer(tabDetail,txtMontant);
+		btnSupp.addActionListener(es);
+		
+		
 	}
 	private articleCommande_BUS articleCommandeBUS = new articleCommande_BUS();
 	
@@ -243,6 +270,7 @@ public class commande_GUI extends JPanel{
 		modelTabDetail.setRowCount(0);
         ArrayList<articleCommande> liste = new ArrayList<articleCommande> ();
         liste = articleCommandeBUS.getListeArticleParTable(idTable);
+        float montant = 0.f;
         for (articleCommande c : liste) {
             Vector vec = new Vector();
             vec.add(c.getIdArticle());
@@ -250,7 +278,10 @@ public class commande_GUI extends JPanel{
             vec.add(c.getQuantite());
             vec.add(c.getPrixUnit());
             modelTabDetail.addRow(vec);
+            montant +=  c.getQuantite() * c.getPrixUnit();
         } 
+        String m = Float.toString(montant);
+        txtMontant.setText(m);
 	}
 	
 	private void loadTable(JPanel panelTable) {
@@ -277,7 +308,7 @@ public class commande_GUI extends JPanel{
             button[i].setText("<html>"+(String)tableList.get(i).getLibelle()+"<br>"+status+ "</html>");
             button[i].setBackground(c);
             // Handler des actions avec les boutons Table
-            Ecouteur e = new Ecouteur(tableList.get(i).getId(),button[i],modelTabDetail);
+            Ecouteur e = new Ecouteur(tableList.get(i).getId(),button[i],modelTabDetail,txtMontant);
     		button[i].addActionListener(e);
     		
             panelTable.add(button[i]);
@@ -308,28 +339,45 @@ public class commande_GUI extends JPanel{
 	 
 	 private void traiteAjouteArticle() {
 		  if (choixArticle.getSelectedIndex()>0) {
-				 int IDRH = 1;
+				 int IDRH = user.getIdrh();
 				 int idTable = Ecouteur.getIdTableClique();
 				 float prix = ((produitModele)choixArticle.getSelectedItem()).getPrixUnitaire();
 				 int idProduit = ((produitModele)choixArticle.getSelectedItem()).getIdProduit();
-				 int idCommande = commandeBUS.getUncheckBillIDByTableID(idTable);
-				 if(idCommande == -1) {
-					 commandeBUS.creationCommande(IDRH, idTable, prix );
-					 detailCommandeBUS.addDetailCommande(commandeBUS.getIdDerniereCommande(),idProduit,prix);
-					 tableBUS.tableOccupee(idTable);
-				 }
-				 else {
-					 if(detailCommandeBUS.siCommandeContientProduit(idCommande,idProduit)) {
-						 detailCommandeBUS.plusUnAProduitExistantACommande(idCommande,idProduit);
-					 }else {
-						 detailCommandeBUS.addDetailCommande(idCommande,idProduit,prix);
+				 if(idTable <0) {
+					 monDialogue dlg = new monDialogue("Veuillez choisir la table !", monDialogue.ERROR_DIALOG);
+				 }else {
+					 int idCommande = commandeBUS.getUncheckBillIDByTableID(idTable);
+					 if(idCommande == -1) {
+						 commandeBUS.creationCommande(IDRH, idTable, prix );
+						 detailCommandeBUS.addDetailCommande(commandeBUS.getIdDerniereCommande(),idProduit,prix);
+						 tableBUS.tableOccupee(idTable);
 					 }
-					 commandeBUS.majMontantCommande(idCommande, prix);
+					 else {
+						 if(detailCommandeBUS.siCommandeContientProduit(idCommande,idProduit)>0) {
+							 detailCommandeBUS.plusUnAProduitExistantACommande(idCommande,idProduit);
+						 }else {
+							 detailCommandeBUS.addDetailCommande(idCommande,idProduit,prix);
+						 }
+						 commandeBUS.majMontantCommande(idCommande, prix);
+					 }
+					 showCommande(idTable);
 				 }
-				 showCommande(idTable);
+				 
 		  }
 		  
 	 } 
+	 
+	 private void cliqueBtnPaie(int idTable)
+     {
+		 int idCommande = commandeBUS.getUncheckBillIDByTableID(idTable);
+
+         if (idCommande != -1)
+         {
+        	 DlgSaisiePaiement_GUI categorieGUI = new DlgSaisiePaiement_GUI(idCommande,user);
+        	 categorieGUI.setVisible(true);
+             
+         }
+     }
 	 
 	 public void resetPage() {
 		 
@@ -342,12 +390,13 @@ class Ecouteur implements ActionListener{
 	private DefaultTableModel model;
 	private static JButton btnAncien = new JButton();
 	private static int idTableClique = -1;
+	private JTextField txtMontant;
 	
-	public Ecouteur(int idTable,JButton btn, DefaultTableModel model) {
+	public Ecouteur(int idTable,JButton btn, DefaultTableModel model, JTextField txtMontant) {
 		this.idTable = idTable;
 		this.btn = btn;
 		this.model = model;
-		this.idTableClique = idTable;
+		this.txtMontant = txtMontant;
 	}
 	
 	public Ecouteur() {
@@ -367,12 +416,14 @@ class Ecouteur implements ActionListener{
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		setIdTableClique(idTable) ;
 		btnAncien.setBorder(btn.getBorder());
 		btn.setBorder(BorderFactory.createLoweredBevelBorder());
 		btnAncien = btn;
         model.setRowCount(0);
         ArrayList<articleCommande> liste = new ArrayList<articleCommande> ();
         liste = articleCommandeBUS.getListeArticleParTable(idTable);
+        float somme = 0.f;
         for (articleCommande c : liste) {
             Vector vec = new Vector();
             vec.add(c.getIdArticle());
@@ -380,7 +431,61 @@ class Ecouteur implements ActionListener{
             vec.add(c.getQuantite());
             vec.add(c.getPrixUnit());
             model.addRow(vec);
+            System.out.print(c.getPrixUnit());
+            System.out.print(somme);
+            somme +=  c.getQuantite() * c.getPrixUnit();
+            System.out.print(somme);
         } 
+        String m = Float.toString(somme);
+        txtMontant.setText(m);
     }     
 }
 
+class EcouteurSupprimer implements ActionListener{
+
+	private monTableau tabDetail;
+	private JTextField txtMontant;
+	
+	public EcouteurSupprimer(monTableau tabDetail, JTextField txtMontant) {
+		this.tabDetail = tabDetail;
+		this.txtMontant = txtMontant;
+	}
+
+	private detailCommande_BUS detailCommandeBUS = new detailCommande_BUS();
+	private commande_BUS cmdBUS = new commande_BUS();
+	private articleCommande_BUS articleCommandeBUS = new articleCommande_BUS();
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		int row = tabDetail.getSelectedRow();
+        System.out.print(row);
+        if (row > -1) {
+        	int idProduit = Integer.parseInt(tabDetail.getValueAt(row, 0) + "");
+        	int quantite = Integer.parseInt(tabDetail.getValueAt(row, 2) + "");
+        	float prixUnit = Float.parseFloat(tabDetail.getValueAt(row, 3) + "");
+
+            int idTable = Ecouteur.getIdTableClique();
+            int idCommande = cmdBUS.getUncheckBillIDByTableID(idTable);
+            detailCommandeBUS.enleverProduitDeCommande(idCommande,idProduit);
+            float montant = (prixUnit * quantite)* -1 ;
+            cmdBUS.majMontantCommande(idCommande, montant);
+            DefaultTableModel tableModel = (DefaultTableModel) tabDetail.getModel();
+            tableModel.setRowCount(0);
+            ArrayList<articleCommande> liste = new ArrayList<articleCommande> ();
+            liste = articleCommandeBUS.getListeArticleParTable(idTable);
+            float somme = 0.f;
+            for (articleCommande c : liste) {
+                Vector vec = new Vector();
+                vec.add(c.getIdArticle());
+                vec.add(c.getLibelle());
+                vec.add(c.getQuantite());
+                vec.add(c.getPrixUnit());
+                tableModel.addRow(vec);
+                somme +=  c.getQuantite() * c.getPrixUnit();
+            } 
+            String m = Float.toString(somme);
+            txtMontant.setText(m);
+        }
+    }     
+}

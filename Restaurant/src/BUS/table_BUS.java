@@ -65,8 +65,9 @@ public class table_BUS {
     /*
      * librer une table 
      */
-    public boolean tableDispo(int id) {
-    	return tableDAO.tableDispo(id);
+    public boolean tableDispo(String id) {
+    	int idTable = Integer.parseInt(id);
+    	return tableDAO.tableDispo(idTable);
     }
     
     /*

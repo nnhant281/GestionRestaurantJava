@@ -76,15 +76,15 @@ public class detailCommande_DAO {
     /*
      * chercher un produit dans une commande 
      */
-    public boolean siCommandeContientProduit(int idCmd,int idProduit) {
-        boolean existe = false;
+    public int siCommandeContientProduit(int idCmd,int idProduit) {
+        int quantite = -1;
         try {
         	conn = ConnexionBDD.getConnect() ;	
             String sql = "SELECT * FROM produit_commande WHERE ID_Commande = "+idCmd+" AND ID_Produit="+idProduit;
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             if(rs.next()) {
-            	existe = true;
+            	quantite = rs.getInt(3);
             }
         } catch(SQLException ex) {
         	ex.printStackTrace();
@@ -95,7 +95,7 @@ public class detailCommande_DAO {
 		}finally {
         	ConnexionBDD.getClose();
         }
-        return existe;
+        return quantite;
     }
 
     /*
@@ -155,6 +155,7 @@ public class detailCommande_DAO {
     public boolean enleverProduitDeCommande(int idCmd, int idProduit) {
         boolean result = false;
         try {
+        	conn = ConnexionBDD.getConnect() ;	
             String sql = "DELETE FROM produit_commande WHERE ID_Commande="+idCmd+" AND ID_Produit="+idProduit;
             Statement stmt = conn.createStatement();
             result = stmt.executeUpdate(sql) > 0;

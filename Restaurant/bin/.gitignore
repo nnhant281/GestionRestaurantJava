@@ -1,5 +1,5 @@
-/GUI/
 /DAO/
-/BUS/
+/GUI/
+/libs/
 /DTO/
-/test/
+/BUS/

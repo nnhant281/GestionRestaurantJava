@@ -19,7 +19,7 @@ public class produit_DAO {
      */
     public ArrayList<produitModele> GetListeProduit() {
         try {
-            String sql = "SELECT * FROM produit";
+            String sql = "SELECT * FROM produit WHERE valable = 1 ";
             conn = ConnexionBDD.getConnect() ;	
             Statement s = conn.createStatement();
             ResultSet rs = s.executeQuery(sql);
@@ -88,7 +88,7 @@ public class produit_DAO {
         try {
         	conn = ConnexionBDD.getConnect() ;	
         	Statement s = conn.createStatement();
-            ResultSet rs = s.executeQuery("SELECT * from produit WHERE Libelle_categorie = '"+categorieRecherche+"'");
+            ResultSet rs = s.executeQuery("SELECT * from produit WHERE valable = 1 AND Libelle_categorie = '"+categorieRecherche+"'");
             ArrayList<produitModele> listeProduit = new ArrayList<>();
             while (rs.next()) {
             	produitModele produit = new produitModele();
@@ -172,7 +172,7 @@ public class produit_DAO {
         try {
         	conn = ConnexionBDD.getConnect() ;	
         	Statement s = conn.createStatement();
-            s.execute("DELETE FROM produit WHERE ID_Produit= '"+produitSupprime+"'");
+            s.execute("UPDATE produit SET valable = 0 WHERE ID_Produit= '"+produitSupprime+"'");
             return true;
         } catch (SQLException e) {
         	e.printStackTrace();

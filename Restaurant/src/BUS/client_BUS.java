@@ -1,10 +1,12 @@
 package BUS;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import Custom.monDialogue;
 import DAO.client_DAO;
 import DTO.client;
+import DTO.commande;
 
 public class client_BUS {
 	
@@ -39,6 +41,22 @@ public class client_BUS {
             String numTel = c.getNumTel();
             String email = c.getEmail().toLowerCase();
             if (nom.contains(cle) || prenom.contains(cle) || numTel.contains(cle) || email.contains(cle)) {
+                listeTrouve.add(c);
+            }
+        }
+        return listeTrouve;
+    }
+    
+    /*
+     * recherche des clients par nom ,prenom et numéro de téléphone
+     */
+    public ArrayList<client> rechercheClientParMultiInfo(String nomR,String prenomR, String numTelR) {	
+        ArrayList<client> listeTrouve  = new ArrayList<>();
+        for (client c : listeClient) {
+            String nom= c.getNom().toLowerCase();
+            String prenom = c.getPrenom().toLowerCase();
+            String num = c.getPrenom();
+            if (nom.contains(nomR.toLowerCase()) && prenom.contains(prenomR.toLowerCase()) && num.contains(numTelR)) {
                 listeTrouve.add(c);
             }
         }
@@ -131,4 +149,8 @@ public class client_BUS {
     }
 
    
+    public boolean majPoint(int idClient, String point ) {
+    	float p = Float.parseFloat(point);
+    	return clientDAO.majPoint(idClient, p) ;
+    }
 }
