@@ -45,25 +45,21 @@ public class DlgContrat_GUI extends JDialog {
 	private JPanel panelCenter, panelButtons, panelRemplir, panelTitre;
 	private JLabel typeContrat;
 	private JTextField txtTypeContrat;
-	private ImageIcon iconAjoute, iconSupprimer;
-	
+	private ImageIcon iconAjoute, iconSupprimer;	
 	private monButton btnAjouter, btnSupprimer;
 	private JScrollPane pane;
-	
-	
+		
 	typeContrat_BUS typeContratBUS = new typeContrat_BUS();
 	typeContrat_DAO typeContratDAO = new typeContrat_DAO();
 	Font f = new Font("TimesRoman", Font.BOLD, 18);
-	
-	
+		
 	public DlgContrat_GUI() {
 		addComponents();
 		addEvents();
 	}
 	
 	private void addComponents() {
-		
-		
+				
 		/*
         ============================================================
                          		TITRE
@@ -121,8 +117,7 @@ public class DlgContrat_GUI extends JDialog {
 		
 		typeContrat = new JLabel("Libellé du type contrat");
 		txtTypeContrat = new JTextField("", 15);
-		
-	
+			
 		panelRemplir.add(typeContrat);
 		panelRemplir.add(txtTypeContrat);
 		
@@ -137,8 +132,7 @@ public class DlgContrat_GUI extends JDialog {
 		panelCenter.add(table);
 		panelCenter.add(panelRemplir);
 		panelCenter.add(panelButtons);	
-		
-		
+				
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		this.pack();
@@ -192,19 +186,16 @@ public class DlgContrat_GUI extends JDialog {
         model.setRowCount(0);
         ArrayList<contratModele> listeTypeContrat = typeContratBUS.getNouveauListeTypeContrat();
         if (listeTypeContrat != null) {
-            for (contratModele typeContrat : listeTypeContrat) {
-            	          	
+            for (contratModele typeContrat : listeTypeContrat) {            	          	
                 Vector vec = new Vector();
                 vec.add(typeContrat.getTypeContrat().toUpperCase());
-                model.addRow(vec);
-                
+                model.addRow(vec);              
             }
         }      
     }
     
     public void traiteAjouteTypeContrat() {
-    	
-    	
+	
     	String typeContrat = txtTypeContrat.getText();
     	
     	monDialogue dlg = new monDialogue("Voulez-vous ajouter "+typeContrat+" ?", monDialogue.WARNING_DIALOG);
@@ -219,8 +210,7 @@ public class DlgContrat_GUI extends JDialog {
     
     private void traiteSupprimerTypeContrat() {
 		
-		int indice = table.getSelectedRow();	
-		
+		int indice = table.getSelectedRow();			
 		String typeContratASupprimer=model.getValueAt(indice, 0).toString();
 	
 		monDialogue dlg1 = new monDialogue("Voulez-vous supprimer cet employé ?", monDialogue.WARNING_DIALOG);

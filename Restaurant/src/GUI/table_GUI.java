@@ -13,21 +13,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Vector;
-
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-
-
 import BUS.table_BUS;
 import Custom.monButton;
 import Custom.monDialogue;
@@ -167,8 +160,8 @@ public class table_GUI extends JPanel{
 
    
 
+	@SuppressWarnings("unused")
 	private void setLayout(BorderLayout borderLayout) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -268,7 +261,7 @@ public class table_GUI extends JPanel{
     }
     
     private void  traiteSuppTable() {
-    	monDialogue dlg = new monDialogue("La table sera être supprimée ?", monDialogue.WARNING_DIALOG);
+    	monDialogue dlg = new monDialogue("La table sera ï¿½tre supprimï¿½e ?", monDialogue.WARNING_DIALOG);
         if (monDialogue.OK_OPTION == dlg.getAction()) {
             boolean flag = tableBUS.deleteTable(txtId.getText());
             if (flag) {

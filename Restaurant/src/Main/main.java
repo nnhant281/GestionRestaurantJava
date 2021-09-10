@@ -3,17 +3,11 @@ package Main;
 import GUI.login_GUI;
 
 public class main {
-	
-	
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		changeLNF("Nimbus");
 		login_GUI loginGUI = new login_GUI();
-		
-		/*
-		ModuleEmployee employee = new ModuleEmployee();		
-		
-		*/
 
 	}
 	

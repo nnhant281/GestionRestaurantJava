@@ -74,10 +74,4 @@ public class classementModele {
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;
 	}
-	
-	@Override
-	public String toString() {
-		return " "+this.getProduit()+" "+this.getQuantite();
-	}	
-
 }

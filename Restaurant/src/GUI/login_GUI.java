@@ -17,8 +17,8 @@ import BUS.login_BUS;
 import Custom.ConvertCharToString;
 import DTO.compteModele;
 
+@SuppressWarnings("serial")
 public class login_GUI  extends javax.swing.JFrame {
-	
 	
 	JFrame frame;	
 	Container cprincipal;
@@ -65,8 +65,7 @@ public class login_GUI  extends javax.swing.JFrame {
 		mdp.setFont(font);
 		txtID.setFont(font);
 		txtMDP.setFont(font);
-		
-		
+				
 		btnConnect = new JButton("Se connecter");
 		btnChangerMDP = new JButton("Changer MDP");
 		

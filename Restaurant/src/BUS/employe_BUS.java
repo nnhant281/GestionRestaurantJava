@@ -31,7 +31,7 @@ public class employe_BUS {
 	public boolean ajouterEmploye (String nom, String prenom ,Date dateNaissance, String choixTypeContrat,
 								Date dateDebut, Date dateFin, String dureeHebdo, String choixEmploi,
 								String adresse, String tel){
-	
+		//VERIFIER SI TOUS LES CHAMPS SONT REMPLIS
 		if (dateNaissance == null || dateDebut == null
 				|| nom.length()==0 || prenom.length()==0 || choixEmploi.length()==0
 				|| adresse.length()==0 || tel.length()==0 && dureeHebdo.length() == 0
@@ -39,7 +39,7 @@ public class employe_BUS {
 			
 			new monDialogue("Merci de renseigner tous les champs nécessaires!!!", monDialogue.ERROR_DIALOG);
 			return false;
-		}	
+		}		
 		else if (!isNumeric.verifier(dureeHebdo)){
 			 new monDialogue("Durée hebdomadaire doit être un chiffre!!!", monDialogue.ERROR_DIALOG);
 			 return false;
@@ -119,6 +119,7 @@ public class employe_BUS {
 	        }		
 	}
 	
+	//RECHERCHER UN EMPLOYER PAR SON NOM
 	public ArrayList<employeModele> rechercherEmploye(String nomRecherche) {
 		
 		ArrayList<employeModele> listeEmployeTrouve;

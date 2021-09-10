@@ -19,6 +19,7 @@ public class changerMDP_BUS {
 		String nouveauMDP = ConvertCharToString.convert(txtNouveauMDP);		
 		String confirmeMDP = ConvertCharToString.convert(txtConfirmeMDP);	
 		
+		//VERIFIER SI TOUS LES CHAMPS SONT REMPLIS
 		if (identifiant.length() == 0 ||ancienMDP.length() == 0 || nouveauMDP.length() == 0 || confirmeMDP.length() == 0) {
 			new monDialogue("Merci de renseigner tous les champs nécessaires!!!", monDialogue.ERROR_DIALOG);
 			return false;

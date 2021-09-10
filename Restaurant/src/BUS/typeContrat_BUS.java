@@ -80,6 +80,8 @@ public class typeContrat_BUS {
   		
   	}
   	
+  	//AVANT DE SUPPRIMER, VERIFIER SI CE TYPE DE CONTRAT EST ASSOCIE A AU MOINS UN CONSEILLER
+  	
   	public boolean typeContratExiste(String typeContrat) {
 		
   		boolean trouve = false;

@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class ConnexionBDD {
 	
 	private final static String classname = "com.mysql.cj.jdbc.Driver";
-    private final static String url = "jdbc:mysql://localhost:3306/gestion_restaurant";
+    private final static String url = "jdbc:mysql://localhost:8889/gestion_restaurant";
     private final static String user = "root";
-    private final static String mdp = "";
+    private final static String mdp = "root";
     
     private static Connection connexion;
     

@@ -21,6 +21,9 @@ import Custom.monDialogue;
 
 @SuppressWarnings("serial")
 public class changerMDP_GUI{
+	Font font = new Font("Tahoma", Font.PLAIN, 18);
+	Font fontButton = new Font("Tahoma", Font.PLAIN, 16);
+	
 	JFrame frame;
 	JLabel identifiant, ancienMDP, nouveauMDP, confirmeMDP;
 	JTextField txtIdentifiant;
@@ -28,7 +31,7 @@ public class changerMDP_GUI{
 	JButton btnChangerMDP, btnQuitter;
 	Container cprincipal;
 	JPanel panel;
-	
+
 	changerMDP_BUS changerMDPBUS = new changerMDP_BUS();
 	login_GUI login_GUI = new login_GUI();
 	
@@ -38,11 +41,12 @@ public class changerMDP_GUI{
 		login_GUI.frame.setEnabled(false);
 	}
 	
-	Font font = new Font("Tahoma", Font.PLAIN, 18);
-	Font fontButton = new Font("Tahoma", Font.PLAIN, 16);
-	
 	public void addComponents() {
-		
+		/*
+		============================================================
+	           			CREATION DES COMPOSANTS
+		============================================================
+		*/	
 		frame = new JFrame("<HTML><H2>CHANGER MOT DE PASSE<H2><HTML>");		
 		cprincipal = frame.getContentPane();	
 		panel = new JPanel();
@@ -69,12 +73,22 @@ public class changerMDP_GUI{
 		txtNouveauMDP.setFont(font);
 		txtConfirmeMDP.setFont(font);
 		
+		/*
+		============================================================
+	           			CREATION DES BUTTONS
+		============================================================
+		*/	
 		btnChangerMDP = new JButton("S'actualiser");
 		btnQuitter = new JButton("Quitter");
 		
 		btnChangerMDP.setFont(fontButton);
 		btnQuitter.setFont(fontButton);
 		
+		/*
+		============================================================
+	           			ARRANGEMENTS DES COMPOSANTS
+		============================================================
+		*/	
 		panel.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		

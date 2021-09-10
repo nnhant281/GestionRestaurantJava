@@ -6,15 +6,13 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
 import java.util.ArrayList;
-
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-
 import DTO.compteModele;
 
 
+@SuppressWarnings("serial")
 public class mainGUI extends javax.swing.JFrame{
 	static JTabbedPane tabs;
 	JPanel tabEmploye, tabMenu, tabCommande, tabClient, tabCompte, tabCA;
@@ -28,7 +26,6 @@ public class mainGUI extends javax.swing.JFrame{
 	static produit_GUI produit = new produit_GUI();
 	static commande_GUI commande = new commande_GUI(user);
 
-	
 	public mainGUI(compteModele user) {
 				
 		this.user = user;	
@@ -50,16 +47,13 @@ public class mainGUI extends javax.swing.JFrame{
 		tabs.addTab("Table", table);
 		tabs.addTab("Facture", facture);
 		tabs.addTab("Client", client);
-		tabs.addTab("Employ�",employe);
+		tabs.addTab("Employé",employe);
 		tabs.addTab("Produit",produit);
-		tabs.addTab("Chiffre d'affaire",ca);
+		tabs.addTab("Dash Board",ca);
 		tabs.addTab("Compte",compte);
 		loadPage();
-		tabs.setSelectedIndex(0);
-			
+		tabs.setSelectedIndex(0);			
 		cprincipal.add(tabs);
-		
-		
 
 		this.pack(); // calcul de la taille adéquate		
 		this.setVisible(true); // permet de faire apparaître l'interface graphique à l'écran	
@@ -94,9 +88,9 @@ public class mainGUI extends javax.swing.JFrame{
 		title.add("Table");
 		title.add("Facture");
 		title.add("Client");
-		title.add("Employ�");
+		title.add("Employé");
 		title.add("Produit");
-		title.add("Chiffre d'affaire");
+		title.add("Dash Board");
 		title.add("Compte");
 		
 		ArrayList<Component> pn = new ArrayList<Component>();
@@ -119,8 +113,6 @@ public class mainGUI extends javax.swing.JFrame{
 				tabs.addTab(title.get(i),tabs.getSelectedComponent());
 			}*/
 		}
-
-		tabs.setSelectedIndex(indx);
-		
+		tabs.setSelectedIndex(indx);		
 	}
 }

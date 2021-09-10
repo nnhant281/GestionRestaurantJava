@@ -185,10 +185,13 @@ public class employe_GUI extends JPanel {
 		txtDateFinE.setPreferredSize(txtNomE.getPreferredSize());
 		choixTypeContrat.setPreferredSize(txtNomE.getPreferredSize());
 		choixEmploi.setPreferredSize(txtNomE.getPreferredSize());
-		/*
-		 		ARRANGEMENT DES COMPONENTS DANS LE PANEL CHAMPS A REMPLIR
 		
-		 */		
+		/*
+        ============================================================
+         ARRANGEMENT DES COMPONENTS DANS LE PANEL CHAMPS A REMPLIR
+        ============================================================
+         */
+	
 		panelRemplirE.setLayout(new GridBagLayout());
 		
 		GridBagConstraints gc1 = new GridBagConstraints();
@@ -278,17 +281,19 @@ public class employe_GUI extends JPanel {
 		gc1.gridx = 3;
 		gc1.gridy = 5;
 		panelRemplirE.add(choixEmploi,gc1);		
-		/*
-						CREATION DES BUTTONS
 
-		 */			
+		/*
+        ============================================================
+         					CREATION DES BUTTONS
+        ============================================================
+         */
+	
 		panelButtons = new JPanel();
 		panelButtons.setLayout(new FlowLayout());
 		panelCenter.add(panelButtons);
 		panelButtons.setOpaque(true);
 		panelButtons.setBackground(new Color(250, 240, 230));
-		
-		
+				
 		iconAjoute = new ImageIcon(new ImageIcon("images/Buttons/ajoute.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
 		iconModifier = new ImageIcon(new ImageIcon("images/Buttons/maj.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
 		iconSupprimer = new ImageIcon(new ImageIcon("images/Buttons/supprime.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
@@ -320,10 +325,13 @@ public class employe_GUI extends JPanel {
         btnMod.setPreferredSize(btnSize);
         btnSupp.setPreferredSize(btnSize);
         btnReset.setPreferredSize(btnSize);
-		/*
-							CREATION BARRE DE RECHERCHE
 
-		 */	
+    	/*
+        ============================================================
+         				CREATION BARRE DE RECHERCHE
+        ============================================================
+         */
+        
 		JPanel panelRecherche = new JPanel();
 		panelRecherche.setOpaque(true);
 		panelRecherche.setBackground(new Color(250, 240, 230));
@@ -335,18 +343,18 @@ public class employe_GUI extends JPanel {
 		panelRecherche.add(recherche);
 		panelRecherche.add(btnRecherche);
 		panelCenter.add(panelRecherche);
-	
-		/*
-							CREATION TABLEAU EMPLOYE
 
-		 */	
+		/*
+        ============================================================
+         				CREATION TABLEAU EMPLOYE
+        ============================================================
+         */
 		table = new monTableau();
 		model = new DefaultTableModel();
 		Object[] columns = {"ID","Nom", "Prénom","Date Naissance","Adresse","Type Contrat", "Date début"};
 		model.setColumnIdentifiers(columns);
 		table.setModel(model);
-		
-	
+			
 		pane = new JScrollPane(table);
 		panelCenter.add(pane);
 		pane.setForeground(Color.RED);
@@ -355,13 +363,12 @@ public class employe_GUI extends JPanel {
 		pane.getViewport().setBackground(new Color(250, 240, 230));
 		
 		loadTabEmploye();
-		
-		
-			/*
-			============================================================
-              						DIVERS
-			============================================================
-			 */
+		/*
+		============================================================
+          						DIVERS
+		============================================================
+		 */
+					
 		Border blackline = BorderFactory.createLineBorder(Color.DARK_GRAY);
 		panelCenter.setBorder(blackline);
 	}
@@ -608,8 +615,7 @@ public class employe_GUI extends JPanel {
 	
 	private void traiteDureeCDI () {
 		if (choixTypeContrat.getSelectedItem() !=null) {
-			if (choixTypeContrat.getSelectedItem().toString().equals("CDI") && txtDateFinE.getDate() != null) {			
-				
+			if (choixTypeContrat.getSelectedItem().toString().equals("CDI") && txtDateFinE.getDate() != null) {							
 				txtDateFinE.setCalendar(null);
 				txtDateFinE.setEnabled(false);	
 			}

@@ -81,11 +81,21 @@ public class compte_GUI extends JPanel {
 		panelCenter = new JPanel();
 		this.add(panelTop);
 		this.add(panelCenter);
+		this.setOpaque(true);
+		this.setBackground(new Color(250, 240, 230));
 		
 		panelRemplir = new JPanel();
 		panelButtons = new JPanel();
 		panelRecherche = new JPanel();
-		
+		panelRemplir.setOpaque(true);
+		panelRemplir.setBackground(new Color(250, 240, 230));
+		panelButtons.setOpaque(true);
+		panelButtons.setBackground(new Color(250, 240, 230));
+		panelRecherche.setOpaque(true);
+		panelRecherche.setBackground(new Color(250, 240, 230));
+		panelCenter.setOpaque(true);
+		panelCenter.setBackground(new Color(250, 240, 230));
+	
 		panelCenter.setLayout(new BoxLayout(panelCenter, BoxLayout.Y_AXIS));
 		panelCenter.add(panelRemplir);
 		panelCenter.add(panelButtons);
@@ -94,7 +104,6 @@ public class compte_GUI extends JPanel {
 		panelRemplir.setLayout(new GridBagLayout());
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.anchor = GridBagConstraints.LINE_START;
-		
 		
 		/*
 		============================================================
@@ -224,8 +233,7 @@ public class compte_GUI extends JPanel {
 		listButtons.add(btnMod);
 		listButtons.add(btnSupp);
 		listButtons.add(btnReset);
-		
-		
+			
 		btnRecherche = new JButton(iconRechercher);
 		recherche = new JTextField("Recherche par identifiant...", 20);
 		recherche.setForeground(Color.GRAY);
@@ -388,8 +396,7 @@ public class compte_GUI extends JPanel {
             vec.add(compte.getNom());
             vec.add(compte.getPrenom());
             vec.add(compte.getHabilitation());
-          
-     
+             
            	model.addRow(vec); 	  		     
         }		
 		recherche.setText("Recherche par identifiant...");
@@ -404,8 +411,7 @@ public class compte_GUI extends JPanel {
 		txtNom.setText("");
 		txtPrenom.setText("");
 		txtEmploi.setText("");
-		
-		
+			
 		loadTabCompte();
 		
 		for (JButton btn : listButtons) {
@@ -472,8 +478,7 @@ public class compte_GUI extends JPanel {
 	}
 	
 	public void traiteAjouterCompte() {
-		
-		
+			
 		if (choixHabilitation.getSelectedItem() == null) {
 			new monDialogue("Merci de renseigner tous les champs nécessaires !!!", monDialogue.ERROR_DIALOG);			
 		}
@@ -569,6 +574,14 @@ public class compte_GUI extends JPanel {
 					txtEmploi.setText(employe.getEmploi());					
 				}				
 			}
-		}	
+		}
+		else {
+			choixIDRH.setSelectedItem("");
+			choixHabilitation.setSelectedItem(null);
+			txtIdentifiant.setText("");
+			txtNom.setText("");
+			txtPrenom.setText("");
+			txtEmploi.setText("");				
+		}
 	}	
 }

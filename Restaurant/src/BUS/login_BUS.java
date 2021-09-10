@@ -9,8 +9,7 @@ public class login_BUS {
 	private login_DAO loginDAO = new login_DAO();	
 	private compteModele compte = new compteModele();
 	
-	public compteModele authentifier(String identifiantRecherche, String mdpRecherche) {	
-		
+	public compteModele authentifier(String identifiantRecherche, String mdpRecherche) {		
 		
 		if (identifiantRecherche.length() == 0 || mdpRecherche.length() == 0) {
 			new monDialogue("Merci de renseigner tous les champs nécessaires!!!", monDialogue.ERROR_DIALOG);

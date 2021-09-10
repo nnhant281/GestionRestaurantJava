@@ -4,13 +4,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+
 public class changerMDP_DAO {
-	
-	 private static Connection conn = null;
-	 
+	/*
+	============================================================
+           			CHANGER MOT DE PASSE
+	============================================================
+	*/	
+	 private static Connection conn = null;	 
 	 PreparedStatement update;
 	 private String sql;
-	 
+	  
+	 //Retourner true if mot de passe a été changé
 	 public boolean changerMDP(String identifiant, String mdp) {
 		
 		try {  		

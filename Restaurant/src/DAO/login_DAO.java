@@ -4,20 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.swing.JOptionPane;
-
 import DTO.compteModele;
-import DTO.employeModele;
 
 public class login_DAO {
 	
 	private static Connection conn = null;
 	PreparedStatement select;
 	private String sql;
-
 	
-	  //RECHERCHE COMPTE PAR IDENTIFIANT
+	//RETOURNER UN OBJET COMPTE QUI CONTIENT IDENTIFIANT, HABILITATION D'UTILISATEUR
     
     public compteModele authentifier(String identifiantRecherche, String mdpRecherche) {
     	
@@ -56,4 +51,5 @@ public class login_DAO {
         }
     	return compte;
     }
+
 }
