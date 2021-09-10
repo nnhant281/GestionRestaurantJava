@@ -13,7 +13,7 @@ public class table_DAO {
 	private static Connection conn = null;
 	
 	/*
-	 * recupérér la liste de tab 
+	 * recupÃ©rÃ©r la liste de tab 
 	 */
 	public ArrayList<table> getListeTable() {
         try {
@@ -90,7 +90,7 @@ public class table_DAO {
     
     /*
      * supprimer un table ,
-     * l'id d'une tab est un clé étrangé, donc il n'est pas supprimé mais caché de l'application 
+     * l'id d'une tab est un clÃ© Ã©trangÃ©, donc il n'est pas supprimÃ© mais cachÃ© de l'application 
      */
     public boolean deleteTable(int id) {
         boolean result = false;
@@ -136,7 +136,7 @@ public class table_DAO {
     }
     
     /*
-     * librer la tab lorsque la commande est payée
+     * libÃ©rer la tab lorsque la commande est payÃ©e
      */
     public boolean tableDispo(int id) {
         boolean result = false;

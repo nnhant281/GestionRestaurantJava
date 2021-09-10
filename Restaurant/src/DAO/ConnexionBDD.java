@@ -1,5 +1,5 @@
 /*
- * classe de connexion à la base de données 
+ * classe de connexion ï¿½ la base de donnï¿½es 
  */
 package DAO;
 
@@ -11,7 +11,7 @@ public class ConnexionBDD {
 	/*
 	 * les variables pour la connexion 
 	 * classname
-	 * url de la base de données
+	 * url de la base de donnÃ©es
 	 * compte utilisateur
 	 * mot de passe
 	 */
@@ -23,7 +23,7 @@ public class ConnexionBDD {
     private static Connection connexion;
     
     /*
-     * connexion à la base de données
+     * connexion Ã  la base de donnÃ©es
      */
     public static Connection getConnect() {
         try {

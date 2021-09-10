@@ -1,8 +1,8 @@
 /*
- * Interface pour gérer la prise de commande et les commandes en cours 
- * afficher les tables avec leur statut "disponible" ou "occupée" 
+ * Interface pour gï¿½rer la prise de commande et les commandes en cours 
+ * afficher les tables avec leur statut "disponible" ou "occupï¿½e" 
  * choisir la table disponible pour ajouter une commande 
- * ou consulter un table occupée pour ajouter, supprimer les articles 
+ * ou consulter un table occupï¿½e pour ajouter, supprimer les articles 
  * passer la paiement 
  */
 package GUI;
@@ -80,7 +80,7 @@ public class commande_GUI extends JPanel{
     JPanel panelTable ;
 	
     /*
-     * créer l'interface
+     * crï¿½er l'interface
      */
 	private void addControls() {
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -88,15 +88,16 @@ public class commande_GUI extends JPanel{
 		// ============ MODEL DE TABLE =========//
 		modelTabDetail = new DefaultTableModel();
 	    modelTabDetail.addColumn("ID ");
-	    modelTabDetail.addColumn("Libellï¿½");
-	    modelTabDetail.addColumn("Quantitï¿½");
+	    modelTabDetail.addColumn("LibellÃ©");
+	    modelTabDetail.addColumn("QuantitÃ©");
 	    modelTabDetail.addColumn("Prix");
 	    tabDetail = new monTableau();
 	    tabDetail.setModel(modelTabDetail);
 	    
 	    tabDetail.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+	    tabDetail.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
 	    tabDetail.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-
+	    
         TableColumnModel columnModel = tabDetail.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(30);
         columnModel.getColumn(1).setPreferredWidth(100);
@@ -149,7 +150,7 @@ public class commande_GUI extends JPanel{
         pnBox.setLayout(new BoxLayout(pnBox, BoxLayout.Y_AXIS));
         
         JLabel lblCategorie, lblArticle;
-        lblCategorie = new JLabel("Categorie");
+        lblCategorie = new JLabel("CatÃ©gorie");
         lblArticle = new JLabel("Article");
         
         lblCategorie.setFont(font);
@@ -251,7 +252,7 @@ public class commande_GUI extends JPanel{
 	}
 	
 	/*
-	 * les événements 
+	 * les Ã©vÃ©nements 
 	 */
 	private void addEvents() {
 		choixCategorie.addActionListener(new ActionListener() {
@@ -284,7 +285,7 @@ public class commande_GUI extends JPanel{
 	
 	private articleCommande_BUS articleCommandeBUS = new articleCommande_BUS();
 	/*
-	 * afficher la tableau détailée de la commande 
+	 * afficher le tableau dÃ©taillÃ© de la commande 
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void showCommande(int idTable) {
@@ -306,7 +307,7 @@ public class commande_GUI extends JPanel{
 	}
 	
 	/*
-	 * afficher les buttons signifiés les tables du restaurant
+	 * afficher les buttons signifiÃ©s les tables du restaurant
 	 */
 	private void loadTable(JPanel panelTable) {
 		panelTable.removeAll();
@@ -327,7 +328,7 @@ public class commande_GUI extends JPanel{
                     break;
                 default:
                 	c = new Color(255,102,102); // LIGHT_PINK
-                	status = "occupï¿½e";
+                	status = "occupÃ©e";
                 	
                     break;
             }
@@ -342,7 +343,7 @@ public class commande_GUI extends JPanel{
 	}
 	
 	/*
-	 * charger la liste de catégorie
+	 * charger la liste de catÃ©gorie
 	 */
 	 private void loadCategorie() {
         choixCategorie.removeAllItems();
@@ -354,7 +355,7 @@ public class commande_GUI extends JPanel{
 	 }
 
 	 /*
-	  * Charger la liste d'article selon le catégorie
+	  * Charger la liste d'article selon le catÃ©gorie
 	  */
 	 private void loadProduitParCategorie(String cate) {
         choixArticle.removeAllItems();
@@ -371,9 +372,9 @@ public class commande_GUI extends JPanel{
 	 /*
 	  * Ajouter un article dans une commande 
 	  * il y a trois cas 
-	  * 1. la commande n'est pas encore existant , il faut créer une nouvelle commande 
-	  * 2. La commande existe déjà, mais l'article est commandée pour la première fois => ajouter une nouvelle ligne à la commande 
-	  * 3. La commande existe déjà et l'article est déjà eu sur la commande => augmenter la quantité de l'article 
+	  * 1. la commande n'est pas encore existant , il faut crÃ©er une nouvelle commande 
+	  * 2. La commande existe dÃ©jÃ , mais l'article est commandï¿½e pour la premiÃ¨re fois => ajouter une nouvelle ligne Ã  la commande 
+	  * 3. La commande existe dÃ©jÃ  et l'article est dÃ©jÃ  eu sur la commande => augmenter la quantitÃ© de l'article 
 	  */
 	 private void traiteAjouteArticle(JPanel panelTable) {
 		  if (choixArticle.getSelectedIndex()>0) {
@@ -409,7 +410,7 @@ public class commande_GUI extends JPanel{
 	 } 
 	 
 	 /*
-	  * déclencher la procédure de paiement 
+	  * dï¿½clencher la procÃ©dure de paiement 
 	  */
 	 private void cliqueBtnPaie(int idTable)
      {
@@ -424,7 +425,7 @@ public class commande_GUI extends JPanel{
      }
 	 
 	 /*
-	  * réinitialiser la page 
+	  * rÃ©initialiser la page 
 	  */
 	 public void resetPage() {
 		 Ecouteur.setIdTableClique(-1);
@@ -435,7 +436,7 @@ public class commande_GUI extends JPanel{
 }
 
 /*
- * événement quand on clique sur un bouton d'une table 
+ * Ã©vÃ©nement quand on clique sur un bouton d'une table 
  */
 class Ecouteur implements ActionListener{
 	private int idTable;
@@ -492,9 +493,9 @@ class Ecouteur implements ActionListener{
 }
 
 /*
- * événement quand on clique sur button "supprimer"
- * le montant de la commande sera diminué
- * si après la suppresion il reste aucun article dans la commande , la commande sera supprimée et la table sera libérée
+ * Ã©vÃ©nement quand on clique sur button "supprimer"
+ * le montant de la commande sera diminuÃ©
+ * si aprÃ¨s la suppresion il reste aucun article dans la commande , la commande sera supprimÃ©e et la table sera libÃ©rÃ©e
  */
 class EcouteurSupprimer implements ActionListener{
 

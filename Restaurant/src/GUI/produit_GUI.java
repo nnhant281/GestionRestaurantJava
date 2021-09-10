@@ -150,7 +150,7 @@ public class produit_GUI extends JPanel{
         pnQuantite.add(txtPrixUnitaire);
         pnTextField.add(pnQuantite);
 
-        Dimension lblSize = prixUnitaire.getPreferredSize();
+        Dimension lblSize = new Dimension(120,30);
         idProduit.setPreferredSize(lblSize);
         libelleProduit.setPreferredSize(lblSize);
         categorie.setPreferredSize(lblSize);
@@ -202,7 +202,7 @@ public class produit_GUI extends JPanel{
 		btnMod = new monButton("Modifier", iconModifier);		
 		btnSupp = new monButton("Supprimer", iconSupprimer);
 		btnRecherche = new monButton("Rechercher", iconRechercher);
-		btnReset = new monButton("RÃ©initialiser", iconReset);
+		btnReset = new monButton("Réinitialiser", iconReset);
 		
 		btnAjoute.setFont(fontButton);
 		btnMod.setFont(fontButton);

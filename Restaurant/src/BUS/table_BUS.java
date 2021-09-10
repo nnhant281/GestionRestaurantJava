@@ -13,14 +13,14 @@ public class table_BUS {
     private table_DAO tableDAO = new table_DAO();
     
     /*
-     * recupérer la liste de tables
+     * recupÃ©rer la liste de tables
      */
     public void lireListeTable() {
         this.listeTable = tableDAO.getListeTable();
     }
     
     /*
-     * mise à jour la liste de Tables 
+     * mise Ã  jour la liste de Tables 
      */
     public ArrayList<table> getlisteTable() {
         listeTable = null;
@@ -29,7 +29,7 @@ public class table_BUS {
     }
     
     /*
-     * recherche des tables par libellé 
+     * recherche des tables par libellÃ© 
      */
     public ArrayList<table> rechercheTable(String cle) {
         cle = cle.toLowerCase();
@@ -54,9 +54,9 @@ public class table_BUS {
         table c = new table(libelle);
         boolean flag = tableDAO.ajouteTable(c);
         if (flag) {
-            new monDialogue("La table est ajoutée !", monDialogue.SUCCESS_DIALOG);
+            new monDialogue("La table est ajoutï¿½e !", monDialogue.SUCCESS_DIALOG);
         } else {
-            new monDialogue("Il y a un erreur. La table n'est pas ajoutée !", monDialogue.ERROR_DIALOG);
+            new monDialogue("Il y a un erreur. La table n'est pas ajoutï¿½e !", monDialogue.ERROR_DIALOG);
         }
         return flag;
     }
@@ -78,7 +78,7 @@ public class table_BUS {
    }
     
     /*
-     * changer le statut de la table de disponible à occupée
+     * changer le statut de la table de disponible Ã  occupÃ©e
      */
     public boolean tableOccupee(int id) {
     	return tableDAO.tableOccupee(id);
@@ -86,18 +86,18 @@ public class table_BUS {
     
     
     /*
-     * déactiver une table de l'application
+     * dÃ©activer une table de l'application
      */
     public boolean deleteTable(String id) {
     	int idTable = Integer.parseInt(id);
-    	monDialogue dlg = new monDialogue("La table sera être supprimée ?", monDialogue.WARNING_DIALOG);
+    	monDialogue dlg = new monDialogue("La table sera ï¿½tre supprimï¿½e ?", monDialogue.WARNING_DIALOG);
         if(dlg.getAction() == monDialogue.CANCEL_OPTION)
             return false;
         boolean flag = tableDAO.deleteTable(idTable);
         if (flag) {
-            new monDialogue("La suppression est effectuée !", monDialogue.SUCCESS_DIALOG);
+            new monDialogue("La suppression est effectuï¿½e !", monDialogue.SUCCESS_DIALOG);
         } else {
-            new monDialogue("La suppression est échue !", monDialogue.ERROR_DIALOG);
+            new monDialogue("La suppression est ï¿½chue !", monDialogue.ERROR_DIALOG);
         }
         return flag;
     }
@@ -116,9 +116,9 @@ public class table_BUS {
         c.setLibelle(nom);
         boolean flag = tableDAO.majTable(c);
         if (flag) {
-            new monDialogue("La modification est effectuée !", monDialogue.SUCCESS_DIALOG);
+            new monDialogue("La modification est effectuï¿½e !", monDialogue.SUCCESS_DIALOG);
         } else {
-            new monDialogue("La modification est échue !", monDialogue.ERROR_DIALOG);
+            new monDialogue("La modification est ï¿½chue !", monDialogue.ERROR_DIALOG);
         }
         return flag;
     }

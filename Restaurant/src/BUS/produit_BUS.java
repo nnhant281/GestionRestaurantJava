@@ -41,7 +41,7 @@ public class produit_BUS {
     }
     
     /*
-     * Recherche des produits selon la libellé
+     * Recherche des produits selon la libellÃ©
      */
     public ArrayList<produitModele> getProduitSelonLibelle(String libelle) {
         ArrayList<produitModele> listeProduitTrouve = new ArrayList<>();
@@ -55,7 +55,7 @@ public class produit_BUS {
     }
     
     /*
-     * Recherche des produits d'une catégorie
+     * Recherche des produits d'une catÃ©gorie
      */
     public ArrayList<produitModele> getProduitSelonCategorie(String categorie) {
         if (!categorie.trim().equals("")) {
@@ -95,7 +95,7 @@ public class produit_BUS {
             new monDialogue("Veuillez saisir la libelle de produit !", monDialogue.ERROR_DIALOG);
             return false;
         } else if (categorie.trim().equals("")) {
-            new monDialogue("Veuillez choisir la catégorie !", monDialogue.ERROR_DIALOG);
+            new monDialogue("Veuillez choisir la catï¿½gorie !", monDialogue.ERROR_DIALOG);
             return false;
         } else if (prix.trim().equals("")) {
             new monDialogue("Veuillez saisir le prix de produit !", monDialogue.ERROR_DIALOG);
@@ -106,14 +106,14 @@ public class produit_BUS {
 	            produitModele produit = new produitModele(libelle,categorie,prixUnitaire,photo);
 
 	            if (produitDAO.ajouteProduit(produit)) {
-	                new monDialogue("Le produit est ajouté !", monDialogue.SUCCESS_DIALOG);
+	                new monDialogue("Le produit est ajoutï¿½ !", monDialogue.SUCCESS_DIALOG);
 	                return true;
 	            } else {
-	                new monDialogue("Il y a un erreur. Le produit n'est pas ajouté !", monDialogue.ERROR_DIALOG);
+	                new monDialogue("Il y a un erreur. Le produit n'est pas ajoutï¿½ !", monDialogue.ERROR_DIALOG);
 	                return false;
 	            }
 	        } catch (Exception e) {
-	            new monDialogue("Le prix est erroné !", monDialogue.ERROR_DIALOG);
+	            new monDialogue("Le prix est erronï¿½ !", monDialogue.ERROR_DIALOG);
 	        }
 	        return false;
         }
@@ -124,17 +124,17 @@ public class produit_BUS {
      */
     public boolean suppressionProduit(String id) {
         if (id.trim().equals("")) {
-            new monDialogue("Veuillez choisir le produit à supprimer !", monDialogue.ERROR_DIALOG);
+            new monDialogue("Veuillez choisir le produit ï¿½ supprimer !", monDialogue.ERROR_DIALOG);
             return false;
         }
 
         int idProduit = Integer.parseInt(id);
         if (produitDAO.suppressionProduit(idProduit)) {
-        	 new monDialogue("Le produit est supprimé !", monDialogue.SUCCESS_DIALOG);
+        	 new monDialogue("Le produit est supprimï¿½ !", monDialogue.SUCCESS_DIALOG);
             return true;
         }
 
-        new monDialogue("Il y a un erreur. La suppression échue !", monDialogue.ERROR_DIALOG);
+        new monDialogue("Il y a un erreur. La suppression ï¿½chue !", monDialogue.ERROR_DIALOG);
         return false;
     }
 
@@ -156,12 +156,12 @@ public class produit_BUS {
             
 
             if (libelle.trim().equals("")) {
-           	 new monDialogue("Veuillez saisir la libellé de produit !", monDialogue.ERROR_DIALOG);
+           	 new monDialogue("Veuillez saisir la libellï¿½ de produit !", monDialogue.ERROR_DIALOG);
                return false;
             }
 
             if (categorie.trim().equals("")) {
-              	 new monDialogue("Veuillez saisir la catégorie de produit !", monDialogue.ERROR_DIALOG);
+              	 new monDialogue("Veuillez saisir la catï¿½gorie de produit !", monDialogue.ERROR_DIALOG);
                   return false;
             }
             
@@ -174,10 +174,10 @@ public class produit_BUS {
             produitModele produit = new produitModele(idProduit, libelle, categorie, prixUnitaire, photo);
 
             if (produitDAO.majProduit(produit)) {
-            	new monDialogue("La modification est effectuée !", monDialogue.SUCCESS_DIALOG);
+            	new monDialogue("La modification est effectuï¿½e !", monDialogue.SUCCESS_DIALOG);
                 return true;
             } else {
-            	new monDialogue("Il y a un erreur. La modification échue !", monDialogue.ERROR_DIALOG);
+            	new monDialogue("Il y a un erreur. La modification ï¿½chue !", monDialogue.ERROR_DIALOG);
                 return false;
             }
         } catch (Exception e) {

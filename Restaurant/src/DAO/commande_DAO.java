@@ -15,7 +15,7 @@ public class commande_DAO {
 	private static Connection conn = null;
 	
     /*
-     * récupérer la liste de commande de la base de données
+     * rÃ©cupÃ©rer la liste de commande de la base de donnÃ©es
      */
 	public ArrayList<commande> getListeCommandeEnCour() {
 		
@@ -50,7 +50,7 @@ public class commande_DAO {
     }
 	
 	/*
-     * récupérer la liste de commande de la base de données
+     * rÃ©cupÃ©rer la liste de commande de la base de donnÃ©es
      */
 	public int getCommandeEnCourParTable(int idTable) {
         try {
@@ -74,7 +74,7 @@ public class commande_DAO {
     }
 	
 	/*
-     * récupérer la commande 
+     * rÃ©cupÃ©rer la commande 
      */
 	public commande getCommandeParIDCommande(int idCmd) {
         try {
@@ -107,7 +107,7 @@ public class commande_DAO {
     }
 	
 	/*
-     * récupérer la liste de commande de la base de données
+     * rÃ©cupÃ©rer la liste de commande de la base de donnÃ©es
      */
 	public ArrayList<commande> getListeFacture() {
 		
@@ -145,7 +145,7 @@ public class commande_DAO {
 	
 	
 	/*
-	 * ajouter une commande dans la base de données
+	 * ajouter une commande dans la base de donnÃ©es
 	 */
     public boolean addCommande(commande cmd) {
         boolean result = false;
@@ -174,8 +174,8 @@ public class commande_DAO {
     }
 
     /*
-     * recherche le ID de la dernière commande 
-     * on en a besoins dans le cas une nouvelle commande est créée et le ID est inconnu
+     * recherche le ID de la derniÃ¨re commande 
+     * on en a besoins dans le cas une nouvelle commande est crÃ©Ã©e et le ID est inconnu
      */
     public int getIdDerniereCommande() {
         try {
@@ -192,8 +192,8 @@ public class commande_DAO {
     }
     
     /*
-     * chercher le ID de la commande en cours qui est attachée d'une table 
-     * une table est liée à plusieurs commandes mais il y a une maximum une seule commande en cours
+     * chercher le ID de la commande en cours qui est attachï¿½e d'une table 
+     * une table est liÃ©e Ã  plusieurs commandes mais il y a une maximum une seule commande en cours
      */
     public int getUncheckBillIDByTableID(int id){
     	conn = ConnexionBDD.getConnect() ;	
@@ -212,9 +212,9 @@ public class commande_DAO {
     }
 
     /*
-     * mise à jour le montant de la commande
+     * mise Ã  jour le montant de la commande
      * soit ajouter quand les clients commandent les articles 
-     * soit diminuer lorsque les articles sont annulés
+     * soit diminuer lorsque les articles sont annulï¿½s
      */
     public boolean majMontantCommande(int idCmd, float prix) {
         boolean result = false;
@@ -238,7 +238,7 @@ public class commande_DAO {
     }
     
     /*
-     * les commandes payées sont aussi les factures 
+     * les commandes payï¿½es sont aussi les factures 
      */
     public boolean commandePayee(int idCmd) {
         boolean result = false;
@@ -284,8 +284,8 @@ public class commande_DAO {
     }
     
     /*
-     * attacher un client à la commande 
-     * ça aide à ajouter les points au client
+     * attacher un client ï¿½ la commande 
+     * Ã§a aide Ã  ajouter les points au client
      */
     public boolean saisieIdClientALaCommande(int idCmd, int idClient) {
         boolean result = false;

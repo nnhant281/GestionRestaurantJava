@@ -1,7 +1,7 @@
 /*consultation des factures 
- * chercher les factures selon le ID , le IDRH, ou les facture d'un jour précis
+ * chercher les factures selon le ID , le IDRH, ou les facture d'un jour prï¿½cis
  * les factures sont immodifiables 
- * on ne peut donc pas les supprimer ou créer sans passer la commande 
+ * on ne peut donc pas les supprimer ou crï¿½er sans passer la commande 
  */
 package GUI;
 
@@ -16,6 +16,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -28,7 +30,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import BUS.facture_BUS;
 import Custom.monButton;
@@ -55,7 +59,7 @@ public class facture_GUI extends JPanel{
     DefaultTableModel modelTabFacture;
 
     /*
-     * création l'interface
+     * crï¿½ation l'interface
      */
     private void addControls() {
         Font font = new Font("Tahoma", Font.PLAIN, 18);
@@ -144,7 +148,7 @@ public class facture_GUI extends JPanel{
         //=========================TABLEAU=====================
         modelTabFacture = new DefaultTableModel();
         modelTabFacture.addColumn("ID commande");
-        modelTabFacture.addColumn("ID employée");
+        modelTabFacture.addColumn("ID employÃ©");
         modelTabFacture.addColumn("ID client");
         modelTabFacture.addColumn("ID table");
         modelTabFacture.addColumn("Date");
@@ -154,6 +158,18 @@ public class facture_GUI extends JPanel{
         tabFacture = new monTableau();
         tabFacture.setModel(modelTabFacture);
         
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+   	    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+   	    tabFacture.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+   	    tabFacture.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+   	    tabFacture.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+   	    tabFacture.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+	    tabFacture.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+	    tabFacture.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+   	    tabFacture.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
+   	    
+        
         JScrollPane scrtabFacture = new JScrollPane(tabFacture);
         scrtabFacture.setBounds(10,10,10,10);
         scrtabFacture.getViewport().setBackground(new Color(250, 240, 230));
@@ -162,7 +178,7 @@ public class facture_GUI extends JPanel{
         loadTabFacture();
  }
     /*
-     * lier des événements aves des procédures
+     * lier des Ã©vÃ©nements aves des procÃ©dures
      */
     private void addEvents() {
         btnReset.addActionListener(new ActionListener() {
@@ -270,7 +286,8 @@ public class facture_GUI extends JPanel{
 	            vec.add(c.getIDRH());
 	            vec.add(c.getIdClient());
 	            vec.add(c.getIdTable());
-	            vec.add(c.getDate());
+	            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	            vec.add(formatter.format(c.getDate()));
 	            vec.add(c.getTypeCommande());
 	            vec.add(c.getTotal());
 	            modelTabFacture.addRow(vec);
@@ -280,7 +297,7 @@ public class facture_GUI extends JPanel{
     }
 
    /*
-    * filtrer le tableau de factures selon le ID facture , le numéro IDRH et la date 
+    * filtrer le tableau de factures selon le ID facture , le numÃ©ro IDRH et la date 
     */
     private void traiteRechercheFacture() {
         ArrayList<commande> liste = factureBUS.rechercheFacture(txtIdCmd.getText(),txtIDRH.getText(),txtDate.getText());

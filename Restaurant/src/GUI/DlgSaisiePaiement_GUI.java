@@ -1,7 +1,7 @@
 /*
- * gestion le procédure de paiement 
- * possible de chercher et attacher un client à la commande 
- * quand la paiement est traité , le point de client sera ajouté 
+ * gestion le procÃ©dure de paiement 
+ * possible de chercher et attacher un client ï¿½ la commande 
+ * quand la paiement est traitÃ© , le point de client sera ajoutÃ©
  */
 package GUI;
 
@@ -70,7 +70,7 @@ public class DlgSaisiePaiement_GUI extends javax.swing.JDialog {
     DefaultTableModel modelTabClient;
 	
     /*
-     * création l'interface 
+     * crÃ©ation l'interface 
      */
 	public void addControls() {
 		Font font = new Font("Tahoma", Font.PLAIN, 18);
@@ -225,8 +225,8 @@ public class DlgSaisiePaiement_GUI extends javax.swing.JDialog {
         JLabel lblChercheNom,lblCherchePrenom, lblChercheNumTel;
         
         lblChercheNom = new JLabel("Nom");
-        lblCherchePrenom = new JLabel("Prénom");
-        lblChercheNumTel= new JLabel("Tél");
+        lblCherchePrenom = new JLabel("Prï¿½nom");
+        lblChercheNumTel= new JLabel("Tï¿½l");
 
         lblChercheNom.setFont(font);
         lblCherchePrenom.setFont(font);
@@ -296,7 +296,7 @@ public class DlgSaisiePaiement_GUI extends javax.swing.JDialog {
 	}
 	
 	/*
-	 * lier des événements avec des procédures 
+	 * lier des Ã©vÃ©nements avec des procÃ©dures 
 	 */
 	public void addEvents() {
 		 btnReset.addActionListener(new ActionListener() {
@@ -431,8 +431,8 @@ public class DlgSaisiePaiement_GUI extends javax.swing.JDialog {
     }
 
     /*
-     * après cliquer sur un ligne du tableau , le ID et le nom de client sera affichés
-     * le client sera accroché au commande 
+     * aprÃ¨s cliquer sur un ligne du tableau , le ID et le nom de client sera affichÃ©s
+     * le client sera accrochÃ© Ã  la commande 
      */
     private void CliqueTabClient() {
         int row = tabClient.getSelectedRow();
@@ -444,7 +444,7 @@ public class DlgSaisiePaiement_GUI extends javax.swing.JDialog {
     }
     
     /*
-     * recherche de client par nom, prénom et numéro de téléphone 
+     * recherche de client par nom, prÃ©nom et numÃ©ro de tÃ©lÃ©phone 
      */
     private void traiteRechercheClient() {
         ArrayList<client> liste = clientBUS.rechercheClientParMultiInfo(txtChercheNom.getText(),txtCherchePrenom.getText(),txtChercheNumTel.getText());
@@ -452,8 +452,8 @@ public class DlgSaisiePaiement_GUI extends javax.swing.JDialog {
     }
     
     /*
-     * quand le commande est payé, une facture sera créé
-     * la table prise sera libérée.
+     * quand le commande est payï¿½, une facture sera crï¿½ï¿½
+     * la table prise sera libï¿½rï¿½e.
      */
     private void traitePaiement() {
     	boolean flag = false ; 
@@ -465,13 +465,13 @@ public class DlgSaisiePaiement_GUI extends javax.swing.JDialog {
         flag = commandeBUS.commandePayee(idCommande);
         flag = tableBUS.tableDispo(txtIdTable.getText());
         if (flag) {
-        	monDialogue dlg = new monDialogue("La commande est factuée !", monDialogue.SUCCESS_DIALOG);
+        	monDialogue dlg = new monDialogue("La commande est factuï¿½e !", monDialogue.SUCCESS_DIALOG);
         	 if(dlg.getAction() == monDialogue.OK_OPTION) {
         		 this. setVisible(false);
         		 mainGUI.loadPage() ;
         	 }
         } else {
-        	monDialogue dlg = new monDialogue("Il y a un erreur. La facturation est échue !", monDialogue.ERROR_DIALOG);
+        	monDialogue dlg = new monDialogue("Il y a un erreur. La facturation est ï¿½chue !", monDialogue.ERROR_DIALOG);
         }
     }
     

@@ -15,8 +15,8 @@ public class articleCommande_DAO {
 	private static Connection conn = null;
 	
 	/*
-	 * Récupérer la liste des détail sur la commande pour afficher dans la table de détail de commande
-	 * les infos besoin sont ID produit, libellé, quantité commandée et prix .
+	 * Rï¿½cupï¿½rer la liste des dÃ©tails sur la commande pour afficher dans la table de dÃ©tail de commande
+	 * les infos besoin sont ID produit, libellÃ©, quantitÃ© commandÃ©e et prix .
 	 */
 	public ArrayList<articleCommande> getListeArticleParTable(int id){
 		ArrayList<articleCommande> liste = new ArrayList<articleCommande>();

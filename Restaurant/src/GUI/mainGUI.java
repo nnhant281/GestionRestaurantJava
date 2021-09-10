@@ -49,7 +49,7 @@ public class mainGUI extends javax.swing.JFrame{
 		tabs.addTab("Table", table);
 		tabs.addTab("Facture", facture);
 		tabs.addTab("Client", client);
-		tabs.addTab("Employé",employe);
+		tabs.addTab("EmployÃ©",employe);
 		tabs.addTab("Produit",produit);
 		tabs.addTab("Chiffre d'affaire",ca);
 		tabs.addTab("Compte",compte);
@@ -93,7 +93,7 @@ public class mainGUI extends javax.swing.JFrame{
 		title.add("Table");
 		title.add("Facture");
 		title.add("Client");
-		title.add("Employé");
+		title.add("EmployÃ©");
 		title.add("Produit");
 		title.add("Chiffre d'affaire");
 		title.add("Compte");

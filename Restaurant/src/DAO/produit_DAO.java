@@ -26,7 +26,7 @@ public class produit_DAO {
             ArrayList<produitModele> listeProduit = new ArrayList<>();
             while (rs.next()) {
             	produitModele produit = new produitModele();
-            	//setter des propriétés de produit
+            	//setter des propriÃ©tÃ©s de produit
             	produit.setIdProduit(rs.getInt(1));
             	produit.setLibelleProduit(rs.getString(2));
             	produit.setCategorie(rs.getString(3));
@@ -61,7 +61,7 @@ public class produit_DAO {
             ResultSet rs = s.executeQuery("SELECT * from produit WHERE ID_Produit = '"+idRecherche+"'");
             if (rs.next()) {
             	produitModele produit = new produitModele();
-            	//setter des propriétés de produit
+            	//setter des propriï¿½tï¿½s de produit
             	produit.setIdProduit(rs.getInt(1));
             	produit.setLibelleProduit(rs.getString(2));
             	produit.setCategorie(rs.getString(3));
@@ -94,7 +94,7 @@ public class produit_DAO {
             ArrayList<produitModele> listeProduit = new ArrayList<>();
             while (rs.next()) {
             	produitModele produit = new produitModele();
-            	//setter des propriétés de produit
+            	//setter des propriï¿½tï¿½s de produit
             	produit.setIdProduit(rs.getInt(1));
             	produit.setLibelleProduit(rs.getString(2));
             	produit.setCategorie(rs.getString(3));
@@ -142,7 +142,7 @@ public class produit_DAO {
     }
 
    /*
-    * Ajoute d'un produit à la BDD
+    * Ajoute d'un produit Ã  la BDD
     */
     public boolean ajouteProduit(produitModele produitAjoute) {
         try {
@@ -190,7 +190,7 @@ public class produit_DAO {
     }
 
     /*
-     * Mise à jour d'un produit
+     * Mise Ã  jour d'un produit
      */
     public boolean majProduit(produitModele produitMaj) {
         try {

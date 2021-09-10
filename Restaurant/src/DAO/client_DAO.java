@@ -14,7 +14,7 @@ public class client_DAO {
 	private static Connection conn = null;
 	
 	/*
-	 * récupérer la liste de clients
+	 * rÃ©cupÃ©rer la liste de clients
 	 */
 	public ArrayList<client> getListeClient() {
         try {
@@ -112,7 +112,7 @@ public class client_DAO {
 
     
     /*
-     * modifier une ligne de la table client dans la base de donnée
+     * modifier une ligne de la table client dans la base de donnÃ©e
      */
     public boolean majClient(client c) {
         boolean result = false;
@@ -140,7 +140,7 @@ public class client_DAO {
     }
 
     /*
-     * misa à jour le point de client 
+     * misa Ã  jour le point de client 
      */
     public boolean majPoint(int id, float point ) {
         boolean result = false;
