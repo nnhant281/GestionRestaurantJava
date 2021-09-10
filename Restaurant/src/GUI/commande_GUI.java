@@ -1,5 +1,9 @@
 /*
- * Interface pour g�rer la prise de commande et les commandes en cours 
+ * Interface pour g�rer la prise de commande et les commandes en cours 
+ * afficher les tables avec leur statut "disponible" ou "occup�e" 
+ * choisir la table disponible pour ajouter une commande 
+ * ou consulter un table occup�e pour ajouter, supprimer les articles 
+ * passer la paiement 
  */
 package GUI;
 
@@ -23,12 +27,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -43,11 +46,8 @@ import Custom.monDialogue;
 import Custom.monTableau;
 import Custom.wrapLayout;
 import Custom.transparentPanel;
-import DAO.commande_DAO;
 import DTO.articleCommande;
-import DTO.client;
 import DTO.compteModele;
-import DTO.detailCommande;
 import DTO.produitModele;
 import DTO.table;
 
@@ -80,24 +80,29 @@ public class commande_GUI extends JPanel{
     JPanel panelTable ;
 	
     /*
-     * cr�er l'interface
+     * cr�er l'interface
      */
 	private void addControls() {
-		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+	    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 		// ============ MODEL DE TABLE =========//
 		modelTabDetail = new DefaultTableModel();
 	    modelTabDetail.addColumn("ID ");
-	    modelTabDetail.addColumn("Libell�");
-	    modelTabDetail.addColumn("Quantit�");
+	    modelTabDetail.addColumn("Libellé");
+	    modelTabDetail.addColumn("Quantité");
 	    modelTabDetail.addColumn("Prix");
 	    tabDetail = new monTableau();
 	    tabDetail.setModel(modelTabDetail);
-
+	    
+	    tabDetail.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+	    tabDetail.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+	    tabDetail.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+	    
         TableColumnModel columnModel = tabDetail.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(30);
-        columnModel.getColumn(1).setPreferredWidth(50);
-        columnModel.getColumn(2).setPreferredWidth(80);
-        columnModel.getColumn(3).setPreferredWidth(80);
+        columnModel.getColumn(1).setPreferredWidth(100);
+        columnModel.getColumn(2).setPreferredWidth(40);
+        columnModel.getColumn(3).setPreferredWidth(40);
         
 		Font font = new Font("Tahoma", Font.PLAIN, 18);
 
@@ -118,7 +123,6 @@ public class commande_GUI extends JPanel{
         panelRemplir.setLayout(new GridLayout(1,2, 5, 5));
         
         //================PANEL TABLE=========
-        JPanel panelConteneur =  new transparentPanel();
         panelTable = new transparentPanel();
         loadTable(panelTable);
         panelTable.setLayout(new wrapLayout());
@@ -146,7 +150,7 @@ public class commande_GUI extends JPanel{
         pnBox.setLayout(new BoxLayout(pnBox, BoxLayout.Y_AXIS));
         
         JLabel lblCategorie, lblArticle;
-        lblCategorie = new JLabel("Categorie");
+        lblCategorie = new JLabel("Catégorie");
         lblArticle = new JLabel("Article");
         
         lblCategorie.setFont(font);
@@ -248,7 +252,7 @@ public class commande_GUI extends JPanel{
 	}
 	
 	/*
-	 * les �v�nements 
+	 * les événements 
 	 */
 	private void addEvents() {
 		choixCategorie.addActionListener(new ActionListener() {
@@ -281,7 +285,7 @@ public class commande_GUI extends JPanel{
 	
 	private articleCommande_BUS articleCommandeBUS = new articleCommande_BUS();
 	/*
-	 * afficher la tableau d�tail�e de la commande 
+	 * afficher le tableau détaillé de la commande 
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void showCommande(int idTable) {
@@ -303,7 +307,7 @@ public class commande_GUI extends JPanel{
 	}
 	
 	/*
-	 * afficher les buttons signifi�s les tables du restaurant
+	 * afficher les buttons signifiés les tables du restaurant
 	 */
 	private void loadTable(JPanel panelTable) {
 		panelTable.removeAll();
@@ -324,7 +328,7 @@ public class commande_GUI extends JPanel{
                     break;
                 default:
                 	c = new Color(255,102,102); // LIGHT_PINK
-                	status = "occup�e";
+                	status = "occupée";
                 	
                     break;
             }
@@ -339,7 +343,7 @@ public class commande_GUI extends JPanel{
 	}
 	
 	/*
-	 * charger la liste de cat�gorie
+	 * charger la liste de catégorie
 	 */
 	 private void loadCategorie() {
         choixCategorie.removeAllItems();
@@ -351,7 +355,7 @@ public class commande_GUI extends JPanel{
 	 }
 
 	 /*
-	  * Charger la liste d'article selon le cat�gorie
+	  * Charger la liste d'article selon le catégorie
 	  */
 	 private void loadProduitParCategorie(String cate) {
         choixArticle.removeAllItems();
@@ -367,6 +371,10 @@ public class commande_GUI extends JPanel{
 	 
 	 /*
 	  * Ajouter un article dans une commande 
+	  * il y a trois cas 
+	  * 1. la commande n'est pas encore existant , il faut créer une nouvelle commande 
+	  * 2. La commande existe déjà, mais l'article est command�e pour la première fois => ajouter une nouvelle ligne à la commande 
+	  * 3. La commande existe déjà et l'article est déjà eu sur la commande => augmenter la quantité de l'article 
 	  */
 	 private void traiteAjouteArticle(JPanel panelTable) {
 		  if (choixArticle.getSelectedIndex()>0) {
@@ -402,7 +410,7 @@ public class commande_GUI extends JPanel{
 	 } 
 	 
 	 /*
-	  * d�clencher la proc�dure de paiement 
+	  * d�clencher la procédure de paiement 
 	  */
 	 private void cliqueBtnPaie(int idTable)
      {
@@ -417,7 +425,7 @@ public class commande_GUI extends JPanel{
      }
 	 
 	 /*
-	  * r�initialiser la page 
+	  * réinitialiser la page 
 	  */
 	 public void resetPage() {
 		 Ecouteur.setIdTableClique(-1);
@@ -428,7 +436,7 @@ public class commande_GUI extends JPanel{
 }
 
 /*
- * �v�nement quand on clique sur un bouton d'une table 
+ * événement quand on clique sur un bouton d'une table 
  */
 class Ecouteur implements ActionListener{
 	private int idTable;
@@ -485,7 +493,9 @@ class Ecouteur implements ActionListener{
 }
 
 /*
- * �v�nement quand on clique sur button "supprimer"
+ * événement quand on clique sur button "supprimer"
+ * le montant de la commande sera diminué
+ * si après la suppresion il reste aucun article dans la commande , la commande sera supprimée et la table sera libérée
  */
 class EcouteurSupprimer implements ActionListener{
 
@@ -500,7 +510,7 @@ class EcouteurSupprimer implements ActionListener{
 	private detailCommande_BUS detailCommandeBUS = new detailCommande_BUS();
 	private commande_BUS cmdBUS = new commande_BUS();
 	private articleCommande_BUS articleCommandeBUS = new articleCommande_BUS();
-	
+	private table_BUS tableBUS = new table_BUS();
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -512,7 +522,11 @@ class EcouteurSupprimer implements ActionListener{
 
             int idTable = Ecouteur.getIdTableClique();
             int idCommande = cmdBUS.getUncheckBillIDByTableID(idTable);
-            detailCommandeBUS.enleverProduitDeCommande(idCommande,idProduit);
+            int quantiteReste = detailCommandeBUS.enleverProduitDeCommande(idCommande,idProduit);
+            if(quantiteReste <= 0 ) {
+            	tableBUS.tableDispo(idTable);
+            	mainGUI.loadPage();
+            }
             float montant = (prixUnit * quantite)* -1 ;
             cmdBUS.majMontantCommande(idCommande, montant);
             DefaultTableModel tableModel = (DefaultTableModel) tabDetail.getModel();
@@ -531,6 +545,7 @@ class EcouteurSupprimer implements ActionListener{
             } 
             String m = Float.toString(somme);
             txtMontant.setText(m);
+            
         }
     }     
 }

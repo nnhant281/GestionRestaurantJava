@@ -27,7 +27,6 @@ public class mainGUI extends javax.swing.JFrame{
 	static commande_GUI commande = new commande_GUI(user);
 
 	public mainGUI(compteModele user) {
-				
 		this.user = user;	
 		addComponents();
 		afficheModuleParHabilitation();	

@@ -1,5 +1,7 @@
 package GUI;
 
+import static Main.main.changeLNF;
+
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
@@ -36,6 +38,7 @@ public class changerMDP_GUI{
 	login_GUI login_GUI = new login_GUI();
 	
 	public changerMDP_GUI () {
+		changeLNF("Nimbus");
 		addComponents();
 		addEvents();
 		login_GUI.frame.setEnabled(false);

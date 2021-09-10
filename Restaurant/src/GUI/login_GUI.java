@@ -1,5 +1,7 @@
 package GUI;
 
+import static Main.main.changeLNF;
+
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
@@ -38,6 +40,7 @@ public class login_GUI  extends javax.swing.JFrame {
 	compteModele compte = new compteModele();
 	
 	public login_GUI() {
+		changeLNF("Nimbus");
 		addComponents();
 		addEvents();
 	}

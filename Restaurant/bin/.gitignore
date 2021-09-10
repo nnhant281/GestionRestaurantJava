@@ -1,5 +1,14 @@
+<<<<<<< HEAD
 /GUI/
 /Main/
 /DAO/
 /BUS/
+=======
+/Custom/
+/DAO/
+>>>>>>> refs/remotes/origin/master
 /DTO/
+/GUI/
+/Main/
+/BUS/
+/libs/

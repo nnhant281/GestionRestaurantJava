@@ -26,18 +26,6 @@ public class detailCommande_BUS {
     	return detailCmdDAO.siCommandeContientProduit(idCmd,idProduit);
     }
 
-    /*public ArrayList<detailCommande> getListCTHoaDonTheoMaHD(String maHD) {
-        int ma = Integer.parseInt(maHD);
-        ArrayList<CTHoaDon> dsct = new ArrayList<>();
-
-        for (CTHoaDon cthd : listeDetailCommande) {
-            if (cthd.getMaHD() == ma)
-                dsct.add(cthd);
-        }
-
-        return dsct;
-    }*/
-
     public void addDetailCommande(int idCommande,int idProduit, float prix) {
         detailCommande produit = new detailCommande(idCommande, idProduit, prix);
         detailCmdDAO.addDetailCommande(produit);
@@ -49,7 +37,12 @@ public class detailCommande_BUS {
         detailCmdDAO.plusUnAProduitExistantACommande(produit);
     }
     
-    public boolean enleverProduitDeCommande(int idCmd, int idProduit) {
-    	return detailCmdDAO.enleverProduitDeCommande(idCmd,idProduit) ;
+    public int enleverProduitDeCommande(int idCmd, int idProduit) {
+    	detailCmdDAO.enleverProduitDeCommande(idCmd,idProduit) ;
+    	int reste = detailCmdDAO.siCommandeContientProduit(idCmd,idProduit);
+    	if (reste <=0 ) {
+    		commandeDAO.supprimerCommande(idCmd);
+    	}
+    	return reste;
     }
 }

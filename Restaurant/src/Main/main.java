@@ -1,11 +1,21 @@
 package Main;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
+
 import GUI.login_GUI;
 
 public class main {
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
+		 System.setProperty("user.language", "fr");
+		 System.setProperty("user.language.display", "fr");
+		 System.setProperty("user.language.format", "fr");
+		 System.setProperty("user.country.display", "FR");
+		 Locale.setDefault(new Locale("fr", "FR"));
+		 StandardCharsets.UTF_8.name();
 		changeLNF("Nimbus");
 		login_GUI loginGUI = new login_GUI();
 

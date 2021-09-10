@@ -148,7 +148,9 @@ public class client_BUS {
         return flag;
     }
 
-   
+   /*
+    * ajouter les points 
+    */
     public boolean majPoint(int idClient, String point ) {
     	float p = Float.parseFloat(point);
     	return clientDAO.majPoint(idClient, p) ;

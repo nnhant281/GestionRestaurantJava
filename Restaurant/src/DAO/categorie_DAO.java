@@ -14,7 +14,7 @@ public class categorie_DAO {
 	private static Connection conn = null;
 	
 	/*
-	 * obtenir la liste de catégories
+	 * obtenir la liste de catÃ©gories
 	 */
 	public ArrayList<String> getListeCategorie() {
         try {
@@ -40,7 +40,7 @@ public class categorie_DAO {
     }
 	
 	/*
-	 * Ajouter une catégorie
+	 * Ajouter une catÃ©gorie
 	 */
 	public boolean ajouteCategorie(categorie cate) {
         try {
@@ -63,7 +63,7 @@ public class categorie_DAO {
         return false;
     }
 	/*
-	 * Supprimer une catégorie 
+	 * Supprimer une catÃ©gorie 
 	 */
 	public boolean suppressionCategorie(String libelleCategorie) {
         try {

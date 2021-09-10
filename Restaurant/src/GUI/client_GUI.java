@@ -15,7 +15,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import BUS.client_BUS;
 import Custom.monButton;
@@ -32,6 +34,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -176,7 +180,7 @@ public class client_GUI extends JPanel{
 		
 		btnAjoute = new monButton("Ajouter", iconAjoute);		
 		btnModif = new monButton("Modifier", iconModifier);		
-		btnReset = new monButton("Réinitialiser", iconReset);
+		btnReset = new monButton("RÃ©initialiser", iconReset);
         Font fontButton = new Font("Tahoma", Font.PLAIN, 16);
 
         btnAjoute.setFont(fontButton);
@@ -199,6 +203,7 @@ public class client_GUI extends JPanel{
         lblRecherche.setFont(font);
         new JTextField("Recherche par libellÃ©...",20);
         txtCleRecherche = new JTextField("par nom, prÃ©nom, tel ou email",20);
+        txtCleRecherche.setForeground(Color.GRAY);
         txtCleRecherche.setFont(font);
         panelRecherche.add(lblRecherche);
         panelRecherche.add(txtCleRecherche);
@@ -218,6 +223,22 @@ public class client_GUI extends JPanel{
         tabClient = new monTableau();
         tabClient.setModel(modelTabClient);
         
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        
+        tabClient.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        tabClient.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        tabClient.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
+
+        TableColumnModel columnModel = tabClient.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(20);
+        columnModel.getColumn(1).setPreferredWidth(50);
+        columnModel.getColumn(2).setPreferredWidth(50);
+        columnModel.getColumn(3).setPreferredWidth(120);
+        columnModel.getColumn(4).setPreferredWidth(50);
+        columnModel.getColumn(5).setPreferredWidth(50);
+        columnModel.getColumn(6).setPreferredWidth(30);
+        
         JScrollPane scrtabClient = new JScrollPane(tabClient);
 		scrtabClient.setBounds(10,10,10,10);
 		scrtabClient.getViewport().setBackground(new Color(250, 240, 230));
@@ -229,13 +250,14 @@ public class client_GUI extends JPanel{
     }
 
     /*
-     * lier des événement avec des fonctions 
+     * lier des Ã©vÃ©nements avec des fonctions 
      */
     private void addEvents() {
         btnReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 loadPage();
+
             }
         });
 
@@ -280,7 +302,26 @@ public class client_GUI extends JPanel{
         });
 
        
-       
+        txtCleRecherche.addFocusListener((FocusListener) new FocusListener() {
+			
+			@Override
+			public void focusGained(FocusEvent e) {		
+					txtCleRecherche.setText("");
+					txtCleRecherche.setForeground(Color.BLACK);		
+				}
+				
+				/*
+				 * En sortant la zone de recherche :
+				 * Remettre le placeholder si l'utilisateur ne remplit pas
+				 */
+				
+			public void focusLost(FocusEvent e) {	
+					if (txtCleRecherche.getText().toString().length() == 0) {			
+						txtCleRecherche.setText("par nom,prï¿½nom,tel ou email");
+						txtCleRecherche.setForeground(Color.GRAY);		
+					}	
+				}
+		});
 
         btnAjoute.addActionListener(new ActionListener() {
             @Override
@@ -299,7 +340,7 @@ public class client_GUI extends JPanel{
     }
 
     /*
-     * récupérer la liste de clients  
+     * rï¿½cupï¿½rer la liste de clients  
      */
     private void loadTabClient() {
         ArrayList<client> liste = clientBUS.getlisteClient();
@@ -326,7 +367,7 @@ public class client_GUI extends JPanel{
     }
 
     /*
-     * afficher les informations de client 
+     * afficher les informations de client cliquÃ© sur le tableau
      */
     private void CliqueTabClient() {
         int row = tabClient.getSelectedRow();
@@ -341,6 +382,7 @@ public class client_GUI extends JPanel{
         }
     }
 
+    
     private void traiteRechercheClient() {
         ArrayList<client> dskh = clientBUS.rechercheClient(txtCleRecherche.getText());
         loadTabClient(dskh);
@@ -357,7 +399,6 @@ public class client_GUI extends JPanel{
     }
 
     private void loadPage() {
-    	loadTabClient();
         txtIdClient.setText("");
         txtNom.setText("");
         txtPrenom.setText("");
@@ -365,6 +406,7 @@ public class client_GUI extends JPanel{
         txtNumTel.setText("");
         txtEmail.setText("");
         txtPoint.setText("");
-        txtCleRecherche.setText("");
+        txtCleRecherche.setText("par nom,prÃ©nom,tel ou email");
+    	loadTabClient();
     }
 }

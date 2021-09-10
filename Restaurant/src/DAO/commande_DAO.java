@@ -15,12 +15,11 @@ public class commande_DAO {
 	private static Connection conn = null;
 	
     /*
-     * récupérer la liste de commande de la base de données
+     * rÃ©cupÃ©rer la liste de commande de la base de donnÃ©es
      */
 	public ArrayList<commande> getListeCommandeEnCour() {
 		
         ArrayList<commande> listeCommande = new ArrayList<>(0);
-        System.out.print(listeCommande);
         try {
         	conn = ConnexionBDD.getConnect() ;	
             String sql = "SELECT * FROM commande WHERE statut=0";
@@ -51,7 +50,7 @@ public class commande_DAO {
     }
 	
 	/*
-     * récupérer la liste de commande de la base de données
+     * rÃ©cupÃ©rer la liste de commande de la base de donnÃ©es
      */
 	public int getCommandeEnCourParTable(int idTable) {
         try {
@@ -75,7 +74,7 @@ public class commande_DAO {
     }
 	
 	/*
-     * récupérer la commande 
+     * rÃ©cupÃ©rer la commande 
      */
 	public commande getCommandeParIDCommande(int idCmd) {
         try {
@@ -108,7 +107,7 @@ public class commande_DAO {
     }
 	
 	/*
-     * récupérer la liste de commande de la base de données
+     * rÃ©cupÃ©rer la liste de commande de la base de donnÃ©es
      */
 	public ArrayList<commande> getListeFacture() {
 		
@@ -146,7 +145,7 @@ public class commande_DAO {
 	
 	
 	/*
-	 * ajouter une commande dans la base de données
+	 * ajouter une commande dans la base de donnÃ©es
 	 */
     public boolean addCommande(commande cmd) {
         boolean result = false;
@@ -174,6 +173,10 @@ public class commande_DAO {
         return result;
     }
 
+    /*
+     * recherche le ID de la derniÃ¨re commande 
+     * on en a besoins dans le cas une nouvelle commande est crÃ©Ã©e et le ID est inconnu
+     */
     public int getIdDerniereCommande() {
         try {
         	conn = ConnexionBDD.getConnect() ;	
@@ -188,6 +191,10 @@ public class commande_DAO {
         return -1;
     }
     
+    /*
+     * chercher le ID de la commande en cours qui est attachï¿½e d'une table 
+     * une table est liÃ©e Ã  plusieurs commandes mais il y a une maximum une seule commande en cours
+     */
     public int getUncheckBillIDByTableID(int id){
     	conn = ConnexionBDD.getConnect() ;	
         String sql = "SELECT * FROM commande WHERE statut = 0 AND id_table = "+id;
@@ -204,7 +211,11 @@ public class commande_DAO {
         return -1;
     }
 
-    
+    /*
+     * mise Ã  jour le montant de la commande
+     * soit ajouter quand les clients commandent les articles 
+     * soit diminuer lorsque les articles sont annulï¿½s
+     */
     public boolean majMontantCommande(int idCmd, float prix) {
         boolean result = false;
         try {
@@ -226,42 +237,9 @@ public class commande_DAO {
         return result;
     }
     
-    public ArrayList<commande> getListFacture(Date dateMin, Date dateMax) {
-        try {
-        	conn = ConnexionBDD.getConnect() ;	
-            String sql = "SELECT * FROM commande WHERE Date BETWEEN CAST(? AS DATE) AND CAST(? AS DATE)";
-            PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setDate(1, dateMin);
-            pre.setDate(2, dateMax);
-            ResultSet rs = pre.executeQuery();
-
-            ArrayList<commande> listeCommande = new ArrayList<>();
-
-            while (rs.next()) {
-                commande cmd = new commande();
-                cmd.setIdCommande(rs.getInt(1));
-                cmd.setIDRH(rs.getInt(2));
-                cmd.setIdClient(rs.getInt(3));
-                cmd.setIdTable(rs.getInt(4));
-                cmd.setDate(rs.getDate(5));
-                cmd.setStatut(rs.getInt(6));
-                cmd.setTypeCommande(rs.getInt(7));
-                cmd.setTotal(rs.getFloat(8));
-                listeCommande.add(cmd);
-            }
-            return listeCommande;
-        } catch (SQLException ex) {
-        	ex.printStackTrace();
-        	System.out.println("addCommande-SQLException: " + ex.getMessage());
-        } catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("addCommande-Exception: " + e.getMessage());
-		}finally {
-        	ConnexionBDD.getClose();
-        }
-        return null;
-    }
-    
+    /*
+     * les commandes payï¿½es sont aussi les factures 
+     */
     public boolean commandePayee(int idCmd) {
         boolean result = false;
         try {
@@ -282,6 +260,33 @@ public class commande_DAO {
         return result;
     }
     
+    /*
+     * supprimer la commande 
+     */
+    public boolean supprimerCommande(int idCmd) {
+        boolean result = false;
+        try {
+        	conn = ConnexionBDD.getConnect() ;	
+            String sql = "DELETE commande WHERE Total_TTC = 0.0 AND ID_Commande=? ";
+            PreparedStatement prep = conn.prepareStatement(sql);
+            prep.setInt(1, idCmd);
+            result = prep.executeUpdate() > 0;
+        } catch(SQLException ex) {
+        	ex.printStackTrace();
+        	System.out.println("commandePayee-SQLException: " + ex.getMessage());
+        } catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("commandePayee-Exception: " + e.getMessage());
+		}finally {
+        	ConnexionBDD.getClose();
+        }
+        return result;
+    }
+    
+    /*
+     * attacher un client ï¿½ la commande 
+     * Ã§a aide Ã  ajouter les points au client
+     */
     public boolean saisieIdClientALaCommande(int idCmd, int idClient) {
         boolean result = false;
         try {

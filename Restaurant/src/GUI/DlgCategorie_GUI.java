@@ -1,3 +1,7 @@
+/*
+ * Gestion des catï¿½gories 
+ * Consulter , ajouter ou supprimer les catï¿½gories 
+ */
 package GUI;
 
 import java.awt.Dimension;
@@ -10,8 +14,8 @@ import javax.swing.table.DefaultTableModel;
 import BUS.categorie_BUS;
 import Custom.monDialogue;
 import Custom.monTableau;
-import DTO.categorie;
 
+@SuppressWarnings("serial")
 public class DlgCategorie_GUI extends javax.swing.JDialog {
 	 	private DefaultTableModel tabModelCategorie;
 	 	
@@ -35,7 +39,7 @@ public class DlgCategorie_GUI extends javax.swing.JDialog {
 	    public DlgCategorie_GUI() {
 	        initComponents();
 	    	tabModelCategorie = new DefaultTableModel();
-	    	tabModelCategorie.addColumn("Libellé catégorie");
+	    	tabModelCategorie.addColumn("LibellÃ© catÃ©gorie");
 	        tabCategorie.setModel(tabModelCategorie);
 	        loadTabCategorie();
 	        this.setLocationRelativeTo(null);
@@ -56,7 +60,7 @@ public class DlgCategorie_GUI extends javax.swing.JDialog {
 	    }
 	    
 	    /*
-	     * créer l'interface de la gestion des catégorie
+	     * crÃ©er l'interface de la gestion des catÃ©gorie
 	     */
 	    @SuppressWarnings("unchecked")
 	    private void initComponents() {
@@ -79,7 +83,7 @@ public class DlgCategorie_GUI extends javax.swing.JDialog {
 	        setModal(true);
 
 	        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-	        jLabel1.setText("Gestion des catégories");
+	        jLabel1.setText("Gestion des catÃ©gories");
 	        jPanel1.add(jLabel1);
 
 	        tabCategorie.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -88,7 +92,7 @@ public class DlgCategorie_GUI extends javax.swing.JDialog {
 
 	            },
 	            new String [] {
-	                "Catégorie"
+	                "Categorie"
 	            }
 	        ));
 	        tabCategorie.getTableHeader().setReorderingAllowed(false);
@@ -116,7 +120,7 @@ public class DlgCategorie_GUI extends javax.swing.JDialog {
 
 	   
 	        lblLibelle.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-	        lblLibelle.setText("Libelle catégorie");
+	        lblLibelle.setText("Libelle catÃ©gorie");
 	        pnLibelle.add(lblLibelle);
 
 	        txtLibelle.setColumns(15);
@@ -173,7 +177,7 @@ public class DlgCategorie_GUI extends javax.swing.JDialog {
 	    
 	    
 	    /*
-	     * événement quand on clique sur une ligne de la table Catégorie, 
+	     * Ã©vÃ©nement quand on clique sur une ligne de la table CatÃ©gorie, 
 	     * des informations de la ligne va afficher sur les champs 
 	     */
 	    private void tabCategorieMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLoaiMouseClicked
@@ -185,8 +189,8 @@ public class DlgCategorie_GUI extends javax.swing.JDialog {
 	    }
 
 	    /*
-	     * événement de bouton "Ajouter"
-	     * cliquer sur la bouton "Ajouter" pour ajouter un nouvelle catégorie
+	     * Ã©vÃ©nement de bouton "Ajouter"
+	     * cliquer sur la bouton "Ajouter" pour ajouter un nouvelle catï¿½gorie
 	     */
 	    private void btnAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
 	        // TODO add your handling code here:
@@ -196,11 +200,11 @@ public class DlgCategorie_GUI extends javax.swing.JDialog {
 	    }
 	    
 	    /*
-	     * événement de bouton "Supprimer"
-	     * cliquer sur la bouton "Ajouter" pour ajouter un nouvelle catégorie
+	     *Ã©vÃ©nement de bouton "Supprimer"
+	     * cliquer sur la bouton "Ajouter" pour ajouter un nouvelle catÃ©gorie
 	     */
 	    private void btnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-	        monDialogue dlg = new monDialogue("Etes-vous sûr de vouloir supprimer cette catégorie?", monDialogue.WARNING_DIALOG);
+	        monDialogue dlg = new monDialogue("Etes-vous sï¿½r de vouloir supprimer cette catï¿½gorie?", monDialogue.WARNING_DIALOG);
 	        if (dlg.OK_OPTION == dlg.getAction()) {
 	            String libelle = txtLibelle.getText();
 	            if (categorieBUS.suppressionCategorie(libelle)) {

@@ -189,7 +189,6 @@ public class employe_DAO {
 			}
 			
 			return listeEmployeTrouve;
-	    	
 	    } catch (SQLException e) {
         	e.printStackTrace();
         	System.out.println("rechercherEmploye-SQLException: " + e.getMessage());
@@ -200,6 +199,5 @@ public class employe_DAO {
         	ConnexionBDD.getClose();
         }
         	return null;
-    	}
-        		    
+    	}      		    
 }

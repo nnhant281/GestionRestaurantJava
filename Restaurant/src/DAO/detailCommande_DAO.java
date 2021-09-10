@@ -13,7 +13,7 @@ public class detailCommande_DAO {
 	private static Connection conn = null;
 	
 	/*
-	 * récupérer la liste de détails des commandes 
+	 * rÃ©cupÃ©rer la liste de dÃ©tails des commandes 
 	 */
 	public ArrayList<detailCommande> getListeDetailCommande() {
         ArrayList<detailCommande> listeDetail = new ArrayList<>();
@@ -43,7 +43,7 @@ public class detailCommande_DAO {
     }
 
 	/*
-	 * récupérer la liste de produits d'une commande 
+	 * rÃ©cupÃ©rer la liste de produits d'une commande 
 	 */
     public ArrayList<detailCommande> getListdetailCommandeSelonIdCmd(int cmd) {
         ArrayList<detailCommande> listeDetail = new ArrayList<>();
@@ -125,8 +125,8 @@ public class detailCommande_DAO {
     }
 
     /*
-     * augmenter la quantité de produit existant dans la commande 
-     * augementer 1 unité  
+     * augmenter la quantitÃ© de produit existant dans la commande 
+     * augementer 1 unitï¿½  
      */
     public boolean plusUnAProduitExistantACommande(detailCommande detailCmd) {
         boolean result = false;

@@ -62,7 +62,7 @@ public class chiffreAffaire_GUI extends JPanel{
 	chiffreAffaireMoisAnModele_DAO chiffreAffaireMoisAnModeleDAO = new chiffreAffaireMoisAnModele_DAO();
 	ChartPanel chart;
 	
-	public chiffreAffaire_GUI() {		
+	public chiffreAffaire_GUI() {
 		addComponents();
 		addEvents();		
 	}
@@ -130,7 +130,7 @@ public class chiffreAffaire_GUI extends JPanel{
 				
 		panelCategorie.add(categorie);	
 		panelCategorie.add(choixCategorie);
-				
+
 		panelAnnee = new JPanel();
 		panelAnnee.setLayout(new FlowLayout());
 		
@@ -143,6 +143,7 @@ public class chiffreAffaire_GUI extends JPanel{
 		
 		panelAnnee.add(annee);
 		panelAnnee.add(choixAnnee);			
+
 		/*
 		============================================================
            					CREATION DE TABLE
@@ -182,7 +183,7 @@ public class chiffreAffaire_GUI extends JPanel{
 		panelClient.setBackground(new Color(231, 206, 191));
 		panelMenu.setOpaque(true);
 		panelMenu.setBackground(new Color(178, 211, 225));
-	
+
 		this.add(panelTitre);
 		this.add(panelCenter);
 		this.add(panelBottom);
@@ -194,6 +195,10 @@ public class chiffreAffaire_GUI extends JPanel{
            						DIVERS
 		============================================================
 		 */			
+
+		this.setLayout(new BorderLayout());
+		this.add(panelTitre, BorderLayout.NORTH);
+		this.add(panelBottom, BorderLayout.SOUTH);
 		Border blackline = BorderFactory.createLineBorder(Color.DARK_GRAY);
 		
 		panelTable.setBorder(blackline);
@@ -325,8 +330,5 @@ public class chiffreAffaire_GUI extends JPanel{
 		 int nbPlats = classementDAO.getNombreArticles();
 		 labelMenu = new JLabel(nbPlats+" articles dans le Menu");
 		 labelMenu.setFont(font);
-	 }
-	 
-	 
-	 
+	 } 
 }

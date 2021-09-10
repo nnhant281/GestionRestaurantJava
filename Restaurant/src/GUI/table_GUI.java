@@ -1,3 +1,8 @@
+/*
+ * gestion de tables chez clients 
+ * des clients peuvent ajouter , supprimer ou modifier "les tables" qui signifient les tables en vrai chez eux
+ * ça facilite la gestion de la prise de commande
+ */
 package GUI;
 
 import static Main.main.changeLNF;
@@ -20,7 +25,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import BUS.table_BUS;
 import Custom.monButton;
 import Custom.monDialogue;
@@ -44,6 +51,9 @@ public class table_GUI extends JPanel{
     monTableau tabTable;
     DefaultTableModel modelTabTable;
 
+    /*
+     * création l'interface
+     */
     private void addControls() {
         Font font = new Font("Tahoma", Font.PLAIN, 18);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -145,9 +155,20 @@ public class table_GUI extends JPanel{
         modelTabTable.addColumn("ID table");
         modelTabTable.addColumn("Nom");
         modelTabTable.addColumn("Statut");
-
+        
         tabTable = new monTableau();
         tabTable.setModel(modelTabTable);
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+	    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+	    tabTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+	    tabTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+	    
+        TableColumnModel columnModel = tabTable.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(30);
+        columnModel.getColumn(1).setPreferredWidth(60);
+        columnModel.getColumn(2).setPreferredWidth(30);
         
         JScrollPane scrtabTable = new JScrollPane(tabTable);
         scrtabTable.setBounds(10,10,10,10);
@@ -157,14 +178,12 @@ public class table_GUI extends JPanel{
 
         loadTabTable();
     }
-
-   
-
 	@SuppressWarnings("unused")
-	private void setLayout(BorderLayout borderLayout) {
-		
+	private void setLayout(BorderLayout borderLayout) {		
 	}
-
+    /*
+     * lier les événements avec les procédures 
+     */
 	private void addEvents() {
         btnReset.addActionListener(new ActionListener() {
             @Override
@@ -223,11 +242,17 @@ public class table_GUI extends JPanel{
 
     }
 
+	/*
+	 * récupérer la liste de tables
+	 */
     private void loadTabTable() {
         ArrayList<table> liste = tableBUS.getlisteTable();
         loadTabTable(liste);
     }
 
+    /*
+     * afficher la liste de tables
+     */
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	private void loadTabTable(ArrayList<table> liste) {
         modelTabTable.setRowCount(0);
@@ -235,11 +260,21 @@ public class table_GUI extends JPanel{
             Vector vec = new Vector();
             vec.add(c.getId());
             vec.add(c.getLibelle());
-            vec.add(c.getStatut());
+            String statut ="";
+            if(c.getStatut() == 1) {
+            	statut = "Disponible";
+            }else if (c.getStatut() == 2) {
+            	statut = "Occupée";
+            }
+            vec.add(statut);
             modelTabTable.addRow(vec);
         }
     }
 
+    /*
+     * après cliquer sur une ligne de la table 
+     * les informations de la table cliquée seront affichées 
+     */
     private void CliqueTabTable() {
         int row = tabTable.getSelectedRow();
         if (row > -1) {
