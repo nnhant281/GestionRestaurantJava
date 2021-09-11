@@ -9,7 +9,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,7 +20,6 @@ import BUS.changerMDP_BUS;
 import Custom.monDialogue;
 
 
-@SuppressWarnings("serial")
 public class changerMDP_GUI{
 	Font font = new Font("Tahoma", Font.PLAIN, 18);
 	Font fontButton = new Font("Tahoma", Font.PLAIN, 16);
@@ -33,9 +31,8 @@ public class changerMDP_GUI{
 	JButton btnChangerMDP, btnQuitter;
 	Container cprincipal;
 	JPanel panel;
-
-	changerMDP_BUS changerMDPBUS = new changerMDP_BUS();
 	login_GUI login_GUI = new login_GUI();
+	changerMDP_BUS changerMDPBUS = new changerMDP_BUS();
 	
 	public changerMDP_GUI () {
 		changeLNF("Nimbus");

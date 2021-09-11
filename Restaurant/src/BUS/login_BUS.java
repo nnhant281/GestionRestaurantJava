@@ -3,7 +3,6 @@ package BUS;
 import Custom.monDialogue;
 import DAO.login_DAO;
 import DTO.compteModele;
-
 public class login_BUS {
 	
 	private login_DAO loginDAO = new login_DAO();	

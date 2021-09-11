@@ -1,7 +1,6 @@
 package GUI;
 
 import static Main.main.changeLNF;
-
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
@@ -15,9 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import BUS.login_BUS;
 import Custom.ConvertCharToString;
 import DTO.compteModele;
+import BUS.login_BUS;
 
 @SuppressWarnings("serial")
 public class login_GUI  extends javax.swing.JFrame {

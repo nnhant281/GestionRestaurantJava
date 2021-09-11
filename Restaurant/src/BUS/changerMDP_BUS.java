@@ -2,11 +2,9 @@ package BUS;
 
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
 import Custom.ConvertCharToString;
 import Custom.monDialogue;
 import DAO.changerMDP_DAO;
-
 
 public class changerMDP_BUS {
 	
