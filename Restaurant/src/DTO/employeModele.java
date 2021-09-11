@@ -23,7 +23,7 @@ public class employeModele {
 	}
 	
 	public employeModele(String nom, String prenom, Date dateNaissance, String adresse, String tel, 
-			String typeContrat, Date dateDebut, Date dateFin, String dureeHebdo, String emploi) {
+			String typeContrat, Date dateDebut, Date dateFin, String dureeHebdo, String emploi, int statut) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateNaissance = dateNaissance;
@@ -34,6 +34,7 @@ public class employeModele {
 		this.dateFin = dateFin;
 		this.dureeHebdo = dureeHebdo;
 		this.emploi = emploi;
+		this.statut = statut;
 	}
 	
 	public employeModele(int IDRH, String nom, String prenom, Date dateNaissance, String adresse, String tel, 

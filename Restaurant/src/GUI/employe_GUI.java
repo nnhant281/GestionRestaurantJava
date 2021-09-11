@@ -1,7 +1,5 @@
 package GUI;
 
-import static Main.main.changeLNF;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -54,7 +52,6 @@ public class employe_GUI extends JPanel {
 	
 	
 	public employe_GUI () {	
-		changeLNF("Nimbus");
 		addComponents();
 		addEvents();	
 	}
@@ -340,7 +337,7 @@ public class employe_GUI extends JPanel {
 		panelRecherche.setBackground(new Color(250, 240, 230));
 		
 		btnRecherche = new JButton(iconRechercher);
-		//btnRecherche.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
+		btnRecherche.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
 		recherche = new JTextField("Recherche par nom...", 20);
 		recherche.setForeground(Color.GRAY);
 		panelRecherche.add(recherche);
@@ -440,8 +437,7 @@ public class employe_GUI extends JPanel {
 		choixTypeContrat.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				traiteTypeContrat();
-							
+				traiteTypeContrat();							
 	        }	
 		});
 		
@@ -530,6 +526,8 @@ public class employe_GUI extends JPanel {
 		txtDateFinE.setCalendar(null);
 		recherche.setText("Recherche par nom...");
 		recherche.setForeground(Color.GRAY);
+		txtDateFinE.setEnabled(true);
+		
 		
 		loadTabEmploye();
 		
@@ -617,15 +615,9 @@ public class employe_GUI extends JPanel {
 	}
 	
 	private void traiteDureeCDI () {
-		if (choixTypeContrat.getSelectedItem() !=null) {
-			if (choixTypeContrat.getSelectedItem().toString().equals("CDI") && txtDateFinE.getDate() != null) {							
-				txtDateFinE.setCalendar(null);
-				txtDateFinE.setEnabled(false);	
-			}
-			else {
-				txtDateFinE.setEnabled(true);
-			}			
-		}
+		txtDateFinE.setCalendar(null);
+		txtDateFinE.setEnabled(false);	
+
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -665,12 +657,20 @@ public class employe_GUI extends JPanel {
 	}
 	
 	public void traiteTypeContrat() {
-		if (choixTypeContrat.getSelectedIndex() == choixTypeContrat.getItemCount() - 1) {
-			dlgContrat_GUI = new DlgContrat_GUI();
+		
+		if (choixTypeContrat.getSelectedItem() != null) {
+			
+			if (choixTypeContrat.getSelectedIndex() == choixTypeContrat.getItemCount() - 1) {
+				dlgContrat_GUI = new DlgContrat_GUI();
+			}
+			else if (choixTypeContrat.getSelectedItem().toString().equals("CDI")) {
+				traiteDureeCDI();	
+			}
+			else if (!choixTypeContrat.getSelectedItem().toString().equals("CDI")) {
+				txtDateFinE.setEnabled(true);
+			}
+			
 		}
-		else {
-			traiteDureeCDI();	
-		}					
-	}
-	
+		
+	}	
 }

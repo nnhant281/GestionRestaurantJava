@@ -466,16 +466,22 @@ public class compte_GUI extends JPanel {
 	
 	private void traiteModifierCompte() {
 		monDialogue dlg = new monDialogue("Voulez-vous modifier ce compte ?", monDialogue.WARNING_DIALOG);
-	    if (monDialogue.OK_OPTION == dlg.getAction()) {
+	    if (monDialogue.OK_OPTION == dlg.getAction()) {	 
 	    	
-	    	int indice = table.getSelectedRow();	
-			int idrh = ConvertStringToInt.convert(model.getValueAt(indice, 0).toString());					
-			int habilitation = ConvertStringToInt.convert(choixHabilitation.getSelectedItem().toString());
-						
-			if (compteBUS.modifierCompte(idrh, habilitation)) {
-				loadTabCompte();
-				resetPage();		
-			}	    	
+	    	if (choixHabilitation.getSelectedItem() == null){
+	    		new monDialogue("Merci de renseigner tous les champs nécessaires", monDialogue.WARNING_DIALOG);
+	    	}
+	    	else{
+	    		
+				int idrh = ConvertStringToInt.convert(choixIDRH.getSelectedItem().toString());	
+				int habilitation = ConvertStringToInt.convert(choixHabilitation.getSelectedItem().toString());							
+				if (compteBUS.modifierCompte(idrh, habilitation)) {
+					loadTabCompte();
+					resetPage();		
+				}	    	
+	    		
+	    	}
+	    
 	    }		
 	}
 	
@@ -567,9 +573,10 @@ public class compte_GUI extends JPanel {
 				}
 			}		
 			for (employeModele employe : listeEmploye) {
+				System.out.println("test"+employe.getIDRH());
 				
 				if (employe.getIDRH() == idrh) {			
-					choixIDRH.setSelectedIndex(employe.getIDRH());
+					
 					txtIdentifiant.setText("NB"+employe.getIDRH());
 					txtNom.setText(employe.getNom());
 					txtPrenom.setText(employe.getPrenom());

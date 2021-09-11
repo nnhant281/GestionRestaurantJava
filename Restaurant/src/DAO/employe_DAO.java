@@ -65,7 +65,7 @@ public class employe_DAO {
     		java.sql.Date dateFin = ConvertTime.convert(employe.getDateFin());
     		
     		conn = ConnexionBDD.getConnect() ;	
- 			sql = "INSERT into employe(Nom,Prenom,Date_naissance,Adresse,Num_tel,Type_contrat,Date_debut_contrat,Date_fin_contrat,Duree_hebdomadaire,Emploi) values (?,?,?,?,?,?,?,?,?,?)";
+ 			sql = "INSERT into employe(Nom,Prenom,Date_naissance,Adresse,Num_tel,Type_contrat,Date_debut_contrat,Date_fin_contrat,Duree_hebdomadaire,Emploi,statut) values (?,?,?,?,?,?,?,?,?,?,?)";
  			insert = conn.prepareStatement(sql);
  				
  			insert.setString(1, employe.getNom().toUpperCase());
@@ -78,7 +78,7 @@ public class employe_DAO {
  			insert.setDate(8, dateFin);		
  			insert.setString(9, employe.getDureeHebdo());
  			insert.setString(10, employe.getEmploi());		
- 			insert.setInt(11,employe.getStatut());
+ 			insert.setInt(11, employe.getStatut());
  			
  			insert.executeUpdate();			
  			return true;

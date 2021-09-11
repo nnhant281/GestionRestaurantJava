@@ -51,7 +51,7 @@ public class employe_BUS {
 		}
 		else {
 			employeModele employe = new employeModele(nom, prenom, dateNaissance, adresse, tel, 
-        			choixTypeContrat, dateDebut, dateFin, dureeHebdo, choixEmploi);
+        			choixTypeContrat, dateDebut, dateFin, dureeHebdo, choixEmploi, 1);
 
 			if (employeDAO.ajouteEmploye(employe)) {
                new monDialogue("L'employé est ajouté !", monDialogue.SUCCESS_DIALOG);
@@ -93,30 +93,33 @@ public class employe_BUS {
 			 return false;
 		}
 		
-		else if (dateFin.before(dateDebut)){
-			new monDialogue("Date fin doit être supérieur que date début", monDialogue.ERROR_DIALOG);
-			return false;	
-		}
+	
 		
 		else if (idrh < 0) {
 			return false;
 		}		
 		else {
-			if (choixTypeContrat.equals("CDI")) {
+			if (!choixTypeContrat.equals("CDI")) {
+				if (dateFin.before(dateDebut)){
+					new monDialogue("Date fin doit être supérieur que date début", monDialogue.ERROR_DIALOG);
+					return false;	
+				}
+			}
+			else {
 				dateFin = null;
-			}	
-	           employeModele employe = new employeModele(nom, prenom, dateNaissance, adresse, tel, 
-	        			choixTypeContrat, dateDebut, dateFin, dureeHebdo, choixEmploi);
+			}
+			employeModele employe = new employeModele(nom, prenom, dateNaissance, adresse, tel, 
+        			choixTypeContrat, dateDebut, dateFin, dureeHebdo, choixEmploi, 1);
 
-	           if (employeDAO.modifierEmploye(idrh, employe)) {
-	               new monDialogue("L'employé a été modifié !", monDialogue.SUCCESS_DIALOG);
-	               return true;
-	           } 
-	           else {
-	               new monDialogue("Il y a un erreur. L'employé n'a pas été modifié !", monDialogue.ERROR_DIALOG);
-	               return false;
-	            }
-	        }		
+			if (employeDAO.modifierEmploye(idrh, employe)) {
+               new monDialogue("L'employé a été modifié !", monDialogue.SUCCESS_DIALOG);
+               return true;
+			} 
+			else {
+               new monDialogue("Il y a un erreur. L'employé n'a pas été modifié !", monDialogue.ERROR_DIALOG);
+               return false;
+            }
+		}        		
 	}
 	
 	//RECHERCHER UN EMPLOYER PAR SON NOM

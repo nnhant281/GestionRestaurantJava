@@ -47,7 +47,7 @@ public class changerMDP_GUI{
 	           			CREATION DES COMPOSANTS
 		============================================================
 		*/	
-		frame = new JFrame("<HTML><H2>CHANGER MOT DE PASSE<H2><HTML>");		
+		frame = new JFrame("CHANGER MOT DE PASSE");		
 		cprincipal = frame.getContentPane();	
 		panel = new JPanel();
 		cprincipal.add(panel);

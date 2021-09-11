@@ -228,7 +228,7 @@ public class chiffreAffaire_GUI extends JPanel{
 		
 		if (choixCategorie.getSelectedItem() != null) {
 			if (listeClassementParCategorie.size() == 0) {
-				new monDialogue("Il y aucun produit de ce catégorie a été vendu", monDialogue.INFO_DIALOG);
+				new monDialogue("Il y aucun produit de cette catégorie a été vendu", monDialogue.INFO_DIALOG);
 				choixCategorie.setSelectedIndex(0);				
 			}
 			else {		
